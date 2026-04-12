@@ -1,0 +1,177 @@
+﻿version: 2.0.0
+owners:
+  repository: tbd
+
+phase_model:
+  index_file: phases-index.md
+  phases:
+    - id: discovery
+      primary_roles: [PO, BA, SWE, QA, SRE]
+    - id: solution-design
+      primary_roles: [SWE, SRE, QA]
+    - id: implementation
+      primary_roles: [SWE, QA, SRE]
+    - id: verification
+      primary_roles: [QA, SWE, SRE]
+    - id: operations
+      primary_roles: [SRE, SWE, QA]
+  roles:
+    - PO
+    - BA
+    - SWE
+    - QA
+    - SRE
+
+domains:
+  governance:
+    path: .
+    files:
+      - path: README.md
+        kind: supporting
+        requires_metadata: false
+      - path: Repository.md
+        kind: supporting
+        requires_metadata: false
+      - path: AGENTS.md
+        kind: supporting
+        requires_metadata: false
+      - path: phases-index.md
+        kind: normative
+        requires_metadata: true
+
+  requirements:
+    path: Requirements
+    files:
+      - path: Requirements/mission.md
+        kind: normative
+        requires_metadata: true
+      - path: Requirements/use-cases.md
+        kind: normative
+        requires_metadata: true
+      - path: Requirements/user-flows.md
+        kind: normative
+        requires_metadata: true
+      - path: Requirements/ui-ux-guidelines.md
+        kind: normative
+        requires_metadata: true
+
+  swe:
+    path: SWE
+    files:
+      - path: SWE/README.md
+        kind: supporting
+        requires_metadata: true
+      - path: SWE/architecture-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - Requirements/mission.md
+          - Requirements/use-cases.md
+          - SWE/security-guidelines.md
+      - path: SWE/c4-architecture-guidelines.md
+        kind: supporting
+        requires_metadata: false
+        depends_on:
+          - SWE/architecture-guidelines.md
+      - path: SWE/implementation-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - SWE/architecture-guidelines.md
+          - QA/test-strategy.md
+      - path: SWE/security-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - SWE/architecture-guidelines.md
+          - QA/test-strategy.md
+      - path: SWE/root-cause-analysis.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - SWE/architecture-guidelines.md
+          - QA/bug-verification.md
+
+  qa:
+    path: QA
+    files:
+      - path: QA/README.md
+        kind: supporting
+        requires_metadata: true
+      - path: QA/test-strategy.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - Requirements/use-cases.md
+          - SWE/security-guidelines.md
+      - path: QA/test-case-design.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - QA/test-strategy.md
+      - path: QA/test-execution-and-reporting.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - QA/test-strategy.md
+      - path: QA/bug-verification.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - Requirements/use-cases.md
+      - path: QA/post-fix-testing.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - QA/test-strategy.md
+          - QA/test-execution-and-reporting.md
+
+  sre:
+    path: SRE
+    files:
+      - path: SRE/README.md
+        kind: supporting
+        requires_metadata: true
+      - path: SRE/sre-operations-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - SWE/architecture-guidelines.md
+          - QA/test-execution-and-reporting.md
+      - path: SRE/incident-management-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - SRE/sre-operations-guidelines.md
+          - SWE/root-cause-analysis.md
+          - QA/post-fix-testing.md
+
+update_rules:
+  on_change:
+    phases-index.md:
+      must_review:
+        - AGENTS.md
+        - Repository.md
+        - guidelines-index.yaml
+    Requirements/use-cases.md:
+      must_review:
+        - SWE/architecture-guidelines.md
+        - QA/test-strategy.md
+        - QA/bug-verification.md
+    SWE/security-guidelines.md:
+      must_review:
+        - QA/test-strategy.md
+        - SWE/implementation-guidelines.md
+        - SRE/sre-operations-guidelines.md
+    QA/test-strategy.md:
+      must_review:
+        - SWE/security-guidelines.md
+        - QA/test-case-design.md
+        - QA/test-execution-and-reporting.md
+
+validation:
+  required_metadata_fields:
+    - Version
+    - Owner
+    - Last Updated
+  missing_evidence_token: Evidence not available

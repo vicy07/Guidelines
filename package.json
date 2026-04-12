@@ -1,0 +1,12 @@
+{
+  "name": "guidelines-repo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "validate-guidelines": "node scripts/validate-guidelines.mjs"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

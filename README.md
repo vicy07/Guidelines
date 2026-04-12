@@ -1,0 +1,22 @@
+﻿# AI Solution Guidelines Repository
+
+This project is a cross-solution guideline base used by AI agents and human contributors.
+
+## What This Repository Is
+
+- A policy and execution playbook for delivery work across different software solutions.
+- A role-driven standard set for `SWE`, `QA`, and `SRE`.
+- A phase index (`phases-index.md`) that maps lifecycle phases to role responsibilities.
+
+## How to Use
+
+1. Start from `phases-index.md` to identify current phase and active roles.
+2. Open role folder guidelines (`SWE`, `QA`, `SRE`) for execution rules.
+3. Use `Requirements` as the product behavior source of truth.
+4. Store produced outputs in `Artifacts/`.
+
+## Key Governance Files
+
+- `Repository.md` - canonical repository structure and artifact placement rules.
+- `AGENTS.md` - operating contract for AI agents.
+- `guidelines-index.yaml` - machine-readable index of dependencies and update rules.
