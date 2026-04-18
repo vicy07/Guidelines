@@ -1,4 +1,4 @@
-﻿version: 2.0.0
+version: 2.1.0
 owners:
   repository: tbd
 
@@ -30,6 +30,9 @@ domains:
         kind: supporting
         requires_metadata: false
       - path: Repository.md
+        kind: supporting
+        requires_metadata: false
+      - path: Product-Repository-Blueprint.md
         kind: supporting
         requires_metadata: false
       - path: AGENTS.md
@@ -152,6 +155,12 @@ update_rules:
       must_review:
         - AGENTS.md
         - Repository.md
+        - Product-Repository-Blueprint.md
+        - guidelines-index.yaml
+    Product-Repository-Blueprint.md:
+      must_review:
+        - Repository.md
+        - README.md
         - guidelines-index.yaml
     Requirements/use-cases.md:
       must_review:
@@ -175,3 +184,4 @@ validation:
     - Owner
     - Last Updated
   missing_evidence_token: Evidence not available
+

@@ -1,13 +1,18 @@
-﻿# Repository Structure Standard
+# Guidelines Repository Structure Standard
 
 ## Purpose
 
-Define the canonical structure for this repository so all contributors store and maintain artifacts consistently.
+Define the canonical structure of this guidelines repository so agents and humans can quickly find phase, role, and dependency instructions.
+
+## Scope Boundary
+
+- This document describes the physical structure and navigation model of this repository.
+- Downstream product repository recommendations are defined in `Product-Repository-Blueprint.md`.
 
 ## Required Root Structure
 
 ```text
-<repo-root>/
+<guidelines-repo>/
   Requirements/
   SWE/
   QA/
@@ -17,6 +22,7 @@ Define the canonical structure for this repository so all contributors store and
   .github/
   README.md
   Repository.md
+  Product-Repository-Blueprint.md
   AGENTS.md
   phases-index.md
   guidelines-index.yaml
@@ -24,36 +30,45 @@ Define the canonical structure for this repository so all contributors store and
 
 ## Top-Level Ownership
 
-- `Requirements/` - product behavior standards (shared source of truth)
-- `SWE/` - software engineering guidelines and architecture/security ownership
-- `QA/` - verification and quality ownership
-- `SRE/` - operations, reliability, and incident ownership
-- `Artifacts/` - produced artifacts, outputs, and evidence from delivery cycles
+- `Requirements/` - shared product-behavior standards used by all role guidelines.
+- `SWE/` - software engineering standards and technical decision guidance.
+- `QA/` - verification and quality standards.
+- `SRE/` - reliability, operations, and incident standards.
+- `Artifacts/` - sample outputs and evidence examples produced while applying these guidelines.
+- `scripts/` - repository validation/maintenance scripts.
 
-## Artifact Placement Rules
+## Instruction Retrieval Path
 
-- Discovery/design documents go to `Artifacts/<initiative>/discovery` and `Artifacts/<initiative>/design`.
-- Verification reports and evidence go to `Artifacts/<initiative>/verification`.
-- Incident and post-fix artifacts go to `Artifacts/<initiative>/operations`.
-- Do not store transient files outside `Artifacts/` unless explicitly required by tooling.
+1. Start with `phases-index.md` to identify current lifecycle phase and active roles.
+2. Use `guidelines-index.yaml` to resolve role-owned files and dependencies.
+3. Open role README and normative files in `SWE/`, `QA/`, `SRE/`.
+4. Use `Requirements/` files as behavior source of truth.
+5. Follow `AGENTS.md` for execution contract and instruction priority.
 
-## Governance Rules
+## Governance Files
 
-- `AGENTS.md` defines execution behavior for AI agents.
-- `phases-index.md` defines lifecycle phase-to-role mapping in one file.
-- `guidelines-index.yaml` is the machine-readable dependency map.
-- If a conflict exists, resolve in this order:
-  1. User request
-  2. `AGENTS.md`
-  3. `guidelines-index.yaml`
-  4. Role guideline file
-  5. `Repository.md`
+- `AGENTS.md` - execution contract and precedence rules for agents.
+- `phases-index.md` - phase-to-role matrix.
+- `guidelines-index.yaml` - machine-readable ownership/dependency index.
+- `Repository.md` - structure/navigation standard for this repository.
+- `Product-Repository-Blueprint.md` - baseline template for downstream product repositories.
 
-## Definition of Ready (Repository)
+## Conflict Resolution Order
 
-A repository is ready when:
+If instructions conflict, apply this precedence:
+1. User request in the current task
+2. `AGENTS.md`
+3. `guidelines-index.yaml`
+4. `phases-index.md`
+5. Role guideline file being edited (`SWE` / `QA` / `SRE`)
+6. `Requirements` standards
+7. `Repository.md`
+
+## Definition of Ready (Guidelines Repository)
+
+This repository is ready when:
 - Root structure matches this file.
-- Role folders contain active guidelines with ownership.
-- `phases-index.md` exists and maps phases to roles.
-- `guidelines-index.yaml` is aligned with real file paths.
-- CI passes `npm run validate-guidelines`.
+- `phases-index.md` and `guidelines-index.yaml` are aligned with real file paths.
+- Role folders contain active guidelines with clear ownership.
+- Normative files include required metadata fields (`Version`, `Owner`, `Last Updated`).
+- Validation pipeline passes (for example, `npm run validate-guidelines` when configured).

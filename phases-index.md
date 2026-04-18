@@ -1,8 +1,8 @@
-﻿# Phases Index and Role Matrix
+# Phases Index and Role Matrix
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-04-18
 
 ## Purpose
 
@@ -32,6 +32,7 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 - QA: `QA/README.md`
 - SRE: `SRE/README.md`
 - Shared product behavior source: `Requirements/README.md`
+- Downstream product repository template: `Product-Repository-Blueprint.md`
 
 ## Mandatory Rule
 

@@ -1,8 +1,9 @@
-﻿# AGENTS Operating Contract
+# AGENTS Operating Contract
 
 ## Purpose
 
 Define deterministic behavior for AI agents using this repository as a role-driven solution playbook.
+This repository stores reusable guidelines; downstream product-repository structure guidance is documented in `Product-Repository-Blueprint.md`.
 
 ## Instruction Priority
 
@@ -22,12 +23,13 @@ If two rules conflict, follow the higher-priority rule and report the conflict.
 1. Identify current phase from `phases-index.md`.
 2. Identify active roles for this phase.
 3. Load role-owned guideline files and direct dependencies from `guidelines-index.yaml`.
-4. Apply minimal, focused changes.
-5. Validate:
+4. If the task asks for downstream product repository recommendations, load `Product-Repository-Blueprint.md` as supporting guidance.
+5. Apply minimal, focused changes.
+6. Validate:
    - metadata for normative files,
    - dependency/reference integrity,
    - role ownership consistency.
-6. Report:
+7. Report:
    - changed files,
    - assumptions,
    - unresolved risks.

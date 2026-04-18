@@ -1,4 +1,4 @@
-﻿# AI Solution Guidelines Repository
+# AI Solution Guidelines Repository
 
 This project is a cross-solution guideline base used by AI agents and human contributors.
 
@@ -14,9 +14,16 @@ This project is a cross-solution guideline base used by AI agents and human cont
 2. Open role folder guidelines (`SWE`, `QA`, `SRE`) for execution rules.
 3. Use `Requirements` as the product behavior source of truth.
 4. Store produced outputs in `Artifacts/`.
+5. For downstream product repository setup, use `Product-Repository-Blueprint.md`.
 
 ## Key Governance Files
 
-- `Repository.md` - canonical repository structure and artifact placement rules.
+- `Repository.md` - canonical structure and navigation rules for this guidelines repository.
+- `Product-Repository-Blueprint.md` - recommended baseline structure, role model, and core docs for downstream product repositories.
 - `AGENTS.md` - operating contract for AI agents.
 - `guidelines-index.yaml` - machine-readable index of dependencies and update rules.
+
+## Scope Clarity
+
+- This repository stores reusable guidelines and standards.
+- Product codebase structure recommendations are maintained separately in `Product-Repository-Blueprint.md`.
