@@ -58,9 +58,10 @@ If instructions conflict, apply this precedence:
 2. `AGENTS.md`
 3. `guidelines-index.yaml`
 4. `phases-index.md`
-5. Role guideline file being edited (`SWE` / `QA` / `SRE`)
+5. Role/domain guideline file being edited (`Requirements` / `SWE` / `QA` / `SRE`)
 6. `Requirements` standards
 7. `Repository.md`
+8. `Product-Repository-Blueprint.md` (for downstream repository structure recommendations)
 
 ## Definition of Ready (Guidelines Repository)
 

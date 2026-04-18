@@ -1,8 +1,8 @@
 # Phases Index and Role Matrix
 
-Version: 1.2.0
+Version: 1.3.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-18
+Last Updated: 2026-04-19
 
 ## Purpose
 
@@ -21,13 +21,14 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 | Phase | Primary Roles | Required Role Outputs |
 |---|---|---|
 | Discovery | PO, BA, SWE, QA, SRE | Scope, use cases, constraints, acceptance criteria |
-| Solution Design | SWE, SRE, QA | Architecture decisions, security/reliability controls, test strategy alignment |
-| Implementation | SWE, QA, SRE | Implemented changes, traceability, readiness checks |
-| Verification | QA, SWE, SRE | Test evidence, defect status, go/no-go recommendation |
-| Operations | SRE, SWE, QA | Incident handling, RCA, post-fix validation, preventive actions |
+| Solution Design | BA, SWE, SRE, QA | Architecture decisions, security/reliability controls, test strategy alignment, requirements impact alignment |
+| Implementation | BA, SWE, QA, SRE | Implemented changes, traceability, readiness checks, requirement-change impact control |
+| Verification | BA, QA, SWE, SRE | Test evidence, defect status, go/no-go recommendation, requirement acceptance traceability |
+| Operations | BA, SRE, SWE, QA | Incident handling, RCA, post-fix validation, preventive actions, requirement-impact triage |
 
 ## Role-to-Guideline Links
 
+- PO: `Requirements/README.md` (co-owner of requirements standards)
 - BA: `Requirements/README.md` (primary owner of requirements standards; `PO` is co-owner)
 - SWE: `SWE/README.md`
 - QA: `QA/README.md`

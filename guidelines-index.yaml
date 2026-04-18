@@ -1,6 +1,6 @@
-version: 2.2.0
+version: 2.3.0
 owners:
-  repository: tbd
+  repository: Repository Maintainer
   requirements_primary: BA
   requirements_co_owner: PO
 
@@ -10,13 +10,13 @@ phase_model:
     - id: discovery
       primary_roles: [PO, BA, SWE, QA, SRE]
     - id: solution-design
-      primary_roles: [SWE, SRE, QA]
+      primary_roles: [BA, SWE, SRE, QA]
     - id: implementation
-      primary_roles: [SWE, QA, SRE]
+      primary_roles: [BA, SWE, QA, SRE]
     - id: verification
-      primary_roles: [QA, SWE, SRE]
+      primary_roles: [BA, QA, SWE, SRE]
     - id: operations
-      primary_roles: [SRE, SWE, QA]
+      primary_roles: [BA, SRE, SWE, QA]
   roles:
     - PO
     - BA
@@ -171,6 +171,21 @@ update_rules:
         - SWE/architecture-guidelines.md
         - QA/test-strategy.md
         - QA/bug-verification.md
+    Requirements/mission.md:
+      must_review:
+        - Requirements/use-cases.md
+        - SWE/architecture-guidelines.md
+        - QA/test-strategy.md
+    Requirements/user-flows.md:
+      must_review:
+        - Requirements/use-cases.md
+        - QA/test-case-design.md
+        - QA/test-execution-and-reporting.md
+    Requirements/ui-ux-guidelines.md:
+      must_review:
+        - SWE/implementation-guidelines.md
+        - QA/test-case-design.md
+        - QA/test-execution-and-reporting.md
     SWE/security-guidelines.md:
       must_review:
         - QA/test-strategy.md

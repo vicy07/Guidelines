@@ -21,7 +21,7 @@ For a production solution repository, keep role artifacts under `docs/` and keep
     requirements/
       mission.md
       use-cases.md
-      user-flow.md
+      user-flows.md
       nfr.md
     architecture/
       adr/
@@ -89,7 +89,7 @@ For a production solution repository, keep role artifacts under `docs/` and keep
 - Required product-level document set:
   - `docs/requirements/mission.md`
   - `docs/requirements/use-cases.md`
-  - `docs/requirements/user-flow.md`
+  - `docs/requirements/user-flows.md`
   - `docs/architecture/system-design.md`
   - `docs/qa/test-strategy.md`
   - `docs/sre/slo-sli.md`
