@@ -17,7 +17,6 @@ Define the canonical structure of this guidelines repository so agents and human
   SWE/
   QA/
   SRE/
-  Artifacts/
   scripts/
   .github/
   README.md
@@ -34,7 +33,6 @@ Define the canonical structure of this guidelines repository so agents and human
 - `SWE/` - software engineering standards and technical decision guidance.
 - `QA/` - verification and quality standards.
 - `SRE/` - reliability, operations, and incident standards.
-- `Artifacts/` - sample outputs and evidence examples produced while applying these guidelines.
 - `scripts/` - repository validation/maintenance scripts.
 
 ## Instruction Retrieval Path

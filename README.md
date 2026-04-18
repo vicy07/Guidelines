@@ -13,8 +13,7 @@ This project is a cross-solution guideline base used by AI agents and human cont
 1. Start from `phases-index.md` to identify current phase and active roles.
 2. Open role folder guidelines (`SWE`, `QA`, `SRE`) for execution rules.
 3. Use `Requirements` as the product behavior source of truth.
-4. Store produced outputs in `Artifacts/`.
-5. For downstream product repository setup, use `Product-Repository-Blueprint.md`.
+4. For downstream product repository setup, use `Product-Repository-Blueprint.md`.
 
 ## Key Governance Files
 
