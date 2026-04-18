@@ -1,6 +1,6 @@
 # Phases Index and Role Matrix
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
 Last Updated: 2026-04-18
 
@@ -28,6 +28,7 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 
 ## Role-to-Guideline Links
 
+- BA: `Requirements/README.md` (primary owner of requirements standards; `PO` is co-owner)
 - SWE: `SWE/README.md`
 - QA: `QA/README.md`
 - SRE: `SRE/README.md`

@@ -1,6 +1,8 @@
-version: 2.1.0
+version: 2.2.0
 owners:
   repository: tbd
+  requirements_primary: BA
+  requirements_co_owner: PO
 
 phase_model:
   index_file: phases-index.md
@@ -44,6 +46,8 @@ domains:
 
   requirements:
     path: Requirements
+    owner_role: BA
+    co_owner_role: PO
     files:
       - path: Requirements/mission.md
         kind: normative

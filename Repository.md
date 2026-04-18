@@ -29,7 +29,7 @@ Define the canonical structure of this guidelines repository so agents and human
 
 ## Top-Level Ownership
 
-- `Requirements/` - shared product-behavior standards used by all role guidelines.
+- `Requirements/` - shared product-behavior standards (primary owner: `BA`, co-owner: `PO`) used by all role guidelines.
 - `SWE/` - software engineering standards and technical decision guidance.
 - `QA/` - verification and quality standards.
 - `SRE/` - reliability, operations, and incident standards.
@@ -40,7 +40,7 @@ Define the canonical structure of this guidelines repository so agents and human
 1. Start with `phases-index.md` to identify current lifecycle phase and active roles.
 2. Use `guidelines-index.yaml` to resolve role-owned files and dependencies.
 3. Open role README and normative files in `SWE/`, `QA/`, `SRE/`.
-4. Use `Requirements/` files as behavior source of truth.
+4. Use `Requirements/` files as behavior source of truth (owned by `BA`, with `PO` co-ownership).
 5. Follow `AGENTS.md` for execution contract and instruction priority.
 
 ## Governance Files

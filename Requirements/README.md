@@ -1,6 +1,12 @@
-﻿# Requirements Standards
+# Requirements Standards
 
 This section defines unified standards for product requirements documentation.
+
+## Ownership
+
+- Primary owner role: `BA`
+- Co-owner role: `PO`
+- Consumer roles: `SWE`, `QA`, `SRE`
 
 ## Scope
 
@@ -13,6 +19,7 @@ This section defines unified standards for product requirements documentation.
 
 - One document = one goal and one artifact type.
 - Every document must include `Version`, `Owner`, and `Last Updated`.
+- The `Owner` field should normally be `BA` (or an explicitly delegated owner approved by `BA`/`PO`).
 - Statements must be testable and unambiguous.
 - Business terms must remain consistent across documents.
 - Any change affecting product behavior must update at least one of the 4 documents.
