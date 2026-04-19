@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+    "requirement_id": {"type": "string"},
+    "task_ids": {"type": "array", "items": {"type": "string"}},
+    "test_ids": {"type": "array", "items": {"type": "string"}}
+  }
+}

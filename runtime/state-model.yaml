@@ -1,0 +1,9 @@
+state:
+  current_step: string
+  status: pending|running|failed|completed
+
+artifacts:
+  requirement: path
+  tasks: path
+  tests: path
+  release: path

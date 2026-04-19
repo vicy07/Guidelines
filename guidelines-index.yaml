@@ -186,6 +186,9 @@ domains:
       - path: execution/schemas/release.json
         kind: supporting
         requires_metadata: false
+      - path: execution/schemas/traceability.json
+        kind: supporting
+        requires_metadata: false
       - path: execution/prompts/swe.md
         kind: supporting
         requires_metadata: false
@@ -225,6 +228,12 @@ domains:
         kind: supporting
         requires_metadata: false
       - path: runtime/orchestration.yaml
+        kind: supporting
+        requires_metadata: false
+      - path: runtime/contracts.yaml
+        kind: supporting
+        requires_metadata: false
+      - path: runtime/state-model.yaml
         kind: supporting
         requires_metadata: false
 
@@ -309,6 +318,21 @@ update_rules:
     execution/schemas/release.json:
       must_review:
         - agents/SRE.md
+        - runtime/orchestration.yaml
+    execution/schemas/traceability.json:
+      must_review:
+        - execution/schemas/requirement.json
+        - execution/schemas/task.json
+        - execution/schemas/test.json
+    runtime/contracts.yaml:
+      must_review:
+        - runtime/orchestration.yaml
+        - agents/BA.md
+        - agents/SWE.md
+        - agents/QA.md
+        - agents/SRE.md
+    runtime/state-model.yaml:
+      must_review:
         - runtime/orchestration.yaml
 
 validation:

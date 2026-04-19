@@ -1,16 +1,27 @@
-﻿flow:
-  - role: BA
+version: 1
+
+flow:
+  - id: define_requirement
+    role: BA
     input: raw_request
-    output: requirement.json
+    output: requirement
+    next: implement
 
-  - role: SWE
-    input: requirement.json
-    output: task.json
+  - id: implement
+    role: SWE
+    input: requirement
+    output: tasks
+    retry: 2
+    next: test
 
-  - role: QA
-    input: task.json
-    output: test.json
+  - id: test
+    role: QA
+    input: tasks
+    output: test_report
+    on_failure: implement
+    next: release
 
-  - role: SRE
-    input: test.json
-    output: release.json
+  - id: release
+    role: SRE
+    input: test_report
+    output: deployment

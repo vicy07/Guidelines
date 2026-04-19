@@ -3,6 +3,10 @@
 This repository is an AI Delivery Control Plane for role-based software delivery.
 It combines legacy guideline standards with executable contracts, prompts, schemas, and orchestration flows.
 
+## Technology-Agnostic Execution Model
+
+This repository defines a technology-agnostic execution model for AI-driven delivery systems.
+
 ## Positioning
 
 - Legacy guidance remains available in `Requirements/`, `SWE/`, `QA/`, and `SRE/`.

@@ -1,0 +1,15 @@
+contracts:
+  BA:
+    output: execution/schemas/requirement.json
+
+  SWE:
+    input: execution/schemas/requirement.json
+    output: execution/schemas/task.json
+
+  QA:
+    input: execution/schemas/task.json
+    output: execution/schemas/test.json
+
+  SRE:
+    input: execution/schemas/test.json
+    output: execution/schemas/release.json
