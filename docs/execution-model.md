@@ -6,8 +6,8 @@ Last Updated: 2026-04-19
 
 ## Execution Contracts
 
-- Requirement contract: `execution/schemas/requirement.schema.json`
-- Task contract: `execution/schemas/task.schema.json`
+- Requirement contract: `execution/schemas/requirement.json`
+- Task contract: `execution/schemas/task.json`
 - Role contracts: `agents/*.md`
 - Runtime flow: `runtime/orchestration.yaml`
 - Runtime phases: `runtime/phases.yaml`

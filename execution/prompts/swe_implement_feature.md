@@ -16,7 +16,7 @@ You must decompose implementation into executable tasks.
 2. Produce implementation tasks with stable task IDs.
 3. Identify dependencies using `depends_on` where needed.
 4. Keep each task atomic and testable.
-5. Use output fields that map to `execution/schemas/task.schema.json`.
+5. Use output fields that map to `execution/schemas/task.json`.
 6. If required input fields are missing, return an empty task list and add an explicit validation error.
 
 ## Strict Output Format

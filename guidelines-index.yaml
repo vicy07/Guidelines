@@ -186,12 +186,6 @@ domains:
       - path: execution/schemas/release.json
         kind: supporting
         requires_metadata: false
-      - path: execution/schemas/requirement.schema.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/schemas/task.schema.json
-        kind: supporting
-        requires_metadata: false
       - path: execution/prompts/swe.md
         kind: supporting
         requires_metadata: false
@@ -291,22 +285,12 @@ update_rules:
     runtime/orchestration.yaml:
       must_review:
         - runtime/phases.yaml
-        - execution/schemas/requirement.schema.json
-        - execution/schemas/task.schema.json
+        - execution/schemas/requirement.json
+        - execution/schemas/task.json
         - agents/BA.md
         - agents/SWE.md
         - agents/QA.md
         - agents/SRE.md
-    execution/schemas/requirement.schema.json:
-      must_review:
-        - agents/BA.md
-        - agents/SWE.md
-        - runtime/orchestration.yaml
-    execution/schemas/task.schema.json:
-      must_review:
-        - agents/SWE.md
-        - agents/QA.md
-        - runtime/orchestration.yaml
     execution/schemas/requirement.json:
       must_review:
         - agents/BA.md

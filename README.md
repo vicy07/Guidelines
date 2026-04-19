@@ -28,7 +28,7 @@ It combines legacy guideline standards with executable contracts, prompts, schem
 
 1. Open `runtime/phases.yaml` to confirm the active role by phase.
 2. Open `runtime/orchestration.yaml` to view end-to-end delivery flow.
-3. Validate requirement payload shape with `execution/schemas/requirement.schema.json`.
+3. Validate requirement payload shape with `execution/schemas/requirement.json`.
 4. Use `execution/prompts/swe_implement_feature.md` for SWE task generation.
 5. Review end-to-end example in `execution/examples/feature-flow.md`.
 6. Run validation: `node scripts/validate-guidelines.mjs`.

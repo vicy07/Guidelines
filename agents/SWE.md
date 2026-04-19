@@ -17,11 +17,11 @@ Last Updated: 2026-04-19
 
 ## Input Schema References
 
-- `execution/schemas/requirement.schema.json`
+- `execution/schemas/requirement.json`
 
 ## Output Schema References
 
-- `execution/schemas/task.schema.json`
+- `execution/schemas/task.json`
 
 ## Constraints
 

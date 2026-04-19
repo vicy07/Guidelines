@@ -16,7 +16,7 @@ Last Updated: 2026-04-19
 
 ## Input Schema References
 
-- `execution/schemas/task.schema.json`
+- `execution/schemas/task.json`
 
 ## Output Schema References
 

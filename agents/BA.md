@@ -20,7 +20,7 @@ Last Updated: 2026-04-19
 
 ## Output Schema References
 
-- `execution/schemas/requirement.schema.json`
+- `execution/schemas/requirement.json`
 
 ## Constraints
 

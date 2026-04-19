@@ -5,14 +5,14 @@ steps:
   - id: define_requirement
     role: BA
     input_schema: null
-    output_schema: execution/schemas/requirement.schema.json
+    output_schema: execution/schemas/requirement.json
   - id: implement
     role: SWE
-    input_schema: execution/schemas/requirement.schema.json
-    output_schema: execution/schemas/task.schema.json
+    input_schema: execution/schemas/requirement.json
+    output_schema: execution/schemas/task.json
   - id: test
     role: QA
-    input_schema: execution/schemas/task.schema.json
+    input_schema: execution/schemas/task.json
     output_schema: qa.test-report.v1
   - id: release
     role: SRE
