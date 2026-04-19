@@ -1,0 +1,9 @@
+{
+  "id": "REQ-001",
+  "title": "User Login",
+  "description": "Add email and password login.",
+  "acceptance_criteria": [
+    "User can log in with valid credentials"
+  ],
+  "priority": "high"
+}

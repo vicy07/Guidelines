@@ -32,6 +32,24 @@ if (!indexData || typeof indexData !== "object") {
 
 const normalizeRepoPath = (p) => String(p).trim().replace(/\\/g, "/").replace(/^\.\//, "");
 
+const validateJsonFile = (repoPath, validator) => {
+  const absPath = path.join(repoRoot, repoPath);
+  if (!fs.existsSync(absPath)) {
+    errors.push(`Missing required JSON file: ${repoPath}`);
+    return;
+  }
+
+  let parsed = null;
+  try {
+    parsed = JSON.parse(fs.readFileSync(absPath, "utf8"));
+  } catch (e) {
+    errors.push(`Invalid JSON in ${repoPath}: ${e.message}`);
+    return;
+  }
+
+  validator(parsed, repoPath);
+};
+
 const requiredMetadataFields = Array.isArray(indexData.validation?.required_metadata_fields)
   ? indexData.validation.required_metadata_fields.map((x) => String(x))
   : ["Version", "Owner", "Last Updated"];
@@ -209,6 +227,81 @@ if (phaseModel) {
       for (const role of phaseRoles) {
         if (!allowedRoles.has(String(role))) {
           errors.push(`Phase '${phaseId}' references unknown role '${role}'.`);
+        }
+      }
+    }
+  }
+}
+
+const requiredExecutionSchemas = [
+  "execution/schemas/requirement.json",
+  "execution/schemas/task.json",
+  "execution/schemas/test.json",
+  "execution/schemas/release.json",
+];
+
+const requiredExecutionFolders = [
+  "execution/schemas",
+  "execution/prompts",
+  "Artifacts/example-initiative/requirements",
+  "Artifacts/example-initiative/tasks",
+  "Artifacts/example-initiative/tests",
+  "Artifacts/example-initiative/releases",
+];
+
+for (const folderPath of requiredExecutionFolders) {
+  const absPath = path.join(repoRoot, folderPath);
+  if (!fs.existsSync(absPath) || !fs.statSync(absPath).isDirectory()) {
+    errors.push(`Missing required directory: ${folderPath}`);
+  }
+}
+
+for (const schemaPath of requiredExecutionSchemas) {
+  validateJsonFile(schemaPath, (schema, repoPath) => {
+    if (!schema || typeof schema !== "object" || Array.isArray(schema)) {
+      errors.push(`Schema must be a JSON object: ${repoPath}`);
+      return;
+    }
+
+    if (schema.type !== "object") {
+      errors.push(`Schema must declare type=object: ${repoPath}`);
+    }
+
+    if (!Array.isArray(schema.required) || schema.required.length === 0) {
+      errors.push(`Schema must define non-empty required array: ${repoPath}`);
+    }
+
+    if (!schema.properties || typeof schema.properties !== "object" || Array.isArray(schema.properties)) {
+      errors.push(`Schema must define properties object: ${repoPath}`);
+    }
+  });
+}
+
+const orchestrationPath = "runtime/orchestration.yaml";
+const orchestrationAbsPath = path.join(repoRoot, orchestrationPath);
+if (!fs.existsSync(orchestrationAbsPath)) {
+  errors.push(`Missing required orchestration file: ${orchestrationPath}`);
+} else {
+  let orchestration = null;
+  try {
+    orchestration = load(fs.readFileSync(orchestrationAbsPath, "utf8"));
+  } catch (e) {
+    errors.push(`Invalid YAML in ${orchestrationPath}: ${e.message}`);
+  }
+
+  if (orchestration && typeof orchestration === "object") {
+    if (!Array.isArray(orchestration.flow) || orchestration.flow.length === 0) {
+      errors.push(`${orchestrationPath} must define non-empty flow array.`);
+    } else {
+      for (const [idx, step] of orchestration.flow.entries()) {
+        if (!step || typeof step !== "object") {
+          errors.push(`${orchestrationPath} flow[${idx}] must be an object.`);
+          continue;
+        }
+        for (const key of ["role", "input", "output"]) {
+          if (typeof step[key] !== "string" || step[key].trim().length === 0) {
+            errors.push(`${orchestrationPath} flow[${idx}] missing valid ${key}.`);
+          }
         }
       }
     }

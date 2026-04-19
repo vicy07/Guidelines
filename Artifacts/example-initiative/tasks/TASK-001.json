@@ -1,0 +1,7 @@
+{
+  "id": "TASK-001",
+  "requirement_id": "REQ-001",
+  "description": "Implement login endpoint with credential validation.",
+  "type": "feature",
+  "estimate": 3
+}

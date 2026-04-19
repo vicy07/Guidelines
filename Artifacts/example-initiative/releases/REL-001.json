@@ -1,0 +1,10 @@
+{
+  "version": "1.0.0",
+  "tasks": [
+    "TASK-001"
+  ],
+  "status": "planned",
+  "risks": [
+    "Brute-force protection not implemented"
+  ]
+}

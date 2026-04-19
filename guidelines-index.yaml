@@ -174,10 +174,28 @@ domains:
   execution:
     path: execution
     files:
+      - path: execution/schemas/requirement.json
+        kind: supporting
+        requires_metadata: false
+      - path: execution/schemas/task.json
+        kind: supporting
+        requires_metadata: false
+      - path: execution/schemas/test.json
+        kind: supporting
+        requires_metadata: false
+      - path: execution/schemas/release.json
+        kind: supporting
+        requires_metadata: false
       - path: execution/schemas/requirement.schema.json
         kind: supporting
         requires_metadata: false
       - path: execution/schemas/task.schema.json
+        kind: supporting
+        requires_metadata: false
+      - path: execution/prompts/swe.md
+        kind: supporting
+        requires_metadata: false
+      - path: execution/prompts/qa.md
         kind: supporting
         requires_metadata: false
       - path: execution/prompts/swe_implement_feature.md
@@ -288,6 +306,25 @@ update_rules:
       must_review:
         - agents/SWE.md
         - agents/QA.md
+        - runtime/orchestration.yaml
+    execution/schemas/requirement.json:
+      must_review:
+        - agents/BA.md
+        - agents/SWE.md
+        - runtime/orchestration.yaml
+    execution/schemas/task.json:
+      must_review:
+        - agents/SWE.md
+        - agents/QA.md
+        - runtime/orchestration.yaml
+    execution/schemas/test.json:
+      must_review:
+        - agents/QA.md
+        - agents/SRE.md
+        - runtime/orchestration.yaml
+    execution/schemas/release.json:
+      must_review:
+        - agents/SRE.md
         - runtime/orchestration.yaml
 
 validation:

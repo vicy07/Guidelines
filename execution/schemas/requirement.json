@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["id", "title", "description", "acceptance_criteria", "priority"],
+  "properties": {
+    "id": {"type": "string"},
+    "title": {"type": "string"},
+    "description": {"type": "string"},
+    "acceptance_criteria": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "priority": {"enum": ["high", "medium", "low"]}
+  }
+}

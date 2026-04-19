@@ -1,19 +1,16 @@
 ﻿flow:
-  - step: define_requirement
-    role: BA
-    output: requirement
+  - role: BA
+    input: raw_request
+    output: requirement.json
 
-  - step: implement
-    role: SWE
-    input: requirement
-    output: code + tasks
+  - role: SWE
+    input: requirement.json
+    output: task.json
 
-  - step: test
-    role: QA
-    input: code
-    output: test_report
+  - role: QA
+    input: task.json
+    output: test.json
 
-  - step: release
-    role: SRE
-    input: test_report
-    output: deployment_status
+  - role: SRE
+    input: test.json
+    output: release.json

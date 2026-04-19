@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "required": ["version", "tasks", "status"],
+  "properties": {
+    "version": {"type": "string"},
+    "tasks": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "status": {"enum": ["planned", "released"]},
+    "risks": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  }
+}

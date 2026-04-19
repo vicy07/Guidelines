@@ -1,0 +1,9 @@
+{
+  "id": "TEST-001",
+  "task_id": "TASK-001",
+  "type": "integration",
+  "steps": [
+    "Send login request with valid credentials"
+  ],
+  "expected_result": "Authentication token is returned"
+}

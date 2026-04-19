@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "required": ["id", "task_id", "type", "steps", "expected_result"],
+  "properties": {
+    "id": {"type": "string"},
+    "task_id": {"type": "string"},
+    "type": {"enum": ["unit", "integration", "e2e"]},
+    "steps": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "expected_result": {"type": "string"}
+  }
+}
