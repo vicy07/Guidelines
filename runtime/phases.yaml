@@ -1,0 +1,9 @@
+﻿phases:
+  - name: requirements
+    roles: [BA]
+  - name: implementation
+    roles: [SWE]
+  - name: testing
+    roles: [QA]
+  - name: release
+    roles: [SRE]

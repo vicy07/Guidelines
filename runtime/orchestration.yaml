@@ -1,0 +1,19 @@
+﻿flow:
+  - step: define_requirement
+    role: BA
+    output: requirement
+
+  - step: implement
+    role: SWE
+    input: requirement
+    output: code + tasks
+
+  - step: test
+    role: QA
+    input: code
+    output: test_report
+
+  - step: release
+    role: SRE
+    input: test_report
+    output: deployment_status

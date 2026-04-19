@@ -1,0 +1,23 @@
+﻿id: feature_delivery_v1
+name: Feature Delivery Flow
+version: 1.0.0
+steps:
+  - id: define_requirement
+    role: BA
+    input_schema: null
+    output_schema: execution/schemas/requirement.schema.json
+  - id: implement
+    role: SWE
+    input_schema: execution/schemas/requirement.schema.json
+    output_schema: execution/schemas/task.schema.json
+  - id: test
+    role: QA
+    input_schema: execution/schemas/task.schema.json
+    output_schema: qa.test-report.v1
+  - id: release
+    role: SRE
+    input_schema: qa.test-report.v1
+    output_schema: sre.deployment-status.v1
+rules:
+  - block_on_validation_failure: true
+  - require_role_ownership: true
