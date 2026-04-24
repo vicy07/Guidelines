@@ -1,51 +1,58 @@
-﻿# Feature Flow Example
+# Feature Flow Example
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-19
+Last Updated: 2026-04-24
 
-### Input (Requirement)
+## Reference Chain
+
+- Canonical artifact chain lives in `execution/examples/chain-login-v1/`.
+- This folder demonstrates `raw_request -> requirement -> tasks -> test_report -> release`.
+
+## Input (Requirement)
 
 ```json
 {
-  "id": "feature_1",
-  "description": "Add user login",
+  "id": "REQ-0001",
+  "title": "User login",
+  "description": "Users can authenticate with email and password to access protected account features.",
   "acceptance_criteria": [
-    "User can log in with email/password",
-    "Invalid credentials are rejected"
-  ]
+    "Valid credentials return success and session token.",
+    "Invalid credentials return an authentication error."
+  ],
+  "priority": "high"
 }
 ```
 
-### SWE Output
+## SWE Output (Task Bundle)
 
 ```json
 {
+  "requirement_id": "REQ-0001",
   "tasks": [
     {
-      "id": "task_1",
-      "type": "backend",
-      "description": "Implement login API"
+      "id": "TASK-0001",
+      "requirement_id": "REQ-0001",
+      "title": "Implement POST /auth/login endpoint",
+      "type": "feature",
+      "estimate_points": 5,
+      "status": "done"
     }
   ]
 }
 ```
 
-### QA Output
+## QA Output (Test Report)
 
 ```json
 {
-  "tests": [
-    "valid login",
-    "invalid login"
-  ]
-}
-```
-
-### SRE Output
-
-```json
-{
-  "deployment": "success"
+  "id": "TEST-0001",
+  "requirement_id": "REQ-0001",
+  "task_ids": ["TASK-0001"],
+  "summary": "Login checks passed.",
+  "checks": [
+    {"name": "Valid credentials", "status": "pass"}
+  ],
+  "verdict": "pass"
 }
 ```

@@ -1,0 +1,22 @@
+chain_id: chain-login-v1
+
+artifacts:
+  raw_request: 00_raw_request.md
+  requirement: 10_requirement.json
+  tasks: 20_tasks.json
+  test_report: 30_test_report.json
+  release: 40_release.json
+
+lineage:
+  - from: raw_request
+    to: requirement
+    step: define_requirement
+  - from: requirement
+    to: tasks
+    step: implement
+  - from: tasks
+    to: test_report
+    step: test
+  - from: test_report
+    to: release
+    step: release

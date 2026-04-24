@@ -1,16 +1,20 @@
-﻿# Execution Model
+# Execution Model
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-19
+Last Updated: 2026-04-24
 
 ## Execution Contracts
 
 - Requirement contract: `execution/schemas/requirement.json`
 - Task contract: `execution/schemas/task.json`
+- Test contract: `execution/schemas/test.json`
+- Release contract: `execution/schemas/release.json`
+- Traceability contract: `execution/schemas/traceability.json`
 - Role contracts: `agents/*.md`
 - Runtime flow: `runtime/orchestration.yaml`
 - Runtime phases: `runtime/phases.yaml`
+- Canonical chain example: `execution/examples/chain-login-v1/`
 
 ## Runtime Behavior
 
@@ -23,9 +27,9 @@ Last Updated: 2026-04-19
 ## Handoff Rules
 
 - `BA -> SWE`: requirement payload.
-- `SWE -> QA`: code and task outputs.
-- `QA -> SRE`: test report.
-- `SRE -> completion`: deployment status.
+- `SWE -> QA`: task bundle linked to requirement id.
+- `QA -> SRE`: test report linked to task ids.
+- `SRE -> completion`: release payload linked to test report id.
 
 ## Error Handling
 

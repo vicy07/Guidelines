@@ -1,9 +1,24 @@
-state:
-  current_step: string
+version: 2
+
+run_state:
+  run_id: string
+  current_step: step_id|null
   status: pending|running|failed|completed
+  updated_at: epoch_seconds
+
+history:
+  - step_id: string
+    role: BA|SWE|QA|SRE
+    status: success|failed
+    attempt: number
+    input_artifact: artifact_key
+    output_artifact: artifact_key?
+    timestamp: epoch_seconds
+    error: string?
 
 artifacts:
+  raw_request: path
   requirement: path
   tasks: path
-  tests: path
+  test_report: path
   release: path

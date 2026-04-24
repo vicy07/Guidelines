@@ -1,5 +1,6 @@
 contracts:
   BA:
+    input: raw_request
     output: execution/schemas/requirement.json
 
   SWE:

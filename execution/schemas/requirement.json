@@ -1,14 +1,33 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
+  "additionalProperties": false,
   "required": ["id", "title", "description", "acceptance_criteria", "priority"],
   "properties": {
-    "id": {"type": "string"},
-    "title": {"type": "string"},
-    "description": {"type": "string"},
+    "id": {
+      "type": "string",
+      "pattern": "^REQ-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10
+    },
     "acceptance_criteria": {
       "type": "array",
-      "items": {"type": "string"}
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 5
+      }
     },
-    "priority": {"enum": ["high", "medium", "low"]}
+    "priority": {
+      "type": "string",
+      "enum": ["low", "medium", "high", "critical"]
+    }
   }
 }

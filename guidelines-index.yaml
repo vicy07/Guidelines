@@ -204,6 +204,9 @@ domains:
       - path: execution/examples/feature-flow.md
         kind: supporting
         requires_metadata: true
+      - path: execution/examples/chain-login-v1/00_raw_request.md
+        kind: supporting
+        requires_metadata: false
 
   agents:
     path: agents
@@ -244,6 +247,9 @@ domains:
         kind: supporting
         requires_metadata: true
       - path: docs/execution-model.md
+        kind: supporting
+        requires_metadata: true
+      - path: docs/step2-runner-contracts.md
         kind: supporting
         requires_metadata: true
 

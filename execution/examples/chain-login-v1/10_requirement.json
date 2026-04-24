@@ -1,0 +1,11 @@
+{
+  "id": "REQ-0001",
+  "title": "User login",
+  "description": "Users can authenticate with email and password to access protected account features.",
+  "acceptance_criteria": [
+    "Valid credentials return success and session token.",
+    "Invalid credentials return an authentication error.",
+    "Login endpoint responds under 300 ms p95 under normal load."
+  ],
+  "priority": "high"
+}

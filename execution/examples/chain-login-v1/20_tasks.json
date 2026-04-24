@@ -1,0 +1,21 @@
+{
+  "requirement_id": "REQ-0001",
+  "tasks": [
+    {
+      "id": "TASK-0001",
+      "requirement_id": "REQ-0001",
+      "title": "Implement POST /auth/login endpoint",
+      "type": "feature",
+      "estimate_points": 5,
+      "status": "done"
+    },
+    {
+      "id": "TASK-0002",
+      "requirement_id": "REQ-0001",
+      "title": "Add integration tests for valid and invalid credentials",
+      "type": "test",
+      "estimate_points": 3,
+      "status": "done"
+    }
+  ]
+}

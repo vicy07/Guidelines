@@ -1,4 +1,5 @@
-version: 1
+version: 2
+name: requirement-to-release
 
 flow:
   - id: define_requirement
@@ -24,4 +25,4 @@ flow:
   - id: release
     role: SRE
     input: test_report
-    output: deployment
+    output: release
