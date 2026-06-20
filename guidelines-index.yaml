@@ -253,6 +253,16 @@ domains:
         kind: supporting
         requires_metadata: true
 
+  shared_sonar:
+    path: shared-sonar
+    files:
+      - path: shared-sonar/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: shared-sonar/sonar_runner.py
+        kind: supporting
+        requires_metadata: false
+
 update_rules:
   on_change:
     phases-index.md:

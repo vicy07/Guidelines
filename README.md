@@ -11,6 +11,7 @@ This repository defines a technology-agnostic execution model for AI-driven deli
 
 - Legacy guidance remains available in `Requirements/`, `SWE/`, `QA/`, and `SRE/`.
 - New executable control-plane assets live in `guidelines/`, `execution/`, `agents/`, `runtime/`, and `docs/`.
+- Shared cross-repository engineering tooling lives in `shared-sonar/` when a workflow should stay consistent across product repositories.
 - The repository supports deterministic handoffs between `BA`, `SWE`, `QA`, and `SRE`.
 
 ## How Agents Use This Repo
@@ -44,4 +45,6 @@ This repository defines a technology-agnostic execution model for AI-driven deli
 - `agents/` - BA/SWE/QA/SRE contracts
 - `runtime/` - phase and orchestration definitions
 - `docs/` - architecture and execution model
+- `shared-sonar/` - reusable SonarQube runner logic for product repositories
+- `tests/` - repository-level regression tests for shared tooling
 - `Requirements/`, `SWE/`, `QA/`, `SRE/` - backward-compatible standards

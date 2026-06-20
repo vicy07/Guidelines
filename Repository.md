@@ -17,7 +17,9 @@ Define the canonical structure of this guidelines repository so agents and human
   SWE/
   QA/
   SRE/
+  shared-sonar/
   scripts/
+  tests/
   .github/
   README.md
   Repository.md
@@ -34,6 +36,8 @@ Define the canonical structure of this guidelines repository so agents and human
 - `QA/` - verification and quality standards.
 - `SRE/` - reliability, operations, and incident standards.
 - `scripts/` - repository validation/maintenance scripts.
+- `shared-sonar/` - reusable SonarQube runner logic consumed by downstream product repositories.
+- `tests/` - repository-level regression tests for shared tooling and control-plane helpers.
 
 ## Instruction Retrieval Path
 
