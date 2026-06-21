@@ -18,6 +18,8 @@ Move shared behavior here:
 - coverage pre-run workflow
 - scanner command construction
 - coverage artifact validation
+- background task polling after upload
+- quality gate verification with explicit `OK` / `ERROR` exit status
 
 ## Expected Product-Repo Wrapper
 
@@ -34,5 +36,12 @@ Each product repository keeps a thin `sonar.py` wrapper that:
 ## Local Prerequisites
 
 - `SONAR_TOKEN` available via `~/.sonar.env`, local `.sonar.env`, env var, or CLI arg
+- `SONARQUBE_TOKEN` is also accepted as an alias for `SONAR_TOKEN`
 - `npx` on `PATH`
 - repo-specific Python coverage dependency installed locally, for example `pytest-cov`
+
+## Runtime Behavior
+
+- `python sonar.py` should fail fast if coverage reports are missing.
+- After upload, the shared runner waits for SonarQube Compute Engine processing and then checks the project quality gate.
+- `python sonar.py --show-config` prints resolved non-secret settings and exits without running a scan.

@@ -59,3 +59,55 @@ def test_build_scanner_command_includes_repo_specific_defines():
         "--define",
         "sonar.branch.name=main",
     ]
+
+
+def test_build_project_status_url_includes_branch_query():
+    module = _load_shared_runner()
+
+    url = module.build_project_status_url(
+        host_url="https://sonarqube.example.com",
+        project_key="demo_project",
+        branch="main",
+    )
+
+    assert url == (
+        "https://sonarqube.example.com/api/qualitygates/project_status"
+        "?projectKey=demo_project&branch=main"
+    )
+
+
+def test_load_report_task_reads_scanner_metadata(tmp_path):
+    module = _load_shared_runner()
+
+    scannerwork = tmp_path / ".scannerwork"
+    scannerwork.mkdir()
+    (scannerwork / "report-task.txt").write_text(
+        "projectKey=demo_project\nceTaskId=task-123\nserverUrl=https://sonarqube.example.com\n",
+        encoding="utf-8",
+    )
+
+    data = module.load_report_task(tmp_path)
+
+    assert data == {
+        "projectKey": "demo_project",
+        "ceTaskId": "task-123",
+        "serverUrl": "https://sonarqube.example.com",
+    }
+
+
+def test_summarize_quality_gate_conditions_formats_actionable_lines():
+    module = _load_shared_runner()
+
+    lines = module.summarize_quality_gate_conditions(
+        [
+            {
+                "metricKey": "new_coverage",
+                "status": "ERROR",
+                "actualValue": "76.1",
+                "comparator": "LT",
+                "errorThreshold": "80",
+            }
+        ]
+    )
+
+    assert lines == ["new_coverage: ERROR (actual=76.1, gate=LT 80)"]
