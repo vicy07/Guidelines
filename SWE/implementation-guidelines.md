@@ -28,6 +28,7 @@ Last Updated: 2026-04-12
 - Behavior changes must be traceable to requirements/use cases.
 - Architectural boundaries must not be bypassed for convenience.
 - Temporary fixes must include debt records and closure criteria.
+- If a service emits telemetry, implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment.
 - If evidence is missing, state `Evidence not available`.
 
 ## Quality Checklist
