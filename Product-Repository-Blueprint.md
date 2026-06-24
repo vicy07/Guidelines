@@ -185,6 +185,20 @@ The minimum artifact set for a downstream product repository is:
 - `sonar.py`
 - at least one test suite under `tests/`
 
+## Compliance Audit Artifact
+
+When a downstream product repository undergoes a compliance audit against this baseline, the repository must create `docs/audits/` if it does not already exist.
+
+Each compliance audit must save its findings inside `docs/audits/` and include:
+
+- the audit date,
+- the audited repository scope,
+- the findings and missing artifacts discovered,
+- the evidence reviewed,
+- the exact `Guidelines` version used for the audit, pinned by commit hash and commit date.
+
+This requirement applies only after a compliance audit is run. It is not a mandatory baseline artifact for repositories that have not yet been audited.
+
 ## Role Boundaries
 
 - `BA` and `PO` own product framing and behavioral intent.

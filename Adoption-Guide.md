@@ -37,8 +37,9 @@ Recommended sequence:
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
 4. Normalize CI, deploy, SonarQube, and observability gates before attempting broader documentation cleanup.
-5. Add the visible last-commit line without changing unrelated architecture.
-6. Move toward the target structure incrementally as files are naturally touched.
+5. When a compliance audit is run, create `docs/audits/` and save the audit findings there, including the exact `Guidelines` version pinned by commit hash and commit date.
+6. Add the visible last-commit line without changing unrelated architecture.
+7. Move toward the target structure incrementally as files are naturally touched.
 
 ## Practical Proposal for Existing Projects
 
@@ -104,6 +105,7 @@ The lightest workable integration for most teams is:
 3. Wire CI and deploy workflows.
 4. Reuse `shared-sonar/`.
 5. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
-6. Add the visible last-commit line.
+6. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
+7. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.
