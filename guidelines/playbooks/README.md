@@ -12,7 +12,7 @@ Store executable, role-aware playbooks that can be run by agents or humans.
 
 Each playbook should include:
 - Trigger condition
-- Inputs (schema references)
+- Inputs
 - Execution steps
 - Required outputs
 - Exit criteria

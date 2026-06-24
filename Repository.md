@@ -19,10 +19,7 @@ This repository governs how downstream product repositories should organize deli
   SWE/
   QA/
   SRE/
-  agents/
   docs/
-  execution/
-  runtime/
   guidelines/
   shared-sonar/
   scripts/
@@ -45,19 +42,19 @@ This repository governs how downstream product repositories should organize deli
 - `SRE/` - deployment readiness, operability, and incident standards.
 - `Product-Repository-Blueprint.md` - canonical minimum downstream project baseline.
 - `Adoption-Guide.md` - standard onboarding path for new and existing projects.
+- `guidelines/` - shared principles, patterns, playbooks, and anti-patterns.
+- `docs/` - small supporting repository-level documentation set.
 - `shared-sonar/` - reusable SonarQube runner logic for product repositories.
-- `execution/`, `runtime/`, `agents/`, `docs/`, `guidelines/` - supporting assets for structured agent workflows and reusable patterns.
 - `scripts/` - repository validation and maintenance tooling.
 - `tests/` - regression coverage for repository-owned code and helpers.
 
 ## Instruction Retrieval Path
 
-1. Start with `AGENTS.md` for execution rules and instruction precedence.
-2. Use `phases-index.md` to identify the current lifecycle phase and active roles.
-3. Use `guidelines-index.yaml` to resolve the files that apply and the dependencies that must stay aligned.
-4. Use `Product-Repository-Blueprint.md` for downstream repository structure and minimum delivery requirements.
-5. Use `Adoption-Guide.md` when applying these standards to a new or existing project.
-6. Open the role-owned standards in `Requirements/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
+1. Start with `README.md` for repository purpose and the normal entry points.
+2. Use `Product-Repository-Blueprint.md` for downstream repository structure and minimum delivery requirements.
+3. Use `Adoption-Guide.md` when applying these standards to a new or existing project.
+4. Use `AGENTS.md`, `phases-index.md`, and `guidelines-index.yaml` when you need the repository's maintenance contract and dependency map.
+5. Open the role-owned standards in `Requirements/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
 
 ## Governance Files
 

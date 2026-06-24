@@ -3,11 +3,9 @@ owners:
   repository: Repository Maintainer
   requirements_primary: BA
   requirements_co_owner: PO
-  control_plane_owner: Repository Maintainer
 
 phase_model:
   index_file: phases-index.md
-  runtime_index_file: runtime/phases.yaml
   phases:
     - id: discovery
       primary_roles: [PO, BA, SWE, QA, SRE]
@@ -158,7 +156,7 @@ domains:
           - SWE/root-cause-analysis.md
           - QA/post-fix-testing.md
 
-  control_plane_guidelines:
+  shared_guidance:
     path: guidelines
     files:
       - path: guidelines/principles/README.md
@@ -174,85 +172,10 @@ domains:
         kind: supporting
         requires_metadata: true
 
-  execution:
-    path: execution
-    files:
-      - path: execution/schemas/requirement.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/schemas/task.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/schemas/test.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/schemas/release.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/schemas/traceability.json
-        kind: supporting
-        requires_metadata: false
-      - path: execution/prompts/swe.md
-        kind: supporting
-        requires_metadata: false
-      - path: execution/prompts/qa.md
-        kind: supporting
-        requires_metadata: false
-      - path: execution/prompts/swe_implement_feature.md
-        kind: supporting
-        requires_metadata: true
-      - path: execution/flows/feature-delivery.flow.yaml
-        kind: supporting
-        requires_metadata: false
-      - path: execution/examples/feature-flow.md
-        kind: supporting
-        requires_metadata: true
-      - path: execution/examples/chain-login-v1/00_raw_request.md
-        kind: supporting
-        requires_metadata: false
-
-  agents:
-    path: agents
-    files:
-      - path: agents/BA.md
-        kind: supporting
-        requires_metadata: true
-      - path: agents/SWE.md
-        kind: supporting
-        requires_metadata: true
-      - path: agents/QA.md
-        kind: supporting
-        requires_metadata: true
-      - path: agents/SRE.md
-        kind: supporting
-        requires_metadata: true
-
-  runtime:
-    path: runtime
-    files:
-      - path: runtime/phases.yaml
-        kind: supporting
-        requires_metadata: false
-      - path: runtime/orchestration.yaml
-        kind: supporting
-        requires_metadata: false
-      - path: runtime/contracts.yaml
-        kind: supporting
-        requires_metadata: false
-      - path: runtime/state-model.yaml
-        kind: supporting
-        requires_metadata: false
-
   docs:
     path: docs
     files:
       - path: docs/architecture.md
-        kind: supporting
-        requires_metadata: true
-      - path: docs/execution-model.md
-        kind: supporting
-        requires_metadata: true
-      - path: docs/step2-runner-contracts.md
         kind: supporting
         requires_metadata: true
 
@@ -274,7 +197,6 @@ update_rules:
         - Repository.md
         - Product-Repository-Blueprint.md
         - guidelines-index.yaml
-        - runtime/phases.yaml
     Product-Repository-Blueprint.md:
       must_review:
         - Repository.md
@@ -317,49 +239,6 @@ update_rules:
         - SWE/security-guidelines.md
         - QA/test-case-design.md
         - QA/test-execution-and-reporting.md
-    runtime/orchestration.yaml:
-      must_review:
-        - runtime/phases.yaml
-        - execution/schemas/requirement.json
-        - execution/schemas/task.json
-        - agents/BA.md
-        - agents/SWE.md
-        - agents/QA.md
-        - agents/SRE.md
-    execution/schemas/requirement.json:
-      must_review:
-        - agents/BA.md
-        - agents/SWE.md
-        - runtime/orchestration.yaml
-    execution/schemas/task.json:
-      must_review:
-        - agents/SWE.md
-        - agents/QA.md
-        - runtime/orchestration.yaml
-    execution/schemas/test.json:
-      must_review:
-        - agents/QA.md
-        - agents/SRE.md
-        - runtime/orchestration.yaml
-    execution/schemas/release.json:
-      must_review:
-        - agents/SRE.md
-        - runtime/orchestration.yaml
-    execution/schemas/traceability.json:
-      must_review:
-        - execution/schemas/requirement.json
-        - execution/schemas/task.json
-        - execution/schemas/test.json
-    runtime/contracts.yaml:
-      must_review:
-        - runtime/orchestration.yaml
-        - agents/BA.md
-        - agents/SWE.md
-        - agents/QA.md
-        - agents/SRE.md
-    runtime/state-model.yaml:
-      must_review:
-        - runtime/orchestration.yaml
 
 validation:
   required_metadata_fields:

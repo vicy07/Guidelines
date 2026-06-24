@@ -23,12 +23,17 @@ It defines:
 
 ## Start Here
 
+For most readers:
+
+1. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
+2. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
+3. `shared-sonar/README.md` - shared SonarQube integration model.
+
+For repository maintenance and agent work:
+
 1. `AGENTS.md` - instruction priority and operating contract.
 2. `phases-index.md` - lifecycle phase and active-role map.
 3. `guidelines-index.yaml` - file ownership, dependencies, and validation contract.
-4. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
-5. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
-6. `shared-sonar/README.md` - shared SonarQube integration model.
 
 ## Downstream Product Baseline
 
@@ -62,8 +67,9 @@ This repository expects downstream product repositories to define at least:
 - `SRE/` - reliability, deployment, and operations standards
 - `Product-Repository-Blueprint.md` - canonical downstream repository baseline
 - `Adoption-Guide.md` - rollout guidance for new and existing projects
+- `guidelines/` - reusable principles, patterns, playbooks, and anti-patterns
 - `shared-sonar/` - reusable SonarQube runner logic
-- `execution/`, `runtime/`, `agents/`, `docs/` - supporting execution assets for structured agent handoffs
+- `docs/architecture.md` - simple explanation of repository layers
 - `scripts/` - repository validation helpers
 - `tests/` - regression tests for shared tooling
 
@@ -75,4 +81,4 @@ Run:
 npm run validate-guidelines
 ```
 
-This checks indexed files, metadata on normative files, dependency references, execution schema presence, and orchestration integrity.
+This checks indexed files, metadata on normative files, dependency references, and phase-model integrity.

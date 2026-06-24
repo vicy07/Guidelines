@@ -6,7 +6,7 @@ Last Updated: 2026-04-19
 
 ## Purpose
 
-Capture common failure modes when operating agent-driven delivery systems.
+Capture common failure modes when operating agent-driven delivery systems and shared guideline repositories.
 
 ## Anti-Patterns
 
@@ -19,17 +19,17 @@ Capture common failure modes when operating agent-driven delivery systems.
 ### No Validation
 
 - Accepting generated outputs without deterministic checks.
-- Skipping artifact validation before phase transition.
+- Skipping validation before guidance is reused or propagated.
 - Treating narrative status updates as release evidence.
 
-### No Schema Enforcement
+### No Contract Discipline
 
-- Exchanging untyped payloads between roles.
-- Allowing prompt outputs to drift from expected format.
-- Evolving contracts without versioned schema changes.
+- Allowing prompts, templates, or examples to drift from the guidance they are supposed to support.
+- Keeping duplicate instructions that disagree about the same workflow.
+- Evolving repository contracts without explicit versioning or migration notes.
 
 ## Prevention Controls
 
-- Enforce schema validation in runtime gates.
-- Require role-specific output contracts per phase.
-- Block orchestration progress on invalid payloads.
+- Enforce explicit review and validation gates for shared standards.
+- Keep one clear source of truth per workflow or contract.
+- Block propagation of unclear or unverified guidance into downstream repositories.

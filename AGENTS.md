@@ -2,8 +2,8 @@
 
 ## Purpose
 
-Define deterministic behavior for AI agents using this repository as a role-driven solution playbook.
-This repository stores reusable guidelines; downstream product-repository structure guidance is documented in `Product-Repository-Blueprint.md`.
+Define deterministic behavior for AI agents using this repository as a reusable guidelines baseline for agentic development.
+This repository stores reusable guidelines; downstream product-repository structure guidance is documented in `Product-Repository-Blueprint.md`, with rollout guidance in `Adoption-Guide.md`.
 Requirements standards are owned primarily by `BA` with `PO` co-ownership.
 
 ## Instruction Priority
@@ -17,21 +17,23 @@ Apply instructions in this order:
 6. `Requirements` standards
 7. `Repository.md`
 8. `Product-Repository-Blueprint.md` (for downstream repository structure recommendations)
+9. `Adoption-Guide.md` (for rollout guidance into new or existing repositories)
 
 If two rules conflict, follow the higher-priority rule and report the conflict.
 
 ## Required Workflow
 
-1. Identify current phase from `phases-index.md`.
-2. Identify active roles for this phase.
-3. Load role-owned guideline files and direct dependencies from `guidelines-index.yaml`.
-4. If the task asks for downstream product repository recommendations, load `Product-Repository-Blueprint.md` as supporting guidance.
-5. Apply minimal, focused changes.
-6. Validate:
+1. Start with `README.md` unless the task is already scoped to a specific guideline file.
+2. Identify current phase from `phases-index.md` when the task changes repository guidance or role-owned standards.
+3. Identify active roles for this phase.
+4. Load role-owned guideline files and direct dependencies from `guidelines-index.yaml` only for the areas touched by the task.
+5. If the task asks for downstream product repository recommendations, load `Product-Repository-Blueprint.md` and `Adoption-Guide.md`.
+6. Apply minimal, focused changes.
+7. Validate:
    - metadata for normative files,
    - dependency/reference integrity,
    - role ownership consistency.
-7. Report:
+8. Report:
    - changed files,
    - assumptions,
    - unresolved risks.
