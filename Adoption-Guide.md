@@ -103,7 +103,7 @@ The lightest workable integration for most teams is:
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `shared-sonar/`.
-5. Define OTEL env vars and the repository observability path.
+5. Define OTEL env vars and the repository observability path. Python repositories can reuse `shared-otel/telemetry.py`.
 6. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.

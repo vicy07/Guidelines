@@ -189,6 +189,16 @@ domains:
         kind: supporting
         requires_metadata: false
 
+  shared_otel:
+    path: shared-otel
+    files:
+      - path: shared-otel/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: shared-otel/telemetry.py
+        kind: supporting
+        requires_metadata: false
+
 update_rules:
   on_change:
     phases-index.md:

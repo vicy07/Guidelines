@@ -69,6 +69,7 @@ This repository expects downstream product repositories to define at least:
 - `Adoption-Guide.md` - rollout guidance for new and existing projects
 - `guidelines/` - reusable principles, patterns, playbooks, and anti-patterns
 - `shared-sonar/` - reusable SonarQube runner logic
+- `shared-otel/` - reusable Python OpenTelemetry helper pattern
 - `docs/architecture.md` - simple explanation of repository layers
 - `scripts/` - repository validation helpers
 - `tests/` - regression tests for shared tooling
