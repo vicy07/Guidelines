@@ -55,6 +55,7 @@ The full baseline lives in `Product-Repository-Blueprint.md`.
 
 This repository expects downstream product repositories to define at least:
 
+- an `agent.md` file that points to the governing `Guidelines` baseline,
 - a CI path that runs on pull requests and protected-branch pushes,
 - a documented deployment path with rollback and post-deploy verification,
 - a SonarQube quality gate for supported codebases,

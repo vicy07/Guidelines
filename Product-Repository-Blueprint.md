@@ -39,10 +39,7 @@ Define the minimum recommended baseline for downstream software product reposito
       ci.yml
       deploy.yml
   README.md
-  Repository.md
-  AGENTS.md
-  phases-index.md
-  guidelines-index.yaml
+  agent.md
   sonar-project.properties
   sonar.py
 ```
@@ -162,10 +159,12 @@ The minimum artifact set for a downstream product repository is:
 
 ### Governance and Operating Contract
 
-- `AGENTS.md`
-- `Repository.md`
-- `phases-index.md`
-- `guidelines-index.yaml`
+- `agent.md`
+
+Governance rule:
+
+- `agent.md` must link to the governing `Guidelines` repository or the adopted baseline documents used by the repository.
+- preferred form: use public GitHub links for the repository reference point and for the primary baseline documents.
 
 ### Product Definition
 

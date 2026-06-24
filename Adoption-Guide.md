@@ -18,7 +18,8 @@ Do not force the same rollout shape on both.
 For a new repository:
 
 1. Create the target structure from `Product-Repository-Blueprint.md`.
-2. Add `AGENTS.md`, `Repository.md`, `phases-index.md`, and `guidelines-index.yaml`.
+2. Add `agent.md` with a direct link to the `Guidelines` repository or the adopted baseline documents.
+   Preferred form: public GitHub links for the repository reference point and the primary baseline documents.
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `sonar-project.properties` and a thin `sonar.py` wrapper that reuses `shared-sonar/sonar_runner.py`.
@@ -49,15 +50,13 @@ Use a three-step rollout:
 
 Add:
 
-- `AGENTS.md`
-- `phases-index.md`
-- `guidelines-index.yaml`
-- a short `Repository.md`
+- `agent.md` with a direct link to `Guidelines`
+- prefer public GitHub links over local machine-specific paths
 
 Outcome:
 
-- agents can navigate the repo deterministically,
-- role ownership and file discovery stop being implicit.
+- agents can discover the governing baseline quickly,
+- repositories avoid unnecessary governance scaffolding when a lightweight reference is enough.
 
 ### Step 2: Delivery Gates
 
@@ -107,7 +106,8 @@ Architecture documentation rule:
 
 The lightest workable integration for most teams is:
 
-1. Copy the governance files.
+1. Add `agent.md` that points to `Guidelines`.
+   Preferred form: a public GitHub repository link plus direct GitHub links to the primary baseline documents.
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `shared-sonar/`.
