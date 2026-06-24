@@ -56,6 +56,7 @@ Last Updated: 2026-06-24
 - Every list has empty, loading, and error states.
 - Mobile-first adaptation is verified on major breakpoints.
 - Commit status visibility is verified on login, dashboard, and detail flows for each user-facing solution.
+- Commit status content is verified in the deployed environment, not only in local or preview development.
 
 ## Template
 
