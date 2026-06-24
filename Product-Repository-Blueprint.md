@@ -125,6 +125,12 @@ Universal minimum:
 - a documented OTLP configuration contract,
 - stable service or application attribution for emitted telemetry.
 
+Observability implementation rule:
+
+- the product repository owns its runtime wiring,
+- shared helpers may be reused as starter patterns,
+- long-lived runtime dependence on this `Guidelines` repository is not the target state.
+
 Minimum OTLP contract:
 
 ```dotenv
@@ -137,8 +143,13 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 Repository-type expectations:
 
 - Backend and service repositories must emit traces, metrics, and logs from the running service and document the active OTLP export path.
-- Frontend or static-web repositories must emit client telemetry and error events through a documented telemetry path, and that path must be mapped to an OpenTelemetry-compatible ingestion or downstream correlation model.
-- Library and CLI repositories must emit structured logs and define how OpenTelemetry attribution and export are enabled when the component is executed directly or embedded into a host runtime.
+- Frontend or static-web repositories must emit client telemetry and error events through a documented path that can be correlated with the wider observability stack.
+- Library and CLI repositories must emit structured logs and define how OpenTelemetry attribution and export are enabled when the component runs directly or inside a host runtime.
+
+Recommended reuse model:
+
+- Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
+- Non-Python repositories should keep the same OTLP contract and use a local implementation or a language-specific shared helper.
 
 If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
 
