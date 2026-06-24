@@ -79,6 +79,9 @@ For a production solution repository, keep role artifacts under `docs/` and keep
 - `SWE` stores production code in `src/`.
 - `QA` and `SWE` store test assets in `tests/` subfolders by test phase/type.
 - The selected test folder model (`unit/integration/e2e/regression/performance/security`) must be reflected in the project test strategy.
+- Every user-facing solution must show a persistent shared status/footer line visible to the user in the format `Last commit: <localized date/time> | <short sha>`.
+- If the solution cannot show commit details, it must still keep the same visible line and render `Last commit: unavailable` instead of hiding it.
+- This standard defines the user-visible outcome only; each project should preserve its own technology, architecture, and delivery model when implementing it.
 - Cross-role boundary note:
   - `SWE` is accountable for application code and testability hooks.
   - `QA` is accountable for functional/regression verification content.

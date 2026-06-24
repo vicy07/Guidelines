@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: SWE Lead
-Last Updated: 2026-04-12
+Last Updated: 2026-06-24
 
 ## Metadata (required)
 
@@ -29,6 +29,8 @@ Last Updated: 2026-04-12
 - Architectural boundaries must not be bypassed for convenience.
 - Temporary fixes must include debt records and closure criteria.
 - If a service emits telemetry, implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment.
+- For user-facing projects, implementation must preserve the project's chosen technology and architecture while delivering the required visible status/footer line: `Last commit: <localized date/time> | <short sha>`.
+- If commit details are not available, keep the same visible line and render `Last commit: unavailable`.
 - If evidence is missing, state `Evidence not available`.
 
 ## Quality Checklist

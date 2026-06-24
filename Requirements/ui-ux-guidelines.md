@@ -1,8 +1,8 @@
 ﻿# UI/UX Guidelines and Style Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-06-24
 
 ## Metadata (required)
 
@@ -40,6 +40,8 @@ Last Updated: 2026-04-12
 - Button labels must be actions (`Book Session`, `Confirm Payment`).
 - Error messages must explain the reason and the next step.
 - Session-change messages must always include date, time, and required user action.
+- Every user-facing solution must render a persistent status/footer line on every primary screen in the format `Last commit: <localized date/time> | <short sha>`.
+- If commit details are not available, keep the same visible line and render `Last commit: unavailable`.
 
 ## Accessibility Rules
 
@@ -53,6 +55,7 @@ Last Updated: 2026-04-12
 - Every form has defined validation states.
 - Every list has empty, loading, and error states.
 - Mobile-first adaptation is verified on major breakpoints.
+- Commit status visibility is verified on login, dashboard, and detail flows for each user-facing solution.
 
 ## Template
 
