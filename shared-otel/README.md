@@ -1,34 +1,44 @@
-# Shared OTEL Helper
+# Shared OTEL Pattern for Python
 
-Reusable OpenTelemetry baseline for Python product repositories.
+Use this when a Python repository needs the minimum OpenTelemetry baseline from this guidelines repo without inventing its own setup from scratch.
 
-## Purpose
+This folder is a reusable pattern, not a requirement to create a runtime dependency on `Guidelines`.
 
-Keep the repository-specific details local:
+## What Is Shared vs Local
 
-- framework instrumentation choices,
-- service-specific naming defaults,
-- deployment environment wiring,
-- project-level logging and metrics conventions.
-
-Move shared behavior here:
+Keep these concerns shared:
 
 - OpenTelemetry resource construction,
 - OTLP trace endpoint normalization,
 - env-based OTEL settings loading,
-- minimal tracer/exporter setup for `http/protobuf`,
-- a reusable runtime contract that aligns with this repository's observability baseline.
+- minimal trace exporter setup for `http/protobuf`.
 
-## Expected Product-Repo Wrapper
+Keep these concerns local to the product repository:
 
-Each Python product repository can keep a thin local wrapper that:
+- framework instrumentation,
+- logging format and log shipping,
+- metrics implementation,
+- service naming defaults,
+- deployment environment wiring.
 
-1. resolves the `Guidelines` repository via `GUIDELINES_REPO` or a sibling `../Guidelines`
-2. loads `shared-otel/telemetry.py`
-3. calls `load_settings_from_env(...)`
-4. passes repo-local framework instrumentors into `configure_tracing(...)`
+## Recommended Adoption Model
+
+Preferred:
+
+1. copy or vendor `shared-otel/telemetry.py` into the product repository
+2. add a thin repo-local wrapper around it
+3. keep framework-specific instrumentation in that wrapper
+
+Temporary bootstrap option:
+
+1. load `shared-otel/telemetry.py` from this repository
+2. replace that dependency with a repo-local copy before treating it as production baseline
+
+The goal is a stable product repository that owns its runtime wiring while reusing the same OTEL contract.
 
 ## Shared OTLP Contract
+
+Every repository using this pattern should support:
 
 ```dotenv
 OTEL_SERVICE_NAME=my-service
@@ -37,13 +47,33 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 ```
 
+## Minimal Product-Repo Wrapper
+
+```python
+from telemetry import configure_tracing, load_settings_from_env
+
+
+def setup_telemetry() -> None:
+    settings = load_settings_from_env("my-service")
+    configure_tracing(
+        service_name=settings.service_name,
+        service_version=settings.service_version,
+        environment=settings.environment,
+        endpoint=settings.endpoint,
+        protocol=settings.protocol,
+        instrumentors=[],
+    )
+```
+
+Replace `instrumentors=[]` with repo-local framework hooks such as FastAPI, Flask, Django, Celery, or internal runtime instrumentation.
+
 ## Python Scope
 
 This helper is intentionally Python-specific.
-Non-Python repositories should still follow the same observability contract, but keep their implementation local or add a language-specific helper later.
+Non-Python repositories should keep the same OTLP contract but implement the runtime locally or add a language-specific helper.
 
-## Runtime Behavior
+## Runtime Guarantees
 
-- If `OTEL_EXPORTER_OTLP_ENDPOINT` is empty, tracing attribution is still configured but no exporter is attached.
-- If `OTEL_EXPORTER_OTLP_PROTOCOL` is not `http/protobuf`, this shared helper raises and expects the product repository to provide its own implementation.
-- The helper normalizes collector base URLs to a trace export URL ending in `/v1/traces`.
+- If `OTEL_EXPORTER_OTLP_ENDPOINT` is empty, service attribution is still configured but no exporter is attached.
+- If `OTEL_EXPORTER_OTLP_PROTOCOL` is not `http/protobuf`, this helper raises and expects a repo-local implementation instead.
+- Collector base URLs are normalized to a trace export URL ending in `/v1/traces`.
