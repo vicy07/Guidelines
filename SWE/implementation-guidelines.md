@@ -1,6 +1,6 @@
 ﻿# Implementation Guidelines
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: SWE Lead
 Last Updated: 2026-06-24
 
@@ -28,7 +28,19 @@ Last Updated: 2026-06-24
 - Behavior changes must be traceable to requirements/use cases.
 - Architectural boundaries must not be bypassed for convenience.
 - Temporary fixes must include debt records and closure criteria.
-- If a service emits telemetry, implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment.
+- Every repository must implement its repository-type observability path and document the exact OTLP contract used for attribution or export.
+- Backend and service repositories must emit logs, metrics, and traces from the running service.
+- Frontend or static-web repositories must emit client telemetry and error events through a documented telemetry path that preserves OpenTelemetry-compatible correlation.
+- Library and CLI repositories must emit structured logs and document how OpenTelemetry attribution or export is enabled when embedded or executed in target runtimes.
+- Implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment:
+
+```dotenv
+OTEL_SERVICE_NAME=my-service
+OTEL_SERVICE_VERSION=
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
+```
+
 - For user-facing projects, implementation must preserve the project's chosen technology and architecture while delivering the required visible status/footer line: `Last commit: <localized date/time> | <short sha>`.
 - The deployed implementation must source that visible line from metadata that exists in the target runtime; do not assume a local `.git` checkout is available in production containers or hosted runtimes.
 - If commit details are not available, keep the same visible line and render `Last commit: unavailable`.
@@ -39,5 +51,6 @@ Last Updated: 2026-06-24
 - Module ownership is explicit.
 - Requirement-to-code traceability is documented.
 - Security and reliability impacts are reviewed.
+- Observability and OTLP contract implications are documented for the repository type.
 - QA handover includes test scope and risk notes.
 - SRE handover includes deployment and observability implications.

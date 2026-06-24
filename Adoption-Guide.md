@@ -22,7 +22,8 @@ For a new repository:
 3. Create the minimum artifact set under `docs/requirements/`, `docs/architecture/`, `docs/qa/`, and `docs/sre/`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `sonar-project.properties` and a thin `sonar.py` wrapper that reuses `shared-sonar/sonar_runner.py`.
-6. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
+6. Add the repository observability stack and OTLP contract.
+7. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
 
 This is the preferred path because it avoids later migration overhead.
 
@@ -35,7 +36,7 @@ Recommended sequence:
 1. Inventory current docs, tests, workflows, and deployment scripts.
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
-4. Normalize CI, deploy, and SonarQube gates before attempting broader documentation cleanup.
+4. Normalize CI, deploy, SonarQube, and observability gates before attempting broader documentation cleanup.
 5. Add the visible last-commit line without changing unrelated architecture.
 6. Move toward the target structure incrementally as files are naturally touched.
 
@@ -64,6 +65,7 @@ Add or normalize:
 - CI workflow,
 - deploy workflow or release workflow,
 - SonarQube integration,
+- observability stack with OTLP contract,
 - minimum smoke and regression checks.
 
 Outcome:
@@ -101,6 +103,7 @@ The lightest workable integration for most teams is:
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `shared-sonar/`.
-5. Add the visible last-commit line.
+5. Define OTEL env vars and the repository observability path.
+6. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.

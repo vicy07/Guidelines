@@ -1,8 +1,8 @@
 ﻿# Architecture Guidelines and Format Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-06-24
 
 ## Metadata (required)
 
@@ -33,6 +33,7 @@ Last Updated: 2026-04-12
 - Critical scenarios must state latency, availability, and consistency expectations.
 - Every external interaction must specify protocol, owner, and error policy.
 - Every major architecture agreement must include rationale and constraints.
+- Every repository architecture must define its observability stack and explain how logs, metrics, and traces are produced for its repository type.
 
 ## Diagram Rules
 
@@ -47,6 +48,7 @@ Last Updated: 2026-04-12
 - Decisions must be testable: what was chosen, why, and consequences.
 - NFRs must be measurable (`p95 latency`, `RPO`, `RTO`, `uptime`, load limits).
 - The Security and Privacy section references `SWE/security-guidelines.md` as the source of controls.
+- The Reliability and Observability section must declare the OpenTelemetry attribution and OTLP export contract or explicitly document why a runtime cannot emit telemetry directly.
 - Constraints and risks are mandatory, including temporary decisions.
 
 ## Quality Checklist
@@ -55,6 +57,7 @@ Last Updated: 2026-04-12
 - Data ownership, core entities, and consistency rules are documented.
 - Integration policies include retry/timeout/idempotency.
 - Logging, metrics, tracing, and alerting are defined for critical paths.
+- OpenTelemetry service attribution and OTLP export expectations are documented.
 - Security controls are specified: authN/authZ, secrets, audit trail.
 - Security controls are aligned with `SWE/security-guidelines.md`.
 - Technical debt items and closure criteria are explicit.

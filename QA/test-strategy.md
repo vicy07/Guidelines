@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-06-24
 
 ## Metadata (required)
 
@@ -33,6 +33,7 @@ Last Updated: 2026-04-12
 - NFRs must be covered by dedicated checks with measurable thresholds.
 - Responsibility boundaries between test levels must be explicit and non-overlapping.
 - Security checks must align with `SWE/security-guidelines.md`.
+- The strategy must verify the repository observability stack and OTLP contract for the repository type.
 - If evidence is missing, explicitly state `Evidence not available`.
 
 ## Quality Checklist
@@ -41,6 +42,7 @@ Last Updated: 2026-04-12
 - Each risk has a mapped test type and execution frequency.
 - There is a minimum smoke/regression set for CI.
 - Test environments and test data management rules are documented.
+- Observability checks confirm that logs, metrics, traces, and OTLP configuration behave as documented for the repository type.
 - Release requires a mandatory security baseline (SAST/SCA and critical auth/authz checks).
 - Quality gates have measurable thresholds and a `go/no-go` rule.
 

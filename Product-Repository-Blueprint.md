@@ -113,6 +113,35 @@ If commit details are unavailable, the UI must still render:
 This requirement defines the visible product outcome, not the implementation mechanism.
 The visible line must resolve correctly in deployed environments too, not only in local development.
 
+### 5. Observability Stack
+
+Every downstream repository must define an observability stack.
+
+Universal minimum:
+
+- structured logs,
+- operational metrics,
+- distributed tracing through OpenTelemetry,
+- a documented OTLP configuration contract,
+- stable service or application attribution for emitted telemetry.
+
+Minimum OTLP contract:
+
+```dotenv
+OTEL_SERVICE_NAME=my-service
+OTEL_SERVICE_VERSION=
+OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
+OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
+```
+
+Repository-type expectations:
+
+- Backend and service repositories must emit traces, metrics, and logs from the running service and document the active OTLP export path.
+- Frontend or static-web repositories must emit client telemetry and error events through a documented telemetry path, and that path must be mapped to an OpenTelemetry-compatible ingestion or downstream correlation model.
+- Library and CLI repositories must emit structured logs and define how OpenTelemetry attribution and export are enabled when the component is executed directly or embedded into a host runtime.
+
+If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
+
 ## Minimum Artifact Set
 
 The minimum artifact set for a downstream product repository is:
@@ -135,6 +164,7 @@ The minimum artifact set for a downstream product repository is:
 - `docs/architecture/system-design.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
+- documented observability stack and OTLP contract
 
 ### Delivery and Verification
 
@@ -165,5 +195,6 @@ A downstream product repository is ready for agentic delivery when:
 - the CI path is running and enforced,
 - the deploy path is documented and executable,
 - SonarQube integration is wired for supported codebases,
+- the observability stack and OTLP contract are documented for the repository type,
 - the visible last-commit line is implemented for user-facing products,
 - the minimum artifact set exists and has clear ownership.
