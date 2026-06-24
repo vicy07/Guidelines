@@ -20,8 +20,9 @@ Define the minimum recommended baseline for downstream software product reposito
       mission.md
       use-cases.md
       user-flows.md
+    architecture.md
+    technical-architecture.md
     architecture/
-      system-design.md
       adr/
     qa/
       test-strategy.md
@@ -49,7 +50,9 @@ Define the minimum recommended baseline for downstream software product reposito
 ## Structure Rules
 
 - `docs/requirements/` is the product behavior source of truth.
-- `docs/architecture/` captures system boundaries and non-trivial technical decisions.
+- `docs/architecture.md` is the repository-level architecture entry point and navigation hub.
+- `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
+- `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
@@ -172,7 +175,8 @@ The minimum artifact set for a downstream product repository is:
 
 ### Technical and Quality Design
 
-- `docs/architecture/system-design.md`
+- `docs/architecture.md`
+- `docs/technical-architecture.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
 - documented observability stack and OTLP contract

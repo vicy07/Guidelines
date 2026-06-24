@@ -19,7 +19,7 @@ For a new repository:
 
 1. Create the target structure from `Product-Repository-Blueprint.md`.
 2. Add `AGENTS.md`, `Repository.md`, `phases-index.md`, and `guidelines-index.yaml`.
-3. Create the minimum artifact set under `docs/requirements/`, `docs/architecture/`, `docs/qa/`, and `docs/sre/`.
+3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `sonar-project.properties` and a thin `sonar.py` wrapper that reuses `shared-sonar/sonar_runner.py`.
 6. Add the repository observability stack and OTLP contract.
@@ -81,13 +81,20 @@ Create or align:
 - `docs/requirements/mission.md`
 - `docs/requirements/use-cases.md`
 - `docs/requirements/user-flows.md`
-- `docs/architecture/system-design.md`
+- `docs/architecture.md`
+- `docs/technical-architecture.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
 
 Outcome:
 
 - agents and humans share the same minimum context for delivery decisions.
+
+Architecture documentation rule:
+
+- keep `docs/architecture.md` short and navigational,
+- keep `docs/technical-architecture.md` as the canonical technical design document,
+- use `docs/architecture/` only for ADRs or deeper supporting architecture records when needed.
 
 ## Integration Rules
 

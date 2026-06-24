@@ -40,7 +40,9 @@ For repository maintenance and agent work:
 Every downstream product repository should have a predictable home for:
 
 - product requirements under `docs/requirements/`,
-- architecture decisions under `docs/architecture/`,
+- architecture navigation in `docs/architecture.md`,
+- technical architecture in `docs/technical-architecture.md`,
+- optional ADRs and deeper architecture records under `docs/architecture/`,
 - QA strategy under `docs/qa/`,
 - SRE and deployment readiness under `docs/sre/`,
 - implementation code under `src/`,
