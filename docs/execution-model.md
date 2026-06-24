@@ -1,10 +1,15 @@
-# Execution Model
+# Structured Execution Assets
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-24
+Last Updated: 2026-06-24
 
-## Execution Contracts
+## Purpose
+
+Describe the optional structured-execution assets stored in this repository.
+These assets support teams that want schema-validated role handoffs, but they are not the minimum adoption path for using this repository.
+
+## Available Contracts
 
 - Requirement contract: `execution/schemas/requirement.json`
 - Task contract: `execution/schemas/task.json`
@@ -14,25 +19,33 @@ Last Updated: 2026-04-24
 - Role contracts: `agents/*.md`
 - Runtime flow: `runtime/orchestration.yaml`
 - Runtime phases: `runtime/phases.yaml`
-- Canonical chain example: `execution/examples/chain-login-v1/`
+
+## What These Assets Are For
+
+Use the structured execution assets when a team needs:
+
+- deterministic agent-to-agent handoffs,
+- machine-readable artifacts,
+- schema validation before phase transitions,
+- auditable delivery evidence across roles.
+
+## What They Are Not For
+
+Do not treat these assets as mandatory just to adopt the repository baseline.
+Teams can adopt the blueprint, minimum artifacts, CI/CD rules, deploy guidance, SonarQube integration, and visible last-commit requirement without running a schema-driven workflow.
 
 ## Runtime Behavior
 
-1. Validate input artifacts against schemas.
-2. Execute role step using role-specific prompt and contract.
-3. Validate output artifacts before transition.
-4. Block transition on failed validation.
-5. Persist outputs as auditable execution evidence.
+When the structured execution layer is used:
 
-## Handoff Rules
+1. validate input artifacts against schemas,
+2. execute the role step using the matching contract,
+3. validate output artifacts before transition,
+4. block transition on failed validation,
+5. preserve outputs as execution evidence.
 
-- `BA -> SWE`: requirement payload.
-- `SWE -> QA`: task bundle linked to requirement id.
-- `QA -> SRE`: test report linked to task ids.
-- `SRE -> completion`: release payload linked to test report id.
+## Canonical References
 
-## Error Handling
-
-- Missing required fields: reject artifact.
-- Invalid schema: block phase transition.
-- Missing evidence: emit `Evidence not available` and escalate.
+- End-to-end flow: `runtime/orchestration.yaml`
+- Example chain: `execution/examples/chain-login-v1/`
+- Shared requirement for missing evidence: `Evidence not available`

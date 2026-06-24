@@ -2,12 +2,14 @@
 
 ## Purpose
 
-Define the canonical structure of this guidelines repository so agents and humans can quickly find phase, role, and dependency instructions.
+Define the canonical structure of this repository as a standards source for agentic development.
+This repository governs how downstream product repositories should organize delivery artifacts, minimum engineering gates, and role-owned guidance.
 
 ## Scope Boundary
 
 - This document describes the physical structure and navigation model of this repository.
-- Downstream product repository recommendations are defined in `Product-Repository-Blueprint.md`.
+- `Product-Repository-Blueprint.md` defines the downstream product-repository baseline.
+- `Adoption-Guide.md` defines how to apply that baseline to new and existing projects.
 
 ## Required Root Structure
 
@@ -17,6 +19,11 @@ Define the canonical structure of this guidelines repository so agents and human
   SWE/
   QA/
   SRE/
+  agents/
+  docs/
+  execution/
+  runtime/
+  guidelines/
   shared-sonar/
   scripts/
   tests/
@@ -24,6 +31,7 @@ Define the canonical structure of this guidelines repository so agents and human
   README.md
   Repository.md
   Product-Repository-Blueprint.md
+  Adoption-Guide.md
   AGENTS.md
   phases-index.md
   guidelines-index.yaml
@@ -31,47 +39,41 @@ Define the canonical structure of this guidelines repository so agents and human
 
 ## Top-Level Ownership
 
-- `Requirements/` - shared product-behavior standards (primary owner: `BA`, co-owner: `PO`) used by all role guidelines.
-- `SWE/` - software engineering standards and technical decision guidance.
-- `QA/` - verification and quality standards.
-- `SRE/` - reliability, operations, and incident standards.
-- `scripts/` - repository validation/maintenance scripts.
-- `shared-sonar/` - reusable SonarQube runner logic consumed by downstream product repositories.
-- `tests/` - repository-level regression tests for shared tooling and control-plane helpers.
+- `Requirements/` - shared requirements standards owned by `BA` with `PO` co-ownership.
+- `SWE/` - architecture, implementation, and engineering-control standards.
+- `QA/` - test strategy, evidence, and release-quality standards.
+- `SRE/` - deployment readiness, operability, and incident standards.
+- `Product-Repository-Blueprint.md` - canonical minimum downstream project baseline.
+- `Adoption-Guide.md` - standard onboarding path for new and existing projects.
+- `shared-sonar/` - reusable SonarQube runner logic for product repositories.
+- `execution/`, `runtime/`, `agents/`, `docs/`, `guidelines/` - supporting assets for structured agent workflows and reusable patterns.
+- `scripts/` - repository validation and maintenance tooling.
+- `tests/` - regression coverage for repository-owned code and helpers.
 
 ## Instruction Retrieval Path
 
-1. Start with `phases-index.md` to identify current lifecycle phase and active roles.
-2. Use `guidelines-index.yaml` to resolve role-owned files and dependencies.
-3. Open role README and normative files in `SWE/`, `QA/`, `SRE/`.
-4. Use `Requirements/` files as behavior source of truth (owned by `BA`, with `PO` co-ownership).
-5. Follow `AGENTS.md` for execution contract and instruction priority.
+1. Start with `AGENTS.md` for execution rules and instruction precedence.
+2. Use `phases-index.md` to identify the current lifecycle phase and active roles.
+3. Use `guidelines-index.yaml` to resolve the files that apply and the dependencies that must stay aligned.
+4. Use `Product-Repository-Blueprint.md` for downstream repository structure and minimum delivery requirements.
+5. Use `Adoption-Guide.md` when applying these standards to a new or existing project.
+6. Open the role-owned standards in `Requirements/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
 
 ## Governance Files
 
-- `AGENTS.md` - execution contract and precedence rules for agents.
-- `phases-index.md` - phase-to-role matrix.
-- `guidelines-index.yaml` - machine-readable ownership/dependency index.
-- `Repository.md` - structure/navigation standard for this repository.
-- `Product-Repository-Blueprint.md` - baseline template for downstream product repositories.
+- `AGENTS.md` - execution contract and precedence rules.
+- `phases-index.md` - lifecycle phase to role map.
+- `guidelines-index.yaml` - machine-readable ownership and dependency index.
+- `Repository.md` - structure and navigation contract for this repository.
+- `Product-Repository-Blueprint.md` - downstream project baseline.
+- `Adoption-Guide.md` - onboarding and migration guidance.
 
-## Conflict Resolution Order
+## Definition of Ready
 
-If instructions conflict, apply this precedence:
-1. User request in the current task
-2. `AGENTS.md`
-3. `guidelines-index.yaml`
-4. `phases-index.md`
-5. Role/domain guideline file being edited (`Requirements` / `SWE` / `QA` / `SRE`)
-6. `Requirements` standards
-7. `Repository.md`
-8. `Product-Repository-Blueprint.md` (for downstream repository structure recommendations)
+This repository is structurally ready when:
 
-## Definition of Ready (Guidelines Repository)
-
-This repository is ready when:
-- Root structure matches this file.
-- `phases-index.md` and `guidelines-index.yaml` are aligned with real file paths.
-- Role folders contain active guidelines with clear ownership.
-- Normative files include required metadata fields (`Version`, `Owner`, `Last Updated`).
-- Validation pipeline passes (for example, `npm run validate-guidelines` when configured).
+- root files and folders match this document,
+- `README.md`, `Repository.md`, `Product-Repository-Blueprint.md`, and `Adoption-Guide.md` describe the same baseline,
+- `phases-index.md` and `guidelines-index.yaml` point to real files and active roles,
+- normative files contain required metadata fields,
+- validation passes with `npm run validate-guidelines`.

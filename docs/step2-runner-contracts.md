@@ -1,24 +1,26 @@
-# Runner Contracts Step 2
+# Execution Contract Notes
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-24
+Last Updated: 2026-06-24
 
-## Objective
+## Purpose
 
-Place the runner contract redesign inside Guidelines where execution standards already live.
+Preserve the rationale behind the structured execution contracts without making them the main entry point for this repository.
 
-## Placement Decision
+## Current Position
 
-- Runtime behavior remains in `runtime/`.
-- Contracts stay in `execution/schemas/`.
-- Canonical example chain is in `execution/examples/chain-login-v1/`.
+- The main onboarding path for this repository is now `README.md`, `Product-Repository-Blueprint.md`, and `Adoption-Guide.md`.
+- The execution contracts remain available as supporting assets for advanced schema-driven workflows.
 
-This keeps execution standards centralized and technology-agnostic.
+## What The Execution Layer Adds
 
-## What Was Upgraded
+- explicit JSON schema validation for requirement, task, test, and release artifacts,
+- a consistent role-to-role flow in `runtime/orchestration.yaml`,
+- reference examples with stable IDs and cross-artifact links,
+- auditable execution history for teams that need tighter control.
 
-- Strict schema constraints for requirement, tasks, test report, and release artifacts.
-- Runtime flow output normalized to `release`.
-- State model expanded with run metadata and auditable history fields.
-- Full chain example with consistent cross-artifact IDs.
+## Boundary
+
+These assets are supporting infrastructure.
+They should stay aligned with governance and role standards, but they should not replace the simpler baseline used by most downstream product repositories.

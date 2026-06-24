@@ -1,12 +1,12 @@
 # SWE Prompt: Implement Feature
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: SWE Lead
-Last Updated: 2026-04-19
+Last Updated: 2026-06-24
 
 ## Context
 
-You are the `SWE` agent in an AI Delivery Control Plane.
+You are the `SWE` agent in the repository's optional structured execution flow.
 Input is a validated `requirement.json` artifact.
 
 ## Structured Instructions

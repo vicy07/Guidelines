@@ -1,50 +1,78 @@
-﻿# AI Delivery Control Plane
+# Guidelines for Agentic Development
 
-This repository is an AI Delivery Control Plane for role-based software delivery.
-It combines legacy guideline standards with executable contracts, prompts, schemas, and orchestration flows.
+This repository is a reusable standards pack for agentic software delivery.
+It defines:
 
-## Technology-Agnostic Execution Model
+- how downstream product repositories should be structured,
+- the minimum engineering requirements every project must satisfy,
+- the minimum artifacts agents and humans need to collaborate safely,
+- how to attach these standards to new and existing projects.
 
-This repository defines a technology-agnostic execution model for AI-driven delivery systems.
+## What This Repo Is
 
-## Positioning
+- A guidelines repository for agentic development.
+- A baseline blueprint for downstream product repositories.
+- A source of minimum delivery rules for CI, CD, deployment, SonarQube, and user-visible release traceability.
+- A place for reusable cross-repository helpers such as `shared-sonar/`.
 
-- Legacy guidance remains available in `Requirements/`, `SWE/`, `QA/`, and `SRE/`.
-- New executable control-plane assets live in `guidelines/`, `execution/`, `agents/`, `runtime/`, and `docs/`.
-- Shared cross-repository engineering tooling lives in `shared-sonar/` when a workflow should stay consistent across product repositories.
-- The repository supports deterministic handoffs between `BA`, `SWE`, `QA`, and `SRE`.
+## What This Repo Is Not
 
-## How Agents Use This Repo
+- Not a replacement for product-repository code, pipelines, or environment-specific runbooks.
+- Not a mandate for one technology stack or one deployment platform.
+- Not an excuse to add heavy process where a lighter standard is enough.
 
-1. Load runtime definitions from `runtime/phases.yaml` and `runtime/orchestration.yaml`.
-2. Validate artifacts with schemas in `execution/schemas/`.
-3. Execute role-specific contracts from `agents/*.md`.
-4. Use prompts in `execution/prompts/` to produce structured outputs.
-5. Follow reusable guidance from `guidelines/` and role standards from legacy folders.
+## Start Here
 
-## How Humans Use This Repo
+1. `AGENTS.md` - instruction priority and operating contract.
+2. `phases-index.md` - lifecycle phase and active-role map.
+3. `guidelines-index.yaml` - file ownership, dependencies, and validation contract.
+4. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
+5. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
+6. `shared-sonar/README.md` - shared SonarQube integration model.
 
-1. Define or refine delivery standards in `guidelines/` and legacy role folders.
-2. Evolve schemas and orchestration contracts in `execution/` and `runtime/`.
-3. Review role boundaries and responsibilities in `agents/`.
-4. Use `docs/architecture.md` and `docs/execution-model.md` for system-level understanding.
+## Downstream Product Baseline
 
-## Quick Start
+Every downstream product repository should have a predictable home for:
 
-1. Open `runtime/phases.yaml` to confirm the active role by phase.
-2. Open `runtime/orchestration.yaml` to view end-to-end delivery flow.
-3. Validate requirement payload shape with `execution/schemas/requirement.json`.
-4. Use `execution/prompts/swe_implement_feature.md` for SWE task generation.
-5. Review end-to-end examples in `execution/examples/feature-flow.md` and `execution/examples/chain-login-v1/`.
-6. Run validation: `node scripts/validate-guidelines.mjs`.
+- product requirements under `docs/requirements/`,
+- architecture decisions under `docs/architecture/`,
+- QA strategy under `docs/qa/`,
+- SRE and deployment readiness under `docs/sre/`,
+- implementation code under `src/`,
+- automated tests under `tests/`,
+- delivery automation under `.github/workflows/` and `scripts/`.
+
+The full baseline lives in `Product-Repository-Blueprint.md`.
+
+## Minimum Engineering Requirements
+
+This repository expects downstream product repositories to define at least:
+
+- a CI path that runs on pull requests and protected-branch pushes,
+- a documented deployment path with rollback and post-deploy verification,
+- a SonarQube quality gate for supported codebases,
+- a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
+- minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
 ## Repository Map
 
-- `guidelines/` - principles, patterns, playbooks, anti-patterns
-- `execution/` - schemas, prompts, flows, examples
-- `agents/` - BA/SWE/QA/SRE contracts
-- `runtime/` - phase and orchestration definitions
-- `docs/` - architecture and execution model
-- `shared-sonar/` - reusable SonarQube runner logic for product repositories
-- `tests/` - repository-level regression tests for shared tooling
-- `Requirements/`, `SWE/`, `QA/`, `SRE/` - backward-compatible standards
+- `Requirements/` - requirement standards owned by `BA` with `PO` co-ownership
+- `SWE/` - engineering design and implementation standards
+- `QA/` - verification and quality standards
+- `SRE/` - reliability, deployment, and operations standards
+- `Product-Repository-Blueprint.md` - canonical downstream repository baseline
+- `Adoption-Guide.md` - rollout guidance for new and existing projects
+- `shared-sonar/` - reusable SonarQube runner logic
+- `execution/`, `runtime/`, `agents/`, `docs/` - supporting execution assets for structured agent handoffs
+- `scripts/` - repository validation helpers
+- `tests/` - regression tests for shared tooling
+
+## Validation
+
+Run:
+
+```bash
+npm run validate-guidelines
+```
+
+This checks indexed files, metadata on normative files, dependency references, execution schema presence, and orchestration integrity.

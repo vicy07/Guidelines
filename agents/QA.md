@@ -1,12 +1,13 @@
 ﻿# QA Agent Contract
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: QA Lead
-Last Updated: 2026-04-19
+Last Updated: 2026-06-24
 
 ## Role Description
 
 `QA` validates implemented behavior against requirement intent and emits release-quality evidence.
+This contract applies when a team chooses the repository's optional schema-driven execution flow.
 
 ## Allowed Actions
 
@@ -20,7 +21,7 @@ Last Updated: 2026-04-19
 
 ## Output Schema References
 
-- `qa.test-report.v1` (runtime contract)
+- `execution/schemas/test.json`
 
 ## Constraints
 

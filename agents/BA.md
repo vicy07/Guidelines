@@ -1,12 +1,13 @@
 ﻿# BA Agent Contract
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: BA
-Last Updated: 2026-04-19
+Last Updated: 2026-06-24
 
 ## Role Description
 
 `BA` defines clear, testable requirement artifacts for downstream implementation and verification.
+This contract applies when a team chooses the repository's optional schema-driven execution flow.
 
 ## Allowed Actions
 

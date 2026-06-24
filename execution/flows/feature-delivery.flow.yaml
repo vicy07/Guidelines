@@ -13,11 +13,11 @@ steps:
   - id: test
     role: QA
     input_schema: execution/schemas/task.json
-    output_schema: qa.test-report.v1
+    output_schema: execution/schemas/test.json
   - id: release
     role: SRE
-    input_schema: qa.test-report.v1
-    output_schema: sre.deployment-status.v1
+    input_schema: execution/schemas/test.json
+    output_schema: execution/schemas/release.json
 rules:
   - block_on_validation_failure: true
   - require_role_ownership: true

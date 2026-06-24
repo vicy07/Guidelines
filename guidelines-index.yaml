@@ -39,6 +39,9 @@ domains:
       - path: Product-Repository-Blueprint.md
         kind: supporting
         requires_metadata: false
+      - path: Adoption-Guide.md
+        kind: supporting
+        requires_metadata: false
       - path: AGENTS.md
         kind: supporting
         requires_metadata: false
@@ -274,6 +277,13 @@ update_rules:
         - runtime/phases.yaml
     Product-Repository-Blueprint.md:
       must_review:
+        - Repository.md
+        - README.md
+        - Adoption-Guide.md
+        - guidelines-index.yaml
+    Adoption-Guide.md:
+      must_review:
+        - Product-Repository-Blueprint.md
         - Repository.md
         - README.md
         - guidelines-index.yaml
