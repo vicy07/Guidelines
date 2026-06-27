@@ -10,7 +10,7 @@ For repositories that want a single multi-scanner entrypoint, prefer consuming t
 ## Consumption Model
 
 Keep repository-specific details local:
-- `sonar-project.properties` or `audits/config/sonar-project.properties`
+- `audits/config/sonar-project.properties`
 - test globs
 - coverage targets
 - project key defaults
@@ -23,12 +23,15 @@ Move shared behavior here:
 - background task polling after upload
 - quality gate verification with explicit `OK` / `ERROR` exit status
 
-## Expected Product-Repo Wrapper
+## Expected Product-Repo Integration
 
-Each product repository keeps a thin `sonar.py` wrapper that:
-1. resolves the `Guidelines` repository via `GUIDELINES_REPO` or a sibling `../Guidelines`
-2. loads `shared-sonar/sonar_runner.py`
-3. passes repo-local coverage commands and defaults into `SharedSonarConfig`
+Each product repository should:
+1. keep `audits.py` and repo-local `audits/` scanner wiring
+2. keep Sonar settings in `audits/config/sonar-project.properties`
+3. consume `shared-audits/` as the primary local entrypoint
+4. let `shared-audits` call this lower-level runner for Sonar execution
+
+Root `sonar.py` entrypoints are not part of this baseline model.
 
 ## Default Coverage Contract
 
@@ -44,6 +47,7 @@ Each product repository keeps a thin `sonar.py` wrapper that:
 
 ## Runtime Behavior
 
-- `python sonar.py` should fail fast if coverage reports are missing.
-- After upload, the shared runner waits for SonarQube Compute Engine processing and then checks the project quality gate.
-- `python sonar.py --show-config` prints resolved non-secret settings and exits without running a scan.
+- repositories typically invoke Sonar with `python audits.py sonar scan`
+- coverage generation should fail fast before upload if coverage reports are missing
+- after upload, the shared runner waits for SonarQube Compute Engine processing and then checks the project quality gate
+- `python audits.py sonar config` should print resolved non-secret settings and exit without running a scan

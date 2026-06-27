@@ -22,8 +22,8 @@ For a new repository:
    Preferred form: public GitHub links for the repository reference point and the primary baseline documents.
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
-5. Add `audits.py`, repo-local `audits/` scanner wiring, `sonar-project.properties`, and `trivy.yaml`.
-6. Reuse `shared-audits/` as the primary local audit entrypoint. Keep `sonar.py` and `trivy.py` only as optional compatibility wrappers when needed.
+5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, and `audits/config/trivy.yaml`.
+6. Reuse `shared-audits/` as the primary local audit entrypoint. Do not add root `sonar.py` or `trivy.py` as part of the baseline model.
 7. Add the repository observability stack and OTLP contract.
 8. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
 
@@ -101,7 +101,7 @@ Architecture documentation rule:
 
 - Reuse existing code and workflow conventions where they are already effective.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer repo-local wrappers over copied logic, and prefer `shared-audits/` over separate per-tool orchestration when the repository uses multiple scanners.
+- Prefer repo-local wrappers over copied logic, prefer `shared-audits/` over separate per-tool orchestration when the repository uses multiple scanners, and do not add root `sonar.py` or `trivy.py` in the baseline model.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 
 ## Suggested Consumption Pattern
@@ -113,7 +113,7 @@ The lightest workable integration for most teams is:
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `shared-audits/` as the primary local audit entrypoint for SonarQube and Trivy.
-5. Keep `shared-sonar/` and `shared-trivy/` as lower-level reusable runners when a repository needs a direct single-tool integration or compatibility wrapper.
+5. Keep `shared-sonar/` and `shared-trivy/` as lower-level reusable runners behind `shared-audits`, not as the baseline repo entrypoints.
 6. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
 7. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
 8. Add the visible last-commit line.

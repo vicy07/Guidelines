@@ -29,6 +29,8 @@ Keep a thin local layer:
 - `audits/scanners/trivy.py`
 - `audits/scanners/sonar.py`
 
+Root `sonar.py` and `trivy.py` entrypoints are not part of this baseline model.
+
 That local layer should:
 
 1. resolve the `Guidelines` repository via `GUIDELINES_REPO` or a sibling `../Guidelines`
