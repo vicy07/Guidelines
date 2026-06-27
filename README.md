@@ -13,7 +13,7 @@ It defines:
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
 - A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, observability, and user-visible release traceability.
-- A place for reusable cross-repository helpers such as `shared-sonar/`, `shared-trivy/`, and `shared-otel/`.
+- A place for reusable cross-repository helpers such as `shared-audits/`, `shared-sonar/`, `shared-trivy/`, and `shared-otel/`.
 
 ## What This Repo Is Not
 
@@ -27,8 +27,9 @@ For most readers:
 
 1. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
 2. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
-3. `shared-sonar/README.md` - shared SonarQube integration model.
-4. `shared-trivy/README.md` - shared Trivy integration model.
+3. `shared-audits/README.md` - shared multi-scanner audit integration model.
+4. `shared-sonar/README.md` - lower-level shared SonarQube runner model.
+5. `shared-trivy/README.md` - lower-level shared Trivy runner model.
 
 For repository maintenance and agent work:
 
@@ -73,8 +74,9 @@ This repository expects downstream product repositories to define at least:
 - `Product-Repository-Blueprint.md` - canonical downstream repository baseline
 - `Adoption-Guide.md` - rollout guidance for new and existing projects
 - `guidelines/` - reusable principles, patterns, playbooks, and anti-patterns
-- `shared-sonar/` - reusable SonarQube runner logic
-- `shared-trivy/` - reusable Trivy runner logic
+- `shared-audits/` - reusable multi-scanner audit orchestration
+- `shared-sonar/` - reusable lower-level SonarQube runner logic
+- `shared-trivy/` - reusable lower-level Trivy runner logic
 - `shared-otel/` - reusable Python OpenTelemetry starter pattern intended to be copied or vendored into product repositories
 - `docs/architecture.md` - simple explanation of repository layers
 - `scripts/` - repository validation helpers

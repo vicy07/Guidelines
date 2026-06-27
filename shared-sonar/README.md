@@ -1,14 +1,16 @@
 # Shared Sonar Runner
 
 Shared SonarQube runner logic for product repositories that use:
-- local `sonar-project.properties`
+- local Sonar settings, commonly in `audits/config/sonar-project.properties`
 - Python coverage uploaded from `coverage.xml`
 - JavaScript coverage uploaded from `coverage/js/lcov.info`
+
+For repositories that want a single multi-scanner entrypoint, prefer consuming this runner through `shared-audits`.
 
 ## Consumption Model
 
 Keep repository-specific details local:
-- `sonar-project.properties`
+- `sonar-project.properties` or `audits/config/sonar-project.properties`
 - test globs
 - coverage targets
 - project key defaults

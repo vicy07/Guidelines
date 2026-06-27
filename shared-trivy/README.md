@@ -2,6 +2,8 @@
 
 Shared Trivy runner logic for product repositories that want a consistent security gate without copying the same CLI wiring into every repo.
 
+For repositories that want a single multi-scanner entrypoint, prefer consuming this runner through `shared-audits`.
+
 ## Consumption Model
 
 Keep repository-specific details local:

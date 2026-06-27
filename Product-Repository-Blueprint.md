@@ -40,10 +40,13 @@ Define the minimum recommended baseline for downstream software product reposito
       deploy.yml
   README.md
   agent.md
+  audits.py
+  audits/
+    scanners/
+      sonar.py
+      trivy.py
   sonar-project.properties
-  sonar.py
   trivy.yaml
-  trivy.py
 ```
 
 ## Structure Rules
