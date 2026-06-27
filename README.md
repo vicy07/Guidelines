@@ -12,8 +12,8 @@ It defines:
 
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
-- A source of minimum delivery rules for CI, CD, deployment, SonarQube, and user-visible release traceability.
-- A place for reusable cross-repository helpers such as `shared-sonar/`.
+- A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, observability, and user-visible release traceability.
+- A place for reusable cross-repository helpers such as `shared-sonar/`, `shared-trivy/`, and `shared-otel/`.
 
 ## What This Repo Is Not
 
@@ -28,6 +28,7 @@ For most readers:
 1. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
 2. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
 3. `shared-sonar/README.md` - shared SonarQube integration model.
+4. `shared-trivy/README.md` - shared Trivy integration model.
 
 For repository maintenance and agent work:
 
@@ -59,6 +60,7 @@ This repository expects downstream product repositories to define at least:
 - a CI path that runs on pull requests and protected-branch pushes,
 - a documented deployment path with rollback and post-deploy verification,
 - a SonarQube quality gate for supported codebases,
+- a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
@@ -72,6 +74,7 @@ This repository expects downstream product repositories to define at least:
 - `Adoption-Guide.md` - rollout guidance for new and existing projects
 - `guidelines/` - reusable principles, patterns, playbooks, and anti-patterns
 - `shared-sonar/` - reusable SonarQube runner logic
+- `shared-trivy/` - reusable Trivy runner logic
 - `shared-otel/` - reusable Python OpenTelemetry starter pattern intended to be copied or vendored into product repositories
 - `docs/architecture.md` - simple explanation of repository layers
 - `scripts/` - repository validation helpers

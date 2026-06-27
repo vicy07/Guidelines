@@ -1,8 +1,8 @@
 # Guidelines Repository Architecture
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
-Last Updated: 2026-06-24
+Last Updated: 2026-06-27
 
 ## Overview
 
@@ -20,7 +20,7 @@ The primary experience is:
 - `Requirements/`, `SWE/`, `QA/`, `SRE/` - role-owned standards layer.
 - `Product-Repository-Blueprint.md`, `Adoption-Guide.md` - downstream adoption layer.
 - `guidelines/` - reusable guidance patterns and anti-patterns.
-- `shared-sonar/` - reusable engineering tooling layer.
+- `shared-sonar/`, `shared-trivy/`, `shared-otel/` - reusable engineering tooling layer.
 
 ## Primary Flow
 

@@ -23,8 +23,9 @@ For a new repository:
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `sonar-project.properties` and a thin `sonar.py` wrapper that reuses `shared-sonar/sonar_runner.py`.
-6. Add the repository observability stack and OTLP contract.
-7. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
+6. Add `trivy.yaml` and a thin `trivy.py` wrapper that reuses `shared-trivy/trivy_runner.py`.
+7. Add the repository observability stack and OTLP contract.
+8. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
 
 This is the preferred path because it avoids later migration overhead.
 
@@ -37,7 +38,7 @@ Recommended sequence:
 1. Inventory current docs, tests, workflows, and deployment scripts.
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
-4. Normalize CI, deploy, SonarQube, and observability gates before attempting broader documentation cleanup.
+4. Normalize CI, deploy, SonarQube, Trivy, and observability gates before attempting broader documentation cleanup.
 5. When a compliance audit is run, create `docs/audits/` and save the audit findings there, including the exact `Guidelines` version pinned by commit hash and commit date.
 6. Add the visible last-commit line without changing unrelated architecture.
 7. Move toward the target structure incrementally as files are naturally touched.
@@ -65,6 +66,7 @@ Add or normalize:
 - CI workflow,
 - deploy workflow or release workflow,
 - SonarQube integration,
+- Trivy integration,
 - observability stack with OTLP contract,
 - minimum smoke and regression checks.
 
@@ -99,7 +101,7 @@ Architecture documentation rule:
 
 - Reuse existing code and workflow conventions where they are already effective.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer wrappers over copied shared logic for SonarQube integration.
+- Prefer wrappers over copied shared logic for SonarQube and Trivy integration.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 
 ## Suggested Consumption Pattern
@@ -111,8 +113,9 @@ The lightest workable integration for most teams is:
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `shared-sonar/`.
-5. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
-6. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
-7. Add the visible last-commit line.
+5. Reuse `shared-trivy/` for repo-local filesystem scanning and image scanning when the repository produces deployable images.
+6. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
+7. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
+8. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.

@@ -42,6 +42,8 @@ Define the minimum recommended baseline for downstream software product reposito
   agent.md
   sonar-project.properties
   sonar.py
+  trivy.yaml
+  trivy.py
 ```
 
 ## Structure Rules
@@ -66,7 +68,7 @@ Every project must define a CI workflow that:
 - installs dependencies deterministically,
 - runs the fastest meaningful automated checks for the repository,
 - runs at least a smoke regression set before merge,
-- fails the build on test or quality-gate failure.
+- fails the build on test, security-gate, or quality-gate failure.
 
 Minimum CI outcome:
 
@@ -100,7 +102,25 @@ Recommended integration model:
 2. Reuse shared logic from this repository's `shared-sonar/sonar_runner.py`.
 3. Fail the check if the SonarQube quality gate is not `OK`.
 
-### 4. Visible Release Traceability
+### 4. Trivy
+
+Every repository must provide:
+
+- `trivy.yaml`,
+- a thin local `trivy.py` wrapper,
+- a filesystem scan in CI that covers dependency vulnerabilities, misconfigurations, and secrets,
+- an image scan before deployment when the repository produces deployable container images,
+- a documented suppression path for accepted findings, preferably via `.trivyignore` plus owner/ticket/expiry notes in repository documentation or comments.
+
+Recommended integration model:
+
+1. Keep project-specific targets, suppressions, severity thresholds, and report wiring in the product repo.
+2. Reuse shared logic from this repository's `shared-trivy/trivy_runner.py`.
+3. Fail the gate on `HIGH` and `CRITICAL` findings, or on an explicitly documented equivalent threshold.
+
+If image scanning does not apply to a repository, the repository must document why instead of omitting the Trivy gate entirely.
+
+### 5. Visible Release Traceability
 
 Every user-facing solution must render a persistent visible line:
 
@@ -113,7 +133,7 @@ If commit details are unavailable, the UI must still render:
 This requirement defines the visible product outcome, not the implementation mechanism.
 The visible line must resolve correctly in deployed environments too, not only in local development.
 
-### 5. Observability Stack
+### 6. Observability Stack
 
 Every downstream repository must define an observability stack.
 
@@ -186,6 +206,8 @@ Governance rule:
 - `.github/workflows/deploy.yml`
 - `sonar-project.properties`
 - `sonar.py`
+- `trivy.yaml`
+- `trivy.py`
 - at least one test suite under `tests/`
 
 ## Compliance Audit Artifact
@@ -207,7 +229,7 @@ This requirement applies only after a compliance audit is run. It is not a manda
 - `BA` and `PO` own product framing and behavioral intent.
 - `SWE` owns architecture, implementation, and application-level support for the visible last-commit line.
 - `QA` owns test strategy, release evidence, and merge-quality verification.
-- `SRE` owns deployment readiness, runtime checks, rollback expectations, and observability requirements.
+- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, and release-time security scanning gates.
 
 Cross-role boundary note:
 
@@ -223,6 +245,7 @@ A downstream product repository is ready for agentic delivery when:
 - the CI path is running and enforced,
 - the deploy path is documented and executable,
 - SonarQube integration is wired for supported codebases,
+- Trivy integration is wired for repository filesystem scanning and deployable-image scanning where applicable,
 - the observability stack and OTLP contract are documented for the repository type,
 - the visible last-commit line is implemented for user-facing products,
 - the minimum artifact set exists and has clear ownership.

@@ -22,6 +22,8 @@ This repository governs how downstream product repositories should organize deli
   docs/
   guidelines/
   shared-sonar/
+  shared-trivy/
+  shared-otel/
   scripts/
   tests/
   .github/
@@ -45,6 +47,8 @@ This repository governs how downstream product repositories should organize deli
 - `guidelines/` - shared principles, patterns, playbooks, and anti-patterns.
 - `docs/` - small supporting repository-level documentation set.
 - `shared-sonar/` - reusable SonarQube runner logic for product repositories.
+- `shared-trivy/` - reusable Trivy runner logic for product repositories.
+- `shared-otel/` - reusable OpenTelemetry starter pattern for product repositories.
 - `scripts/` - repository validation and maintenance tooling.
 - `tests/` - regression coverage for repository-owned code and helpers.
 

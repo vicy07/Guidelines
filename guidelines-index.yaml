@@ -1,4 +1,4 @@
-﻿version: 3.0.0
+version: 3.1.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -196,6 +196,16 @@ domains:
         kind: supporting
         requires_metadata: false
       - path: shared-otel/telemetry.py
+        kind: supporting
+        requires_metadata: false
+
+  shared_trivy:
+    path: shared-trivy
+    files:
+      - path: shared-trivy/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: shared-trivy/trivy_runner.py
         kind: supporting
         requires_metadata: false
 

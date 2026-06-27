@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.2.0
+Version: 1.3.0
 Owner: SWE Lead
-Last Updated: 2026-06-24
+Last Updated: 2026-06-27
 
 ## Metadata (required)
 
@@ -29,9 +29,11 @@ Last Updated: 2026-06-24
 - Architectural boundaries must not be bypassed for convenience.
 - Temporary fixes must include debt records and closure criteria.
 - Every repository must implement its repository-type observability path and document the exact OTLP contract used for attribution or export.
+- Every repository must implement a repository-local Trivy entrypoint for filesystem scanning, and repositories that produce deployable container images must also define an image-scanning entrypoint before release.
 - Backend and service repositories must emit logs, metrics, and traces from the running service.
 - Frontend or static-web repositories must emit client telemetry and error events through a documented telemetry path that preserves OpenTelemetry-compatible correlation.
 - Library and CLI repositories must emit structured logs and document how OpenTelemetry attribution or export is enabled when embedded or executed in target runtimes.
+- Implementation handover must include the exact Trivy invocation path, config file location, and the ownership record for any accepted suppressions.
 - Implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment:
 
 ```dotenv
@@ -51,6 +53,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 - Module ownership is explicit.
 - Requirement-to-code traceability is documented.
 - Security and reliability impacts are reviewed.
+- Security scanning entrypoints and suppression ownership are documented.
 - Observability and OTLP contract implications are documented for the repository type.
 - QA handover includes test scope and risk notes.
 - SRE handover includes deployment and observability implications.
