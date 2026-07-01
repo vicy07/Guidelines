@@ -1,4 +1,4 @@
-﻿# Mission Format Standard
+# Mission Standard
 
 Version: 1.0.0
 Owner: Repository Maintainer

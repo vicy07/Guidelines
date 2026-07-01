@@ -1,4 +1,4 @@
-﻿# User Flows Format Standard
+# User Flows Standard
 
 Version: 1.0.0
 Owner: Repository Maintainer

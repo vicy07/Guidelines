@@ -64,10 +64,10 @@ Define the minimum recommended baseline for downstream software product reposito
 ## Structure Rules
 
 - `docs/requirements/` is the product behavior source of truth.
-- `docs/architecture.md` is the repository-level architecture entry point and navigation hub.
+- `docs/architecture.md` is the repository-level architecture entry point and navigation hub and should follow the content contract from `Requirements/architecture-standard.md`.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
-- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository.
+- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository and should follow the content contract from `Requirements/code-intelligence-standard.md`.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.

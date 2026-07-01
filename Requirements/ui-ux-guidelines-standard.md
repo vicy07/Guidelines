@@ -1,4 +1,4 @@
-﻿# UI/UX Guidelines and Style Standard
+# UI/UX Standard
 
 Version: 1.1.0
 Owner: Repository Maintainer

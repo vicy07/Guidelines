@@ -32,6 +32,9 @@ For most consumers, the intended path is:
 3. add the minimum artifacts, delivery gates, and code-intelligence baseline,
 4. reuse shared tooling where it reduces duplication.
 
+This repository-level architecture note is a supporting document for the `Guidelines` repo itself.
+The required section structure for a downstream product repository's `docs/architecture.md` is governed separately by `Requirements/architecture-standard.md`.
+
 ## Simplicity Rule
 
 Repository navigation should stay understandable to a human reader without requiring a specialized execution model.

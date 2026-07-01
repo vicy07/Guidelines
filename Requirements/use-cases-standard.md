@@ -1,4 +1,4 @@
-﻿# Use Cases Format Standard
+# Use Cases Standard
 
 Version: 1.0.0
 Owner: Repository Maintainer

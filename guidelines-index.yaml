@@ -52,16 +52,22 @@ domains:
     owner_role: BA
     co_owner_role: PO
     files:
-      - path: Requirements/mission.md
+      - path: Requirements/architecture-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/use-cases.md
+      - path: Requirements/code-intelligence-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/user-flows.md
+      - path: Requirements/mission-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/ui-ux-guidelines.md
+      - path: Requirements/use-cases-standard.md
+        kind: normative
+        requires_metadata: true
+      - path: Requirements/user-flows-standard.md
+        kind: normative
+        requires_metadata: true
+      - path: Requirements/ui-ux-guidelines-standard.md
         kind: normative
         requires_metadata: true
 
@@ -75,8 +81,8 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/mission.md
-          - Requirements/use-cases.md
+          - Requirements/mission-standard.md
+          - Requirements/use-cases-standard.md
           - SWE/security-guidelines.md
       - path: SWE/c4-architecture-guidelines.md
         kind: supporting
@@ -112,7 +118,7 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/use-cases.md
+          - Requirements/use-cases-standard.md
           - SWE/security-guidelines.md
       - path: QA/test-case-design.md
         kind: normative
@@ -128,7 +134,7 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/use-cases.md
+          - Requirements/use-cases-standard.md
       - path: QA/post-fix-testing.md
         kind: normative
         requires_metadata: true
@@ -178,9 +184,13 @@ domains:
       - path: docs/architecture.md
         kind: supporting
         requires_metadata: true
+        depends_on:
+          - Requirements/architecture-standard.md
       - path: docs/architecture/code-intelligence.md
         kind: supporting
         requires_metadata: true
+        depends_on:
+          - Requirements/code-intelligence-standard.md
 
   shared_sonar:
     path: shared-sonar
@@ -269,22 +279,34 @@ update_rules:
         - Repository.md
         - README.md
         - guidelines-index.yaml
-    Requirements/use-cases.md:
+    Requirements/use-cases-standard.md:
       must_review:
         - SWE/architecture-guidelines.md
         - QA/test-strategy.md
         - QA/bug-verification.md
-    Requirements/mission.md:
+    Requirements/mission-standard.md:
       must_review:
-        - Requirements/use-cases.md
+        - Requirements/use-cases-standard.md
         - SWE/architecture-guidelines.md
         - QA/test-strategy.md
-    Requirements/user-flows.md:
+    Requirements/user-flows-standard.md:
       must_review:
-        - Requirements/use-cases.md
+        - Requirements/use-cases-standard.md
         - QA/test-case-design.md
         - QA/test-execution-and-reporting.md
-    Requirements/ui-ux-guidelines.md:
+    Requirements/code-intelligence-standard.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - SWE/architecture-guidelines.md
+        - SWE/implementation-guidelines.md
+        - QA/test-strategy.md
+        - docs/architecture/code-intelligence.md
+    Requirements/architecture-standard.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - SWE/architecture-guidelines.md
+        - docs/architecture.md
+    Requirements/ui-ux-guidelines-standard.md:
       must_review:
         - SWE/implementation-guidelines.md
         - QA/test-case-design.md
