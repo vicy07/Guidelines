@@ -24,4 +24,4 @@ SWE owns:
 
 - With `QA`: testability, coverage, release evidence.
 - With `SRE`: reliability, operability, and incident prevention.
-- With `Requirements`: ensure traceability to product behavior.
+- With `requirements-standards`: ensure traceability to product behavior.

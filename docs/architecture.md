@@ -17,7 +17,7 @@ The primary experience is:
 ## Repository Layers
 
 - `AGENTS.md`, `phases-index.md`, `guidelines-index.yaml` - operating contract and navigation layer.
-- `Requirements/`, `SWE/`, `QA/`, `SRE/` - role-owned standards layer.
+- `requirements-standards/`, `SWE/`, `QA/`, `SRE/` - role-owned standards layer.
 - `Product-Repository-Blueprint.md`, `Adoption-Guide.md` - downstream adoption layer.
 - `guidelines/` - reusable guidance patterns and anti-patterns.
 - `shared-sonar/`, `shared-trivy/`, `shared-otel/`, `shared-code-intel/` - reusable engineering tooling layer.
@@ -33,7 +33,7 @@ For most consumers, the intended path is:
 4. reuse shared tooling where it reduces duplication.
 
 This repository-level architecture note is a supporting document for the `Guidelines` repo itself.
-The required section structure for a downstream product repository's `docs/architecture.md` is governed separately by `Requirements/architecture-standard.md`.
+The required section structure for a downstream product repository's `docs/architecture.md` is governed separately by `requirements-standards/architecture-standard.md`.
 
 ## Simplicity Rule
 

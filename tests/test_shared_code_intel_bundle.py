@@ -97,7 +97,7 @@ def test_baseline_docs_require_minimal_downstream_rollout_surface():
 
 
 def test_downstream_code_intelligence_document_content_contract_lives_in_requirements():
-    requirement = Path("Requirements/code-intelligence-standard.md").read_text(encoding="utf-8")
+    requirement = Path("requirements-standards/code-intelligence-standard.md").read_text(encoding="utf-8")
     architecture = Path("docs/architecture/code-intelligence.md").read_text(encoding="utf-8")
     blueprint = Path("Product-Repository-Blueprint.md").read_text(encoding="utf-8")
 
@@ -105,17 +105,17 @@ def test_downstream_code_intelligence_document_content_contract_lives_in_require
     assert "Purpose and Scope" in requirement
     assert "Local Control Surface" in requirement
     assert "Git and Retention Policy" in requirement
-    assert "Requirements/code-intelligence-standard.md" in architecture
-    assert "Requirements/code-intelligence-standard.md" in blueprint
+    assert "requirements-standards/code-intelligence-standard.md" in architecture
+    assert "requirements-standards/code-intelligence-standard.md" in blueprint
 
 
 def test_downstream_architecture_document_content_contract_lives_in_requirements():
-    requirement = Path("Requirements/architecture-standard.md").read_text(encoding="utf-8")
+    requirement = Path("requirements-standards/architecture-standard.md").read_text(encoding="utf-8")
     architecture = Path("docs/architecture.md").read_text(encoding="utf-8")
     blueprint = Path("Product-Repository-Blueprint.md").read_text(encoding="utf-8")
 
     assert "Required Sections" in requirement
     assert "Repository Architecture Map" in requirement
     assert "Cross-References to Detailed Design" in requirement
-    assert "Requirements/architecture-standard.md" in architecture
-    assert "Requirements/architecture-standard.md" in blueprint
+    assert "requirements-standards/architecture-standard.md" in architecture
+    assert "requirements-standards/architecture-standard.md" in blueprint

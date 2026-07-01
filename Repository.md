@@ -15,7 +15,7 @@ This repository governs how downstream product repositories should organize deli
 
 ```text
 <guidelines-repo>/
-  Requirements/
+  requirements-standards/
   SWE/
   QA/
   SRE/
@@ -39,7 +39,7 @@ This repository governs how downstream product repositories should organize deli
 
 ## Top-Level Ownership
 
-- `Requirements/` - shared requirements standards owned by `BA` with `PO` co-ownership.
+- `requirements-standards/` - shared requirements standards owned by `BA` with `PO` co-ownership.
 - `SWE/` - architecture, implementation, and engineering-control standards.
 - `QA/` - test strategy, evidence, and release-quality standards.
 - `SRE/` - deployment readiness, operability, and incident standards.
@@ -60,7 +60,7 @@ This repository governs how downstream product repositories should organize deli
 2. Use `Product-Repository-Blueprint.md` for downstream repository structure and minimum delivery requirements.
 3. Use `Adoption-Guide.md` when applying these standards to a new or existing project.
 4. Use `AGENTS.md`, `phases-index.md`, and `guidelines-index.yaml` when you need the repository's maintenance contract and dependency map.
-5. Open the role-owned standards in `Requirements/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
+5. Open the role-owned standards in `requirements-standards/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
 
 ## Governance Files
 

@@ -28,12 +28,12 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 
 ## Role-to-Guideline Links
 
-- PO: `Requirements/README.md` (co-owner of requirements standards)
-- BA: `Requirements/README.md` (primary owner of requirements standards; `PO` is co-owner)
+- PO: `requirements-standards/README.md` (co-owner of requirements standards)
+- BA: `requirements-standards/README.md` (primary owner of requirements standards; `PO` is co-owner)
 - SWE: `SWE/README.md`
 - QA: `QA/README.md`
 - SRE: `SRE/README.md`
-- Shared product behavior source: `Requirements/README.md`
+- Shared product behavior source: `requirements-standards/README.md`
 - Downstream product repository template: `Product-Repository-Blueprint.md`
 
 ## Mandatory Rule

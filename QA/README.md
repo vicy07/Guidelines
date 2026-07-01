@@ -23,4 +23,4 @@ QA owns:
 
 - With `SWE`: failure triage and remediation verification.
 - With `SRE`: production-like validation and monitoring checks.
-- With `Requirements`: behavior-level acceptance criteria alignment.
+- With `requirements-standards`: behavior-level acceptance criteria alignment.

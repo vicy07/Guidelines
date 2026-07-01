@@ -69,7 +69,7 @@ This repository expects downstream product repositories to define at least:
 
 ## Repository Map
 
-- `Requirements/` - requirement standards owned by `BA` with `PO` co-ownership
+- `requirements-standards/` - requirement standards owned by `BA` with `PO` co-ownership
 - `SWE/` - engineering design and implementation standards
 - `QA/` - verification and quality standards
 - `SRE/` - reliability, deployment, and operations standards

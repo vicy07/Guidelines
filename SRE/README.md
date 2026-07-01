@@ -20,4 +20,4 @@ SRE owns:
 
 - With `SWE`: architecture/runtime constraints and fix rollout safety.
 - With `QA`: verification evidence for reliability gates.
-- With `Requirements`: user-impact prioritization during incidents.
+- With `requirements-standards`: user-impact prioritization during incidents.

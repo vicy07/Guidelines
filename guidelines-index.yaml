@@ -48,26 +48,26 @@ domains:
         requires_metadata: true
 
   requirements:
-    path: Requirements
+    path: requirements-standards
     owner_role: BA
     co_owner_role: PO
     files:
-      - path: Requirements/architecture-standard.md
+      - path: requirements-standards/architecture-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/code-intelligence-standard.md
+      - path: requirements-standards/code-intelligence-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/mission-standard.md
+      - path: requirements-standards/mission-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/use-cases-standard.md
+      - path: requirements-standards/use-cases-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/user-flows-standard.md
+      - path: requirements-standards/user-flows-standard.md
         kind: normative
         requires_metadata: true
-      - path: Requirements/ui-ux-guidelines-standard.md
+      - path: requirements-standards/ui-ux-guidelines-standard.md
         kind: normative
         requires_metadata: true
 
@@ -81,8 +81,8 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/mission-standard.md
-          - Requirements/use-cases-standard.md
+          - requirements-standards/mission-standard.md
+          - requirements-standards/use-cases-standard.md
           - SWE/security-guidelines.md
       - path: SWE/c4-architecture-guidelines.md
         kind: supporting
@@ -118,7 +118,7 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/use-cases-standard.md
+          - requirements-standards/use-cases-standard.md
           - SWE/security-guidelines.md
       - path: QA/test-case-design.md
         kind: normative
@@ -134,7 +134,7 @@ domains:
         kind: normative
         requires_metadata: true
         depends_on:
-          - Requirements/use-cases-standard.md
+          - requirements-standards/use-cases-standard.md
       - path: QA/post-fix-testing.md
         kind: normative
         requires_metadata: true
@@ -185,12 +185,12 @@ domains:
         kind: supporting
         requires_metadata: true
         depends_on:
-          - Requirements/architecture-standard.md
+          - requirements-standards/architecture-standard.md
       - path: docs/architecture/code-intelligence.md
         kind: supporting
         requires_metadata: true
         depends_on:
-          - Requirements/code-intelligence-standard.md
+          - requirements-standards/code-intelligence-standard.md
 
   shared_sonar:
     path: shared-sonar
@@ -279,34 +279,34 @@ update_rules:
         - Repository.md
         - README.md
         - guidelines-index.yaml
-    Requirements/use-cases-standard.md:
+    requirements-standards/use-cases-standard.md:
       must_review:
         - SWE/architecture-guidelines.md
         - QA/test-strategy.md
         - QA/bug-verification.md
-    Requirements/mission-standard.md:
+    requirements-standards/mission-standard.md:
       must_review:
-        - Requirements/use-cases-standard.md
+        - requirements-standards/use-cases-standard.md
         - SWE/architecture-guidelines.md
         - QA/test-strategy.md
-    Requirements/user-flows-standard.md:
+    requirements-standards/user-flows-standard.md:
       must_review:
-        - Requirements/use-cases-standard.md
+        - requirements-standards/use-cases-standard.md
         - QA/test-case-design.md
         - QA/test-execution-and-reporting.md
-    Requirements/code-intelligence-standard.md:
+    requirements-standards/code-intelligence-standard.md:
       must_review:
         - Product-Repository-Blueprint.md
         - SWE/architecture-guidelines.md
         - SWE/implementation-guidelines.md
         - QA/test-strategy.md
         - docs/architecture/code-intelligence.md
-    Requirements/architecture-standard.md:
+    requirements-standards/architecture-standard.md:
       must_review:
         - Product-Repository-Blueprint.md
         - SWE/architecture-guidelines.md
         - docs/architecture.md
-    Requirements/ui-ux-guidelines-standard.md:
+    requirements-standards/ui-ux-guidelines-standard.md:
       must_review:
         - SWE/implementation-guidelines.md
         - QA/test-case-design.md

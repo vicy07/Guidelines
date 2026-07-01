@@ -4,7 +4,7 @@
 
 Define deterministic behavior for AI agents using this repository as a reusable guidelines baseline for agentic development.
 This repository stores reusable guidelines; downstream product-repository structure guidance is documented in `Product-Repository-Blueprint.md`, with rollout guidance in `Adoption-Guide.md`.
-Requirements standards are owned primarily by `BA` with `PO` co-ownership.
+`requirements-standards` standards are owned primarily by `BA` with `PO` co-ownership.
 
 ## Instruction Priority
 
@@ -13,8 +13,8 @@ Apply instructions in this order:
 2. `AGENTS.md`
 3. `guidelines-index.yaml`
 4. `phases-index.md`
-5. Role/domain guideline file being edited (`Requirements` / `SWE` / `QA` / `SRE`)
-6. `Requirements` standards
+5. Role/domain guideline file being edited (`requirements-standards` / `SWE` / `QA` / `SRE`)
+6. `requirements-standards` standards
 7. `Repository.md`
 8. `Product-Repository-Blueprint.md` (for downstream repository structure recommendations)
 9. `Adoption-Guide.md` (for rollout guidance into new or existing repositories)
