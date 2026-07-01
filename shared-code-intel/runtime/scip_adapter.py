@@ -93,6 +93,10 @@ def _build_symbol_id(language: str, relative_path: str, name: str, start_row: in
     return f"{language}:{relative_path}:{name}:{start_row + 1}"
 
 
+def _occurrence_roles(occurrence: dict[str, Any]) -> int:
+    return int(occurrence.get("symbolRoles", occurrence.get("symbol_roles", 0)) or 0)
+
+
 def _normalize_kind(raw_kind: Any, symbol: str, enclosing_symbol: str) -> str:
     if isinstance(raw_kind, str):
         normalized = SCIP_KIND_MAP.get(raw_kind.strip().lower(), "")
@@ -116,7 +120,7 @@ def _definition_occurrences(document: dict[str, Any]) -> dict[str, dict[str, dic
     definitions: dict[str, dict[str, dict[str, int]]] = {}
     for occurrence in document.get("occurrences") or []:
         symbol = str(occurrence.get("symbol") or "")
-        roles = int(occurrence.get("symbolRoles") or 0)
+        roles = _occurrence_roles(occurrence)
         if not symbol or not (roles & ROLE_DEFINITION):
             continue
         definitions.setdefault(symbol, _normalize_range(occurrence.get("range")))
@@ -254,7 +258,7 @@ def normalize_scip_output(payload: dict[str, Any], repo_root: Path) -> tuple[lis
 
         for occurrence in document.get("occurrences") or []:
             scip_symbol = str(occurrence.get("symbol") or "")
-            roles = int(occurrence.get("symbolRoles") or 0)
+            roles = _occurrence_roles(occurrence)
             if not scip_symbol or (roles & ROLE_DEFINITION):
                 continue
             occurrence_range = _normalize_range(occurrence.get("range"))

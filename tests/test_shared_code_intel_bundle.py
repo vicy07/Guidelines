@@ -74,3 +74,23 @@ def test_readme_mentions_optional_jvm_dotnet_target_and_java_csharp_profile():
     assert ".NET 8" in readme
     assert "scip-java" in readme
     assert "scip-dotnet" in readme
+
+
+def test_baseline_docs_require_generated_code_intel_artifacts_to_stay_out_of_git():
+    blueprint = Path("Product-Repository-Blueprint.md").read_text(encoding="utf-8")
+    adoption = Path("Adoption-Guide.md").read_text(encoding="utf-8")
+    architecture = Path("docs/architecture/code-intelligence.md").read_text(encoding="utf-8")
+
+    assert "must not be committed to git" in blueprint
+    assert "ignore `code-intel/index/`" in blueprint
+    assert "must not be committed to git" in adoption
+    assert "must not be committed to git" in architecture
+
+
+def test_baseline_docs_require_minimal_downstream_rollout_surface():
+    adoption = Path("Adoption-Guide.md").read_text(encoding="utf-8")
+    architecture = Path("docs/architecture/code-intelligence.md").read_text(encoding="utf-8")
+
+    assert "narrowest practical repo-local surface" in adoption
+    assert "Do not expand the main README, docs index, or repo-wide tests" in adoption
+    assert "Do not add extra downstream docs, tests, or planning artifacts" in architecture

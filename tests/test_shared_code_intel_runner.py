@@ -154,6 +154,35 @@ def test_build_docker_command_for_query_places_query_after_separator(tmp_path):
     assert command[-3:] == ["query", "--query", "MyClass.my_method"]
 
 
+def test_build_docker_command_does_not_repeat_code_intel_entrypoint(tmp_path):
+    module = _load_shared_runner()
+
+    repo_root = tmp_path
+    settings = {
+        "image": "guidelines-code-intel:local",
+        "config_path": repo_root / "code-intel" / "config" / "index.yaml",
+        "index_dir": repo_root / "code-intel" / "index",
+        "cache_dir": repo_root / ".code-intel-cache",
+        "engine": "scip",
+    }
+
+    command = module.build_docker_command(
+        docker_path="docker",
+        repo_root=repo_root,
+        action="index",
+        settings=settings,
+    )
+
+    image_index = command.index("guidelines-code-intel:local")
+
+    assert command[image_index + 1 : image_index + 5] == [
+        "--config",
+        "code-intel/config/index.yaml",
+        "--index-dir",
+        "code-intel/index",
+    ]
+
+
 def test_render_resolved_config_returns_non_secret_json_ready_payload(tmp_path):
     module = _load_shared_runner()
 

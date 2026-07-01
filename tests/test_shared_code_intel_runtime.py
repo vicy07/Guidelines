@@ -497,6 +497,67 @@ def test_normalize_scip_output_builds_symbols_and_edges_from_print_json(tmp_path
     assert {"source_id": "python:src/main.py:alpha:3", "target_id": "external:scip-python pip requests 2.32 `requests/get().", "kind": "reference", "file": "src/main.py"} in edges
 
 
+def test_normalize_scip_output_supports_symbol_roles_snake_case_from_scip_python(tmp_path):
+    module_path = Path("shared-code-intel/runtime/scip_adapter.py")
+    spec = importlib.util.spec_from_file_location("shared_code_intel_scip_adapter_snake_case", module_path)
+    assert spec is not None
+    assert spec.loader is not None
+    scip_adapter = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = scip_adapter
+    spec.loader.exec_module(scip_adapter)
+
+    repo_root = tmp_path
+    (repo_root / "src").mkdir()
+    (repo_root / "src" / "main.py").write_text(
+        "\n".join(
+            [
+                "from requests import get",
+                "",
+                "def alpha():",
+                "    return get()",
+                "",
+            ]
+        ),
+        encoding="utf-8",
+    )
+    payload = {
+        "documents": [
+            {
+                "language": "python",
+                "relativePath": "src/main.py",
+                "symbols": [
+                    {
+                        "symbol": "scip-python pip demo 1.0 `src/main`/alpha().",
+                    }
+                ],
+                "occurrences": [
+                    {
+                        "symbol": "scip-python pip demo 1.0 `src/main`/alpha().",
+                        "range": [2, 0, 2, 5],
+                        "symbol_roles": 1,
+                    },
+                    {
+                        "symbol": "scip-python pip requests 2.32 `requests/get().",
+                        "range": [0, 21, 0, 24],
+                        "symbol_roles": 2,
+                    },
+                    {
+                        "symbol": "scip-python pip requests 2.32 `requests/get().",
+                        "range": [3, 11, 3, 14],
+                        "symbol_roles": 8,
+                    },
+                ],
+            }
+        ]
+    }
+
+    files, symbols, edges = scip_adapter.normalize_scip_output(payload=payload, repo_root=repo_root)
+
+    assert files[0]["path"] == "src/main.py"
+    assert any(item["id"] == "python:src/main.py:alpha:3" for item in symbols)
+    assert {"source_id": "python:src/main.py:<module>:1", "target_id": "python:src/main.py:alpha:3", "kind": "contain", "file": "src/main.py"} in edges
+
+
 def test_run_index_in_scip_mode_uses_normalized_scip_symbols_and_ast_grep_chunks(tmp_path, monkeypatch):
     module = _load_runtime()
 

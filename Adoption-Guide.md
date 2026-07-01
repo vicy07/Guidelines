@@ -104,8 +104,11 @@ Architecture documentation rule:
 ## Integration Rules
 
 - Reuse existing code and workflow conventions where they are already effective.
+- For retrofits, prefer the narrowest practical repo-local surface that satisfies the baseline first.
+- Do not expand the main README, docs index, or repo-wide tests during the first code-intelligence rollout unless the repository explicitly asks for it or an existing contract would otherwise fail.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
 - Prefer repo-local wrappers over copied logic, prefer `shared-audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `shared-code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py` or `trivy.py` in the baseline model.
+- Generated `code-intel/index/` artifacts are mandatory runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 
 ## Suggested Consumption Pattern

@@ -79,6 +79,8 @@ The runtime may additionally persist raw tool-native artifacts, for example:
 These raw artifacts are optional supplements. They do not replace the mandatory normalized JSON contract.
 
 The artifact schema can evolve, but these logical responsibilities must remain stable unless the baseline is intentionally migrated.
+The generated JSON artifacts are required runtime outputs, but they must not be committed to git by downstream repositories.
+Downstream repositories should ignore `code-intel/index/` and any raw tool-native artifact directories beneath that tree.
 
 ## Repo-Local Runtime Contract
 
@@ -106,6 +108,12 @@ When code-intelligence artifacts are present and fresh enough for the current re
 - agents should prefer symbol, graph, and chunk retrieval over text-only search,
 - agents should use text search mainly for bootstrapping, validation, or locating non-code assets,
 - agents must document stale or missing index coverage as `Evidence not available` when the index cannot support a requested analysis.
+
+Downstream rollout discipline:
+
+- apply the baseline through the smallest repo-local surface that works first,
+- keep the first rollout focused on `code-intel.py`, repo-local config, ignore rules, and `docs/architecture/code-intelligence.md`,
+- Do not add extra downstream docs, tests, or planning artifacts unless the repository explicitly asks for them or existing repository contracts require them.
 
 ## Relationship to Future Capabilities
 

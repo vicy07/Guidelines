@@ -220,7 +220,9 @@ Mandatory baseline rules:
 - call, dependency, containment, and reference relationships must be materialized as graph edges,
 - semantic retrieval must operate at symbol or chunk granularity rather than file-only granularity,
 - reindexing must be incremental for touched files and directly affected graph relationships,
-- context assembly for agentic retrieval must follow `AST -> Graph -> Semantic Search -> LLM`.
+- context assembly for agentic retrieval must follow `AST -> Graph -> Semantic Search -> LLM`,
+- generated `code-intel/index/` artifacts must not be committed to git,
+- downstream repositories must ignore `code-intel/index/` and any raw tool-native artifact directories under that tree.
 
 Recommended integration model:
 

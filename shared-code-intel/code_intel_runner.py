@@ -17,7 +17,6 @@ DEFAULT_INDEX_DIR = Path("code-intel/index")
 DEFAULT_CACHE_DIR = Path(".code-intel-cache")
 DEFAULT_CONTAINER_CACHE_DIR = "/cache/code-intel"
 DEFAULT_CONTAINER_WORKDIR = "/workspace"
-DEFAULT_TOOL_COMMAND = "code-intel"
 DEFAULT_ARTIFACT_FILENAMES = {
     "manifest": "manifest.json",
     "files": "files.json",
@@ -174,7 +173,6 @@ def build_docker_command(
         "-w",
         DEFAULT_CONTAINER_WORKDIR,
         settings["image"],
-        DEFAULT_TOOL_COMMAND,
         "--config",
         _repo_relative_path(Path(settings["config_path"]), root),
         "--index-dir",
