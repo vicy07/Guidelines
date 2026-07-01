@@ -1,4 +1,4 @@
-version: 3.1.0
+version: 3.2.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -178,6 +178,9 @@ domains:
       - path: docs/architecture.md
         kind: supporting
         requires_metadata: true
+      - path: docs/architecture/code-intelligence.md
+        kind: supporting
+        requires_metadata: true
 
   shared_sonar:
     path: shared-sonar
@@ -196,6 +199,43 @@ domains:
         kind: supporting
         requires_metadata: false
       - path: shared-otel/telemetry.py
+        kind: supporting
+        requires_metadata: false
+
+  shared_code_intel:
+    path: shared-code-intel
+    files:
+      - path: shared-code-intel/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/Dockerfile
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/requirements.txt
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/code_intel_runner.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/example_code_intel.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/__init__.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/cli.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/toolchain.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/scip_adapter.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/ast_grep_adapter.py
+        kind: supporting
+        requires_metadata: false
+      - path: shared-code-intel/runtime/fallback_tree_sitter.py
         kind: supporting
         requires_metadata: false
 

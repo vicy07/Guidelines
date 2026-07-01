@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
-Last Updated: 2026-06-24
+Last Updated: 2026-07-01
 
 ## Metadata (required)
 
@@ -34,6 +34,7 @@ Last Updated: 2026-06-24
 - Responsibility boundaries between test levels must be explicit and non-overlapping.
 - Security checks must align with `SWE/security-guidelines.md`.
 - The strategy must verify the repository observability stack and OTLP contract for the repository type.
+- The strategy must verify the mandatory code-intelligence baseline, including the repo-local `code-intel.py` entrypoint, required JSON artifacts, and the documented incremental reindex behavior.
 - If evidence is missing, explicitly state `Evidence not available`.
 
 ## Quality Checklist
@@ -43,6 +44,7 @@ Last Updated: 2026-06-24
 - There is a minimum smoke/regression set for CI.
 - Test environments and test data management rules are documented.
 - Observability checks confirm that logs, metrics, traces, and OTLP configuration behave as documented for the repository type.
+- Code-intelligence checks confirm that manifest, file, symbol, edge, and chunk artifacts are generated and correspond to the documented repository scope.
 - Release requires a mandatory security baseline (SAST/SCA and critical auth/authz checks).
 - Quality gates have measurable thresholds and a `go/no-go` rule.
 

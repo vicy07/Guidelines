@@ -1,8 +1,8 @@
 # Guidelines Repository Architecture
 
-Version: 1.2.0
+Version: 1.3.0
 Owner: Repository Maintainer
-Last Updated: 2026-06-27
+Last Updated: 2026-07-01
 
 ## Overview
 
@@ -20,7 +20,8 @@ The primary experience is:
 - `Requirements/`, `SWE/`, `QA/`, `SRE/` - role-owned standards layer.
 - `Product-Repository-Blueprint.md`, `Adoption-Guide.md` - downstream adoption layer.
 - `guidelines/` - reusable guidance patterns and anti-patterns.
-- `shared-sonar/`, `shared-trivy/`, `shared-otel/` - reusable engineering tooling layer.
+- `shared-sonar/`, `shared-trivy/`, `shared-otel/`, `shared-code-intel/` - reusable engineering tooling layer.
+- `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract.
 
 ## Primary Flow
 
@@ -28,7 +29,7 @@ For most consumers, the intended path is:
 
 1. read the operating contract,
 2. adopt the downstream project blueprint,
-3. add the minimum artifacts and delivery gates,
+3. add the minimum artifacts, delivery gates, and code-intelligence baseline,
 4. reuse shared tooling where it reduces duplication.
 
 ## Simplicity Rule

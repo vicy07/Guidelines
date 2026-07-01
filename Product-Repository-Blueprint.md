@@ -23,6 +23,7 @@ Define the minimum recommended baseline for downstream software product reposito
     architecture.md
     technical-architecture.md
     architecture/
+      code-intelligence.md
       adr/
     qa/
       test-strategy.md
@@ -39,7 +40,7 @@ Define the minimum recommended baseline for downstream software product reposito
       ci.yml
       deploy.yml
   README.md
-  agent.md
+  AGENTS.md
   audits.py
   audits/
     config/
@@ -48,6 +49,16 @@ Define the minimum recommended baseline for downstream software product reposito
     scanners/
       sonar.py
       trivy.py
+  code-intel.py
+  code-intel/
+    config/
+      index.yaml
+    index/
+      manifest.json
+      files.json
+      symbols.json
+      edges.json
+      chunks.json
 ```
 
 ## Structure Rules
@@ -56,11 +67,13 @@ Define the minimum recommended baseline for downstream software product reposito
 - `docs/architecture.md` is the repository-level architecture entry point and navigation hub.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
+- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
 - `tests/` contains automated verification assets organized by test level.
 - `audits/` contains repo-local orchestration and configuration for quality and security scanners.
+- `code-intel/` contains repo-local code-intelligence configuration and generated index artifacts and must remain separate from `audits/`.
 - `.github/workflows/` contains delivery automation that enforces minimum quality gates.
 
 ## Minimum Delivery Requirements
@@ -182,17 +195,53 @@ Recommended reuse model:
 
 If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
 
+### 7. Code Intelligence Baseline
+
+Every downstream repository must provide a mandatory code-intelligence baseline.
+
+Required control surface:
+
+- `code-intel.py`
+- `code-intel/config/index.yaml`
+- `code-intel/index/manifest.json`
+- `code-intel/index/files.json`
+- `code-intel/index/symbols.json`
+- `code-intel/index/edges.json`
+- `code-intel/index/chunks.json`
+- `docs/architecture/code-intelligence.md`
+
+Mandatory baseline rules:
+
+- code understanding must be AST-first and must not rely on text search alone when indexed artifacts are available,
+- the canonical baseline toolchain is `SCIP + ast-grep + rg`,
+- `SCIP` is the preferred semantic source when the repository has configured indexers for its enabled languages,
+- Tree-sitter may remain only as a fallback path until `SCIP` normalization reaches parity for the active language set,
+- functions, classes, interfaces, methods, and modules must be indexed as first-class symbols,
+- call, dependency, containment, and reference relationships must be materialized as graph edges,
+- semantic retrieval must operate at symbol or chunk granularity rather than file-only granularity,
+- reindexing must be incremental for touched files and directly affected graph relationships,
+- context assembly for agentic retrieval must follow `AST -> Graph -> Semantic Search -> LLM`.
+
+Recommended integration model:
+
+1. Keep repository-specific scope, exclusions, language enablement, and embedding settings in the product repo.
+2. Use `code-intel.py` as the repo-local control surface instead of overloading `audits.py`.
+3. Reuse shared logic from this repository's `shared-code-intel/` as the lower-level runtime behind that entrypoint.
+4. Keep `SCIP` indexer commands repo-local because they are language-specific, but run the baseline through a reproducible container path when practical.
+5. Do not require a host parser installation as the only supported execution path.
+6. Treat `code-intel/` as an extensible repo-local capability area; adjacent generators such as C4 diagram builders may live there later, but the AST index is mandatory first.
+
 ## Minimum Artifact Set
 
 The minimum artifact set for a downstream product repository is:
 
 ### Governance and Operating Contract
 
-- `agent.md`
+- `AGENTS.md`
 
 Governance rule:
 
-- `agent.md` must link to the governing `Guidelines` repository or the adopted baseline documents used by the repository.
+- `AGENTS.md` must link to the governing `Guidelines` repository or the adopted baseline documents used by the repository.
 - preferred form: use public GitHub links for the repository reference point and for the primary baseline documents.
 
 ### Product Definition
@@ -205,6 +254,7 @@ Governance rule:
 
 - `docs/architecture.md`
 - `docs/technical-architecture.md`
+- `docs/architecture/code-intelligence.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
 - documented observability stack and OTLP contract
@@ -215,6 +265,8 @@ Governance rule:
 - `.github/workflows/deploy.yml`
 - `audits.py`
 - repo-local `audits/`
+- `code-intel.py`
+- repo-local `code-intel/`
 - `audits/config/sonar-project.properties`
 - `audits/config/trivy.yaml`
 - at least one test suite under `tests/`
@@ -237,14 +289,15 @@ This requirement applies only after a compliance audit is run. It is not a manda
 
 - `BA` and `PO` own product framing and behavioral intent.
 - `SWE` owns architecture, implementation, and application-level support for the visible last-commit line.
-- `QA` owns test strategy, release evidence, and merge-quality verification.
-- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, and release-time security scanning gates.
+- `SWE` also owns the code-intelligence architecture contract, repo-local `code-intel.py` implementation, and symbol/index schema choices inside the baseline.
+- `QA` owns test strategy, release evidence, merge-quality verification, and verification that required code-intelligence artifacts are produced as documented.
+- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, release-time security scanning gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
 
 Cross-role boundary note:
 
 - `SWE` is accountable for implementation and testability hooks.
-- `QA` is accountable for verification content and gate interpretation.
-- `SRE` is accountable for deployment safety and runtime confidence after release.
+- `QA` is accountable for verification content, gate interpretation, and artifact-level validation of the code-intelligence baseline.
+- `SRE` is accountable for deployment safety, runtime confidence after release, and operational handling of code-intelligence caches or generated artifacts.
 
 ## Definition of Ready
 
@@ -256,5 +309,6 @@ A downstream product repository is ready for agentic delivery when:
 - SonarQube integration is wired for supported codebases through the repo-local audit entrypoint,
 - Trivy integration is wired for repository filesystem scanning and deployable-image scanning where applicable through the repo-local audit entrypoint,
 - the observability stack and OTLP contract are documented for the repository type,
+- the code-intelligence baseline is wired through `code-intel.py`, documented in `docs/architecture/code-intelligence.md`, and produces the required JSON artifacts,
 - the visible last-commit line is implemented for user-facing products,
 - the minimum artifact set exists and has clear ownership.

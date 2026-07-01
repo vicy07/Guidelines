@@ -24,6 +24,7 @@ This repository governs how downstream product repositories should organize deli
   shared-sonar/
   shared-trivy/
   shared-otel/
+  shared-code-intel/
   scripts/
   tests/
   .github/
@@ -49,6 +50,7 @@ This repository governs how downstream product repositories should organize deli
 - `shared-sonar/` - reusable SonarQube runner logic for product repositories.
 - `shared-trivy/` - reusable Trivy runner logic for product repositories.
 - `shared-otel/` - reusable OpenTelemetry starter pattern for product repositories.
+- `shared-code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories.
 - `scripts/` - repository validation and maintenance tooling.
 - `tests/` - regression coverage for repository-owned code and helpers.
 
@@ -68,6 +70,7 @@ This repository governs how downstream product repositories should organize deli
 - `Repository.md` - structure and navigation contract for this repository.
 - `Product-Repository-Blueprint.md` - downstream project baseline.
 - `Adoption-Guide.md` - onboarding and migration guidance.
+- `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract.
 
 ## Definition of Ready
 
@@ -75,6 +78,7 @@ This repository is structurally ready when:
 
 - root files and folders match this document,
 - `README.md`, `Repository.md`, `Product-Repository-Blueprint.md`, and `Adoption-Guide.md` describe the same baseline,
+- `docs/architecture/code-intelligence.md` and `shared-code-intel/` describe the same code-intelligence baseline,
 - `phases-index.md` and `guidelines-index.yaml` point to real files and active roles,
 - normative files contain required metadata fields,
 - validation passes with `npm run validate-guidelines`.

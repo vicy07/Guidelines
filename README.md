@@ -13,7 +13,7 @@ It defines:
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
 - A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, observability, and user-visible release traceability.
-- A place for reusable cross-repository helpers such as `shared-audits/`, `shared-sonar/`, `shared-trivy/`, and `shared-otel/`.
+- A place for reusable cross-repository helpers such as `shared-audits/`, `shared-sonar/`, `shared-trivy/`, `shared-otel/`, and `shared-code-intel/`.
 
 ## What This Repo Is Not
 
@@ -30,6 +30,7 @@ For most readers:
 3. `shared-audits/README.md` - shared multi-scanner audit integration model.
 4. `shared-sonar/README.md` - lower-level shared SonarQube runner model.
 5. `shared-trivy/README.md` - lower-level shared Trivy runner model.
+6. `shared-code-intel/README.md` - lower-level shared `SCIP + ast-grep + rg` code intelligence runner model.
 
 For repository maintenance and agent work:
 
@@ -57,11 +58,12 @@ The full baseline lives in `Product-Repository-Blueprint.md`.
 
 This repository expects downstream product repositories to define at least:
 
-- an `agent.md` file that points to the governing `Guidelines` baseline,
+- an `AGENTS.md` file that points to the governing `Guidelines` baseline,
 - a CI path that runs on pull requests and protected-branch pushes,
 - a documented deployment path with rollback and post-deploy verification,
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
+- a mandatory code-intelligence baseline with `code-intel.py`, repo-local `code-intel/`, a `SCIP + ast-grep + rg` AST-first index path, and `docs/architecture/code-intelligence.md`,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
@@ -78,7 +80,9 @@ This repository expects downstream product repositories to define at least:
 - `shared-sonar/` - reusable lower-level SonarQube runner logic
 - `shared-trivy/` - reusable lower-level Trivy runner logic
 - `shared-otel/` - reusable Python OpenTelemetry starter pattern intended to be copied or vendored into product repositories
+- `shared-code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories
 - `docs/architecture.md` - simple explanation of repository layers
+- `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract
 - `scripts/` - repository validation helpers
 - `tests/` - regression tests for shared tooling
 
