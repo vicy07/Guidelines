@@ -31,5 +31,5 @@ jobs:
       - name: Validate guidelines
         run: npm run validate-guidelines
 
-      - name: Run shared helper tests
-        run: python -m pytest tests/test_shared_otel.py tests/test_shared_sonar_runner.py -q
+      - name: Run tool helper tests
+        run: python -m pytest tests/test_tools_otel.py tests/test_tools_sonar_runner.py -q
