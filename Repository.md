@@ -14,17 +14,22 @@ This repository governs how downstream product repositories should organize deli
 ## Required Root Structure
 
 ```text
-<guidelines-repo>/
-  requirements-standards/
-  SWE/
-  QA/
-  SRE/
+  <guidelines-repo>/
+  Agents/
+  Areas/
+    requirements/
+    ux/
+    swe/
+    qa/
+    sre/
+  Tools/
+    audits/
+    sonar/
+    trivy/
+    otel/
+    code-intel/
   docs/
   guidelines/
-  shared-sonar/
-  shared-trivy/
-  shared-otel/
-  shared-code-intel/
   scripts/
   tests/
   .github/
@@ -39,18 +44,23 @@ This repository governs how downstream product repositories should organize deli
 
 ## Top-Level Ownership
 
-- `requirements-standards/` - shared requirements standards owned by `BA` with `PO` co-ownership.
-- `SWE/` - architecture, implementation, and engineering-control standards.
-- `QA/` - test strategy, evidence, and release-quality standards.
-- `SRE/` - deployment readiness, operability, and incident standards.
+- `Agents/` - role profiles, ownership boundaries, and navigation from roles to governing area standards.
+- `Areas/` - container for area-owned standards and their README/navigation files.
+- `Tools/` - reusable tooling, runtime helpers, and shared lower-level execution models for downstream repositories.
+- `Areas/requirements/` - shared requirements standards owned by `BA` with `PO` co-ownership.
+- `Areas/ux/` - UI/UX standards owned by `UX`, with `BA`/`PO` governance alignment for product-behavior impacts.
+- `Areas/swe/` - architecture, implementation, and engineering-control standards.
+- `Areas/qa/` - test strategy, evidence, and release-quality standards.
+- `Areas/sre/` - deployment readiness, operability, and incident standards.
 - `Product-Repository-Blueprint.md` - canonical minimum downstream project baseline.
 - `Adoption-Guide.md` - standard onboarding path for new and existing projects.
 - `guidelines/` - shared principles, patterns, playbooks, and anti-patterns.
 - `docs/` - small supporting repository-level documentation set.
-- `shared-sonar/` - reusable SonarQube runner logic for product repositories.
-- `shared-trivy/` - reusable Trivy runner logic for product repositories.
-- `shared-otel/` - reusable OpenTelemetry starter pattern for product repositories.
-- `shared-code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories.
+- `Tools/sonar/` - reusable SonarQube runner logic for product repositories.
+- `Tools/trivy/` - reusable Trivy runner logic for product repositories.
+- `Tools/otel/` - reusable OpenTelemetry starter pattern for product repositories.
+- `Tools/code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories.
+- `Tools/audits/` - reusable multi-scanner audit orchestration for product repositories.
 - `scripts/` - repository validation and maintenance tooling.
 - `tests/` - regression coverage for repository-owned code and helpers.
 
@@ -60,7 +70,9 @@ This repository governs how downstream product repositories should organize deli
 2. Use `Product-Repository-Blueprint.md` for downstream repository structure and minimum delivery requirements.
 3. Use `Adoption-Guide.md` when applying these standards to a new or existing project.
 4. Use `AGENTS.md`, `phases-index.md`, and `guidelines-index.yaml` when you need the repository's maintenance contract and dependency map.
-5. Open the role-owned standards in `requirements-standards/`, `SWE/`, `QA/`, and `SRE/` for role-specific rules.
+5. Open `Agents/` for role profiles and handoff context.
+6. Open the area-owned standards in `Areas/requirements/`, `Areas/ux/`, `Areas/swe/`, `Areas/qa/`, and `Areas/sre/` for normative rules.
+7. Open `Tools/` for reusable runners and shared execution helpers.
 
 ## Governance Files
 
@@ -78,7 +90,7 @@ This repository is structurally ready when:
 
 - root files and folders match this document,
 - `README.md`, `Repository.md`, `Product-Repository-Blueprint.md`, and `Adoption-Guide.md` describe the same baseline,
-- `docs/architecture/code-intelligence.md` and `shared-code-intel/` describe the same code-intelligence baseline,
+- `docs/architecture/code-intelligence.md` and `Tools/code-intel/` describe the same code-intelligence baseline,
 - `phases-index.md` and `guidelines-index.yaml` point to real files and active roles,
 - normative files contain required metadata fields,
 - validation passes with `npm run validate-guidelines`.

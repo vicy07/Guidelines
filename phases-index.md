@@ -1,8 +1,8 @@
 # Phases Index and Role Matrix
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-19
+Last Updated: 2026-07-05
 
 ## Purpose
 
@@ -28,12 +28,13 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 
 ## Role-to-Guideline Links
 
-- PO: `requirements-standards/README.md` (co-owner of requirements standards)
-- BA: `requirements-standards/README.md` (primary owner of requirements standards; `PO` is co-owner)
-- SWE: `SWE/README.md`
-- QA: `QA/README.md`
-- SRE: `SRE/README.md`
-- Shared product behavior source: `requirements-standards/README.md`
+- PO: `Agents/PO.md` (role profile; governing standards remain in `Areas/requirements/`)
+- BA: `Agents/BA.md` (role profile; governing standards remain in `Areas/requirements/`)
+- UX: `Agents/UX.md` (role profile; governing standards remain in `Areas/ux/`)
+- SWE: `Agents/SWE.md` (role profile; governing standards remain in `Areas/swe/`)
+- QA: `Agents/QA.md` (role profile; governing standards remain in `Areas/qa/`)
+- SRE: `Agents/SRE.md` (role profile; governing standards remain in `Areas/sre/`)
+- Shared product behavior source: `Areas/requirements/README.md`
 - Downstream product repository template: `Product-Repository-Blueprint.md`
 
 ## Mandatory Rule

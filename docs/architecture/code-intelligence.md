@@ -9,7 +9,7 @@ Last Updated: 2026-07-01
 Define the mandatory code-intelligence baseline that this `Guidelines` repository imposes on downstream product repositories.
 This document is the normative design contract for the baseline itself.
 Each downstream project must implement that contract in its own `docs/architecture/code-intelligence.md`.
-The required section structure for that downstream document is governed separately by `requirements-standards/code-intelligence-standard.md`.
+The required section structure for that downstream document is governed separately by `Areas/requirements/code-intelligence-standard.md`.
 
 ## Ownership Split
 

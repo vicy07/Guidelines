@@ -13,7 +13,7 @@ It defines:
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
 - A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, observability, and user-visible release traceability.
-- A place for reusable cross-repository helpers such as `shared-audits/`, `shared-sonar/`, `shared-trivy/`, `shared-otel/`, and `shared-code-intel/`.
+- A place for reusable cross-repository helpers under `Tools/` such as `Tools/audits/`, `Tools/sonar/`, `Tools/trivy/`, `Tools/otel/`, and `Tools/code-intel/`.
 
 ## What This Repo Is Not
 
@@ -27,16 +27,17 @@ For most readers:
 
 1. `Product-Repository-Blueprint.md` - downstream project structure and minimum requirements.
 2. `Adoption-Guide.md` - how to attach these guidelines to new and existing repositories.
-3. `shared-audits/README.md` - shared multi-scanner audit integration model.
-4. `shared-sonar/README.md` - lower-level shared SonarQube runner model.
-5. `shared-trivy/README.md` - lower-level shared Trivy runner model.
-6. `shared-code-intel/README.md` - lower-level shared `SCIP + ast-grep + rg` code intelligence runner model.
+3. `Tools/audits/README.md` - shared multi-scanner audit integration model.
+4. `Tools/sonar/README.md` - lower-level shared SonarQube runner model.
+5. `Tools/trivy/README.md` - lower-level shared Trivy runner model.
+6. `Tools/code-intel/README.md` - lower-level shared `SCIP + ast-grep + rg` code intelligence runner model.
 
 For repository maintenance and agent work:
 
 1. `AGENTS.md` - instruction priority and operating contract.
 2. `phases-index.md` - lifecycle phase and active-role map.
 3. `guidelines-index.yaml` - file ownership, dependencies, and validation contract.
+4. `Agents/` - role profiles and role-to-area navigation.
 
 ## Downstream Product Baseline
 
@@ -69,18 +70,22 @@ This repository expects downstream product repositories to define at least:
 
 ## Repository Map
 
-- `requirements-standards/` - requirement standards owned by `BA` with `PO` co-ownership
-- `SWE/` - engineering design and implementation standards
-- `QA/` - verification and quality standards
-- `SRE/` - reliability, deployment, and operations standards
+- `Agents/` - role profiles, ownership boundaries, and role-to-area navigation.
+- `Areas/` - top-level container for area-owned standards.
+- `Tools/` - reusable tooling layer and runtime helpers for downstream repositories.
+- `Areas/requirements/` - requirement standards owned by `BA` with `PO` co-ownership.
+- `Areas/ux/` - UI/UX standards owned by `UX`, governed in coordination with `BA`/`PO`.
+- `Areas/swe/` - engineering design and implementation standards.
+- `Areas/qa/` - verification and quality standards.
+- `Areas/sre/` - reliability, deployment, and operations standards.
 - `Product-Repository-Blueprint.md` - canonical downstream repository baseline
 - `Adoption-Guide.md` - rollout guidance for new and existing projects
 - `guidelines/` - reusable principles, patterns, playbooks, and anti-patterns
-- `shared-audits/` - reusable multi-scanner audit orchestration
-- `shared-sonar/` - reusable lower-level SonarQube runner logic
-- `shared-trivy/` - reusable lower-level Trivy runner logic
-- `shared-otel/` - reusable Python OpenTelemetry starter pattern intended to be copied or vendored into product repositories
-- `shared-code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories
+- `Tools/audits/` - reusable multi-scanner audit orchestration
+- `Tools/sonar/` - reusable lower-level SonarQube runner logic
+- `Tools/trivy/` - reusable lower-level Trivy runner logic
+- `Tools/otel/` - reusable Python OpenTelemetry starter pattern intended to be copied or vendored into product repositories
+- `Tools/code-intel/` - reusable `SCIP + ast-grep + rg` code intelligence runner logic for product repositories
 - `docs/architecture.md` - simple explanation of repository layers
 - `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract
 - `scripts/` - repository validation helpers

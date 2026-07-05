@@ -1,8 +1,8 @@
 # Guidelines Repository Architecture
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-01
+Last Updated: 2026-07-05
 
 ## Overview
 
@@ -10,17 +10,19 @@ This repository is organized around a small practical baseline for agentic devel
 The primary experience is:
 
 1. governance and navigation,
-2. role-owned standards,
-3. downstream product-repository structure,
-4. minimum delivery requirements.
+2. role profiles,
+3. area-owned standards,
+4. downstream product-repository structure,
+5. minimum delivery requirements.
 
 ## Repository Layers
 
 - `AGENTS.md`, `phases-index.md`, `guidelines-index.yaml` - operating contract and navigation layer.
-- `requirements-standards/`, `SWE/`, `QA/`, `SRE/` - role-owned standards layer.
+- `Agents/` - role-profile layer that explains accountability, inputs, outputs, and handoff expectations.
+- `Areas/requirements/`, `Areas/ux/`, `Areas/swe/`, `Areas/qa/`, `Areas/sre/` - area-owned standards layer.
 - `Product-Repository-Blueprint.md`, `Adoption-Guide.md` - downstream adoption layer.
 - `guidelines/` - reusable guidance patterns and anti-patterns.
-- `shared-sonar/`, `shared-trivy/`, `shared-otel/`, `shared-code-intel/` - reusable engineering tooling layer.
+- `Tools/audits/`, `Tools/sonar/`, `Tools/trivy/`, `Tools/otel/`, `Tools/code-intel/` - reusable engineering tooling layer.
 - `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract.
 
 ## Primary Flow
@@ -33,7 +35,7 @@ For most consumers, the intended path is:
 4. reuse shared tooling where it reduces duplication.
 
 This repository-level architecture note is a supporting document for the `Guidelines` repo itself.
-The required section structure for a downstream product repository's `docs/architecture.md` is governed separately by `requirements-standards/architecture-standard.md`.
+The required section structure for a downstream product repository's `docs/architecture.md` is governed separately by `Areas/requirements/architecture-standard.md`.
 
 ## Simplicity Rule
 

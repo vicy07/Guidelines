@@ -64,10 +64,10 @@ Define the minimum recommended baseline for downstream software product reposito
 ## Structure Rules
 
 - `docs/requirements/` is the product behavior source of truth.
-- `docs/architecture.md` is the repository-level architecture entry point and navigation hub and should follow the content contract from `requirements-standards/architecture-standard.md`.
+- `docs/architecture.md` is the repository-level architecture entry point and navigation hub and should follow the content contract from `Areas/requirements/architecture-standard.md`.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
-- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository and should follow the content contract from `requirements-standards/code-intelligence-standard.md`.
+- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository and should follow the content contract from `Areas/requirements/code-intelligence-standard.md`.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
@@ -117,8 +117,8 @@ Every supported codebase must provide:
 Recommended integration model:
 
 1. Keep project-specific config in the product repo.
-2. Reuse shared logic from this repository's `shared-audits/` as the primary local orchestration layer.
-3. Use `shared-sonar/sonar_runner.py` as the lower-level Sonar runner behind that orchestration.
+2. Reuse shared logic from this repository's `Tools/audits/` as the primary local orchestration layer.
+3. Use `Tools/sonar/sonar_runner.py` as the lower-level Sonar runner behind that orchestration.
 4. Do not add a root `sonar.py` entrypoint as part of the baseline model.
 5. Fail the check if the SonarQube quality gate is not `OK`.
 
@@ -134,9 +134,9 @@ Every repository must provide:
 Recommended integration model:
 
 1. Keep project-specific targets, suppressions, severity thresholds, and report wiring in the product repo.
-2. Reuse shared logic from this repository's `shared-audits/` as the primary local orchestration layer.
-3. Use `shared-trivy/trivy_runner.py` as the lower-level Trivy runner behind that orchestration.
-4. When the repository adopts `shared-audits`, Trivy must run through Docker and must not require a host `trivy` installation on `PATH`.
+2. Reuse shared logic from this repository's `Tools/audits/` as the primary local orchestration layer.
+3. Use `Tools/trivy/trivy_runner.py` as the lower-level Trivy runner behind that orchestration.
+4. When the repository adopts `Tools/audits`, Trivy must run through Docker and must not require a host `trivy` installation on `PATH`.
 5. Do not add a root `trivy.py` entrypoint as part of the baseline model.
 6. Fail the gate on `HIGH` and `CRITICAL` findings, or on an explicitly documented equivalent threshold.
 
@@ -190,7 +190,7 @@ Repository-type expectations:
 
 Recommended reuse model:
 
-- Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
+- Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
 - Non-Python repositories should keep the same OTLP contract and use a local implementation or a language-specific shared helper.
 
 If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
@@ -228,7 +228,7 @@ Recommended integration model:
 
 1. Keep repository-specific scope, exclusions, language enablement, and embedding settings in the product repo.
 2. Use `code-intel.py` as the repo-local control surface instead of overloading `audits.py`.
-3. Reuse shared logic from this repository's `shared-code-intel/` as the lower-level runtime behind that entrypoint.
+3. Reuse shared logic from this repository's `Tools/code-intel/` as the lower-level runtime behind that entrypoint.
 4. Keep `SCIP` indexer commands repo-local because they are language-specific, but run the baseline through a reproducible container path when practical.
 5. Do not require a host parser installation as the only supported execution path.
 6. Treat `code-intel/` as an extensible repo-local capability area; adjacent generators such as C4 diagram builders may live there later, but the AST index is mandatory first.

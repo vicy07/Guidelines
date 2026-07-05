@@ -1,8 +1,9 @@
-version: 3.2.0
+version: 3.7.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
   requirements_co_owner: PO
+  ux_guidelines_owner: UX
 
 phase_model:
   index_file: phases-index.md
@@ -20,6 +21,7 @@ phase_model:
   roles:
     - PO
     - BA
+    - UX
     - SWE
     - QA
     - SRE
@@ -47,120 +49,184 @@ domains:
         kind: normative
         requires_metadata: true
 
+  agents:
+    path: Agents
+    files:
+      - path: Agents/README.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/README.md
+      - path: Agents/BA.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/requirements/README.md
+          - Areas/requirements/mission-standard.md
+          - Areas/requirements/use-cases-standard.md
+          - Areas/requirements/user-flows-standard.md
+      - path: Agents/PO.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/requirements/README.md
+          - Areas/requirements/mission-standard.md
+          - Areas/requirements/use-cases-standard.md
+      - path: Agents/UX.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/ux/README.md
+          - Areas/ux/ui-ux-guidelines-standard.md
+          - Areas/requirements/README.md
+      - path: Agents/SWE.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/swe/README.md
+          - Areas/swe/architecture-guidelines.md
+          - Areas/swe/implementation-guidelines.md
+          - Areas/swe/security-guidelines.md
+      - path: Agents/QA.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/qa/README.md
+          - Areas/qa/test-strategy.md
+          - Areas/qa/test-case-design.md
+          - Areas/qa/test-execution-and-reporting.md
+      - path: Agents/SRE.md
+        kind: supporting
+        requires_metadata: true
+        depends_on:
+          - Areas/sre/README.md
+          - Areas/sre/sre-operations-guidelines.md
+          - Areas/sre/incident-management-guidelines.md
+
   requirements:
-    path: requirements-standards
+    path: Areas/requirements
     owner_role: BA
     co_owner_role: PO
     files:
-      - path: requirements-standards/architecture-standard.md
+      - path: Areas/requirements/architecture-standard.md
         kind: normative
         requires_metadata: true
-      - path: requirements-standards/code-intelligence-standard.md
+      - path: Areas/requirements/code-intelligence-standard.md
         kind: normative
         requires_metadata: true
-      - path: requirements-standards/mission-standard.md
+      - path: Areas/requirements/mission-standard.md
         kind: normative
         requires_metadata: true
-      - path: requirements-standards/use-cases-standard.md
+      - path: Areas/requirements/use-cases-standard.md
         kind: normative
         requires_metadata: true
-      - path: requirements-standards/user-flows-standard.md
-        kind: normative
-        requires_metadata: true
-      - path: requirements-standards/ui-ux-guidelines-standard.md
+      - path: Areas/requirements/user-flows-standard.md
         kind: normative
         requires_metadata: true
 
-  swe:
-    path: SWE
+  ux:
+    path: Areas/ux
+    owner_role: UX
+    governed_by_roles: [BA, PO]
     files:
-      - path: SWE/README.md
+      - path: Areas/ux/README.md
         kind: supporting
         requires_metadata: true
-      - path: SWE/architecture-guidelines.md
+      - path: Areas/ux/ui-ux-guidelines-standard.md
+        kind: normative
+        requires_metadata: true
+        consumer_roles: [SWE, QA, SRE]
+
+  swe:
+    path: Areas/swe
+    files:
+      - path: Areas/swe/README.md
+        kind: supporting
+        requires_metadata: true
+      - path: Areas/swe/architecture-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - requirements-standards/mission-standard.md
-          - requirements-standards/use-cases-standard.md
-          - SWE/security-guidelines.md
-      - path: SWE/c4-architecture-guidelines.md
+          - Areas/requirements/mission-standard.md
+          - Areas/requirements/use-cases-standard.md
+          - Areas/swe/security-guidelines.md
+      - path: Areas/swe/c4-architecture-guidelines.md
         kind: supporting
         requires_metadata: false
         depends_on:
-          - SWE/architecture-guidelines.md
-      - path: SWE/implementation-guidelines.md
+          - Areas/swe/architecture-guidelines.md
+      - path: Areas/swe/implementation-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - SWE/architecture-guidelines.md
-          - QA/test-strategy.md
-      - path: SWE/security-guidelines.md
+          - Areas/swe/architecture-guidelines.md
+          - Areas/qa/test-strategy.md
+      - path: Areas/swe/security-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - SWE/architecture-guidelines.md
-          - QA/test-strategy.md
-      - path: SWE/root-cause-analysis.md
+          - Areas/swe/architecture-guidelines.md
+          - Areas/qa/test-strategy.md
+      - path: Areas/swe/root-cause-analysis.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - SWE/architecture-guidelines.md
-          - QA/bug-verification.md
+          - Areas/swe/architecture-guidelines.md
+          - Areas/qa/bug-verification.md
 
   qa:
-    path: QA
+    path: Areas/qa
     files:
-      - path: QA/README.md
+      - path: Areas/qa/README.md
         kind: supporting
         requires_metadata: true
-      - path: QA/test-strategy.md
+      - path: Areas/qa/test-strategy.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - requirements-standards/use-cases-standard.md
-          - SWE/security-guidelines.md
-      - path: QA/test-case-design.md
+          - Areas/requirements/use-cases-standard.md
+          - Areas/swe/security-guidelines.md
+      - path: Areas/qa/test-case-design.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - QA/test-strategy.md
-      - path: QA/test-execution-and-reporting.md
+          - Areas/qa/test-strategy.md
+      - path: Areas/qa/test-execution-and-reporting.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - QA/test-strategy.md
-      - path: QA/bug-verification.md
+          - Areas/qa/test-strategy.md
+      - path: Areas/qa/bug-verification.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - requirements-standards/use-cases-standard.md
-      - path: QA/post-fix-testing.md
+          - Areas/requirements/use-cases-standard.md
+      - path: Areas/qa/post-fix-testing.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - QA/test-strategy.md
-          - QA/test-execution-and-reporting.md
+          - Areas/qa/test-strategy.md
+          - Areas/qa/test-execution-and-reporting.md
 
   sre:
-    path: SRE
+    path: Areas/sre
     files:
-      - path: SRE/README.md
+      - path: Areas/sre/README.md
         kind: supporting
         requires_metadata: true
-      - path: SRE/sre-operations-guidelines.md
+      - path: Areas/sre/sre-operations-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - SWE/architecture-guidelines.md
-          - QA/test-execution-and-reporting.md
-      - path: SRE/incident-management-guidelines.md
+          - Areas/swe/architecture-guidelines.md
+          - Areas/qa/test-execution-and-reporting.md
+      - path: Areas/sre/incident-management-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
-          - SRE/sre-operations-guidelines.md
-          - SWE/root-cause-analysis.md
-          - QA/post-fix-testing.md
+          - Areas/sre/sre-operations-guidelines.md
+          - Areas/swe/root-cause-analysis.md
+          - Areas/qa/post-fix-testing.md
 
   shared_guidance:
     path: guidelines
@@ -185,77 +251,115 @@ domains:
         kind: supporting
         requires_metadata: true
         depends_on:
-          - requirements-standards/architecture-standard.md
+          - Areas/requirements/architecture-standard.md
       - path: docs/architecture/code-intelligence.md
         kind: supporting
         requires_metadata: true
         depends_on:
-          - requirements-standards/code-intelligence-standard.md
+          - Areas/requirements/code-intelligence-standard.md
 
-  shared_sonar:
-    path: shared-sonar
+  tools_root:
+    path: Tools
     files:
-      - path: shared-sonar/README.md
+      - path: Tools/README.md
         kind: supporting
-        requires_metadata: false
-      - path: shared-sonar/sonar_runner.py
-        kind: supporting
-        requires_metadata: false
+        requires_metadata: true
 
-  shared_otel:
-    path: shared-otel
+  tools_audits:
+    path: Tools/audits
     files:
-      - path: shared-otel/README.md
+      - path: Tools/audits/README.md
         kind: supporting
         requires_metadata: false
-      - path: shared-otel/telemetry.py
+      - path: Tools/audits/audits_runtime/__init__.py
         kind: supporting
         requires_metadata: false
-
-  shared_code_intel:
-    path: shared-code-intel
-    files:
-      - path: shared-code-intel/README.md
+      - path: Tools/audits/audits_runtime/cli.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/Dockerfile
+      - path: Tools/audits/audits_runtime/docker_runner.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/requirements.txt
+      - path: Tools/audits/audits_runtime/reporting.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/code_intel_runner.py
+      - path: Tools/audits/audits_runtime/types.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/example_code_intel.py
+      - path: Tools/audits/audits_runtime/scanners/__init__.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/runtime/__init__.py
+      - path: Tools/audits/audits_runtime/scanners/sonar.py
         kind: supporting
         requires_metadata: false
-      - path: shared-code-intel/runtime/cli.py
-        kind: supporting
-        requires_metadata: false
-      - path: shared-code-intel/runtime/toolchain.py
-        kind: supporting
-        requires_metadata: false
-      - path: shared-code-intel/runtime/scip_adapter.py
-        kind: supporting
-        requires_metadata: false
-      - path: shared-code-intel/runtime/ast_grep_adapter.py
-        kind: supporting
-        requires_metadata: false
-      - path: shared-code-intel/runtime/fallback_tree_sitter.py
+      - path: Tools/audits/audits_runtime/scanners/trivy.py
         kind: supporting
         requires_metadata: false
 
-  shared_trivy:
-    path: shared-trivy
+  tools_sonar:
+    path: Tools/sonar
     files:
-      - path: shared-trivy/README.md
+      - path: Tools/sonar/README.md
         kind: supporting
         requires_metadata: false
-      - path: shared-trivy/trivy_runner.py
+      - path: Tools/sonar/sonar_runner.py
+        kind: supporting
+        requires_metadata: false
+
+  tools_trivy:
+    path: Tools/trivy
+    files:
+      - path: Tools/trivy/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/trivy/trivy_runner.py
+        kind: supporting
+        requires_metadata: false
+
+  tools_otel:
+    path: Tools/otel
+    files:
+      - path: Tools/otel/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/otel/telemetry.py
+        kind: supporting
+        requires_metadata: false
+
+  tools_code_intel:
+    path: Tools/code-intel
+    files:
+      - path: Tools/code-intel/README.md
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/Dockerfile
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/requirements.txt
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/code_intel_runner.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/example_code_intel.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/__init__.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/cli.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/toolchain.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/scip_adapter.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/ast_grep_adapter.py
+        kind: supporting
+        requires_metadata: false
+      - path: Tools/code-intel/runtime/fallback_tree_sitter.py
         kind: supporting
         requires_metadata: false
 
@@ -279,48 +383,48 @@ update_rules:
         - Repository.md
         - README.md
         - guidelines-index.yaml
-    requirements-standards/use-cases-standard.md:
+    Areas/requirements/use-cases-standard.md:
       must_review:
-        - SWE/architecture-guidelines.md
-        - QA/test-strategy.md
-        - QA/bug-verification.md
-    requirements-standards/mission-standard.md:
+        - Areas/swe/architecture-guidelines.md
+        - Areas/qa/test-strategy.md
+        - Areas/qa/bug-verification.md
+    Areas/requirements/mission-standard.md:
       must_review:
-        - requirements-standards/use-cases-standard.md
-        - SWE/architecture-guidelines.md
-        - QA/test-strategy.md
-    requirements-standards/user-flows-standard.md:
+        - Areas/requirements/use-cases-standard.md
+        - Areas/swe/architecture-guidelines.md
+        - Areas/qa/test-strategy.md
+    Areas/requirements/user-flows-standard.md:
       must_review:
-        - requirements-standards/use-cases-standard.md
-        - QA/test-case-design.md
-        - QA/test-execution-and-reporting.md
-    requirements-standards/code-intelligence-standard.md:
+        - Areas/requirements/use-cases-standard.md
+        - Areas/qa/test-case-design.md
+        - Areas/qa/test-execution-and-reporting.md
+    Areas/requirements/code-intelligence-standard.md:
       must_review:
         - Product-Repository-Blueprint.md
-        - SWE/architecture-guidelines.md
-        - SWE/implementation-guidelines.md
-        - QA/test-strategy.md
+        - Areas/swe/architecture-guidelines.md
+        - Areas/swe/implementation-guidelines.md
+        - Areas/qa/test-strategy.md
         - docs/architecture/code-intelligence.md
-    requirements-standards/architecture-standard.md:
+    Areas/requirements/architecture-standard.md:
       must_review:
         - Product-Repository-Blueprint.md
-        - SWE/architecture-guidelines.md
+        - Areas/swe/architecture-guidelines.md
         - docs/architecture.md
-    requirements-standards/ui-ux-guidelines-standard.md:
+    Areas/ux/ui-ux-guidelines-standard.md:
       must_review:
-        - SWE/implementation-guidelines.md
-        - QA/test-case-design.md
-        - QA/test-execution-and-reporting.md
-    SWE/security-guidelines.md:
+        - Areas/swe/implementation-guidelines.md
+        - Areas/qa/test-case-design.md
+        - Areas/qa/test-execution-and-reporting.md
+    Areas/swe/security-guidelines.md:
       must_review:
-        - QA/test-strategy.md
-        - SWE/implementation-guidelines.md
-        - SRE/sre-operations-guidelines.md
-    QA/test-strategy.md:
+        - Areas/qa/test-strategy.md
+        - Areas/swe/implementation-guidelines.md
+        - Areas/sre/sre-operations-guidelines.md
+    Areas/qa/test-strategy.md:
       must_review:
-        - SWE/security-guidelines.md
-        - QA/test-case-design.md
-        - QA/test-execution-and-reporting.md
+        - Areas/swe/security-guidelines.md
+        - Areas/qa/test-case-design.md
+        - Areas/qa/test-execution-and-reporting.md
 
 validation:
   required_metadata_fields:

@@ -24,8 +24,8 @@ For a new repository:
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, and `audits/config/trivy.yaml`.
 6. Add `code-intel.py`, repo-local `code-intel/`, and `code-intel/config/index.yaml` as a separate control surface from `audits.py`.
-7. Reuse `shared-audits/` as the primary local audit entrypoint. Do not add root `sonar.py` or `trivy.py` as part of the baseline model.
-8. Reuse `shared-code-intel/` as the lower-level runtime for the `SCIP + ast-grep + rg` baseline, with Tree-sitter fallback only where semantic indexers are unavailable or not yet complete.
+7. Reuse `Tools/audits/` as the primary local audit entrypoint. Do not add root `sonar.py` or `trivy.py` as part of the baseline model.
+8. Reuse `Tools/code-intel/` as the lower-level runtime for the `SCIP + ast-grep + rg` baseline, with Tree-sitter fallback only where semantic indexers are unavailable or not yet complete.
 9. Add the repository observability stack and OTLP contract.
 10. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
 
@@ -107,7 +107,7 @@ Architecture documentation rule:
 - For retrofits, prefer the narrowest practical repo-local surface that satisfies the baseline first.
 - Do not expand the main README, docs index, or repo-wide tests during the first code-intelligence rollout unless the repository explicitly asks for it or an existing contract would otherwise fail.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer repo-local wrappers over copied logic, prefer `shared-audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `shared-code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py` or `trivy.py` in the baseline model.
+- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `Tools/code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py` or `trivy.py` in the baseline model.
 - Generated `code-intel/index/` artifacts are mandatory runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 
@@ -119,10 +119,10 @@ The lightest workable integration for most teams is:
    Preferred form: a public GitHub repository link plus direct GitHub links to the primary baseline documents.
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
-4. Reuse `shared-audits/` as the primary local audit entrypoint for SonarQube and Trivy.
-5. Keep `shared-sonar/` and `shared-trivy/` as lower-level reusable runners behind `shared-audits`, not as the baseline repo entrypoints.
-6. Add `code-intel.py`, `code-intel/`, and `docs/architecture/code-intelligence.md`, then reuse `shared-code-intel/` as the lower-level `SCIP + ast-grep + rg` indexing runtime and keep Tree-sitter enabled only as fallback where needed.
-7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `shared-otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
+4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube and Trivy.
+5. Keep `Tools/sonar/` and `Tools/trivy/` as lower-level reusable runners behind `Tools/audits/`, not as the baseline repo entrypoints.
+6. Add `code-intel.py`, `code-intel/`, and `docs/architecture/code-intelligence.md`, then reuse `Tools/code-intel/` as the lower-level `SCIP + ast-grep + rg` indexing runtime and keep Tree-sitter enabled only as fallback where needed.
+7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
 8. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
 9. Add the visible last-commit line.
 
