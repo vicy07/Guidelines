@@ -98,10 +98,12 @@ Minimum CI outcome:
 Every deployable project must define a deployment path that includes:
 
 - a documented target environment model,
-- one command or workflow per deploy path,
+- a Git-based workflow that publishes committed repository state,
 - post-deploy verification,
 - rollback or roll-forward guidance,
 - ownership of deployment approval and runtime checks.
+
+Production application code must never be deployed, redeployed, uploaded, or otherwise published directly through a hosting-platform CLI, UI, or API. Platform tools may be used read-only for diagnostics and post-deploy verification, but code publication must always flow from Git through the documented delivery workflow.
 
 If a repository is a library and is not deployed as a runtime service, replace deployment guidance with a documented release/publish flow.
 
