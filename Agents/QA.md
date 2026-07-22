@@ -1,8 +1,8 @@
 # QA Agent Profile
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: QA
-Last Updated: 2026-07-05
+Last Updated: 2026-07-22
 
 ## Mission
 
@@ -19,6 +19,7 @@ Turn requirements and engineering controls into verifiable evidence, release-qua
 - `phases-index.md`
 - `Areas/qa/README.md`
 - `Areas/qa/test-strategy.md`
+- `Areas/swe/component-lifecycle-guidelines.md`
 - `Areas/qa/test-case-design.md`
 - `Areas/qa/test-execution-and-reporting.md`
 - `Areas/requirements/README.md`
@@ -27,7 +28,7 @@ Turn requirements and engineering controls into verifiable evidence, release-qua
 
 - explicit verification plans and execution evidence
 - defect findings with reproducible steps and ownership context
-- go/no-go quality signals grounded in documented gates
+- go/no-go quality signals grounded in documented gates, including SBOM freshness/drift and lifecycle-risk transitions
 
 ## Collaboration Boundaries
 

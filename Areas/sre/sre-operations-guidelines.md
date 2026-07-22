@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.4.0
+Version: 1.5.0
 Owner: SRE Lead
-Last Updated: 2026-07-12
+Last Updated: 2026-07-22
 
 ## Metadata (required)
 
@@ -32,12 +32,14 @@ Last Updated: 2026-07-12
 - Agents and operators must not publish application code directly through a hosting-platform CLI, UI, or API. This prohibition includes direct deploy, redeploy, upload, and code-replacing service mutations (for example, `railway up` or an equivalent platform command).
 - Hosting-platform tools may be used read-only for diagnostics, logs, status, and post-deploy verification. Runtime configuration changes and emergency operations require their own documented, auditable path and must not be used to bypass Git-based code delivery.
 - Release readiness gates must include Trivy filesystem scanning before merge and container-image scanning before promotion when the repository produces deployable images.
+- Release readiness must include the component lifecycle/EOL gate, and scheduled monitoring must refresh the tracked downstream SBOM at least weekly and on inventory, architecture, runtime, or external-provider changes.
 - Release readiness and CI must include a reproducible code-intelligence path for `code-intel.py`, preferably through a containerized shared runtime, when the repository baseline requires indexed artifacts.
 - Runtime configuration changes must be auditable.
 - SRE documentation must publish exact OTLP client-facing endpoint patterns for external, in-cluster, and local runtime paths when those paths exist.
 - Frontend or static-web repositories must document the client telemetry ingestion path and how it correlates with backend or platform telemetry.
 - Library and CLI repositories must document the host-runtime observability expectations and the fallback behavior when OTLP export is unavailable.
 - SRE handover must publish the exact Trivy entrypoints, thresholds, and suppression-record location used by the release path.
+- SRE handover must publish the EOL scan/check entrypoints, lifecycle data sources, SBOM location, freshness threshold, alert path, and exception-expiry handling.
 - SRE handover must publish the exact code-intelligence entrypoints, artifact location, cache/update model, and the commit-association rules used for generated index artifacts.
 - If evidence is missing, state `Evidence not available`.
 
@@ -48,6 +50,7 @@ Last Updated: 2026-07-12
 - Observability coverage and OTLP configuration are documented for the repository type.
 - Code-intelligence execution and artifact freshness rules are documented for CI or release automation.
 - Trivy scan coverage and release thresholds are documented for applicable artifact types.
+- Lifecycle/EOL coverage includes libraries, third-party services, runtimes/build tools, and first-party architecture components, with current risk state persisted in the SBOM.
 - Rollback and recovery paths are validated.
 - Production release evidence identifies the Git commit and the Git-based workflow that published it; no direct platform publication was used.
 - Release readiness decision includes operational risk notes.

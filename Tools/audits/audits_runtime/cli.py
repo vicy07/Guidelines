@@ -18,6 +18,7 @@ def _normalize_args(argv: list[str]) -> tuple[str, str, list[str]]:
             "Examples:\n"
             "  python audits.py trivy scan --format json\n"
             "  python audits.py sonar scan\n"
+            "  python audits.py eol check\n"
             "  python audits.py all"
         )
 

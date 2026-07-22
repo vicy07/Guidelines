@@ -12,7 +12,7 @@ It defines:
 
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
-- A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, observability, and user-visible release traceability.
+- A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, component lifecycle/EOL monitoring, observability, and user-visible release traceability.
 - A place for reusable cross-repository helpers under `Tools/` such as `Tools/audits/`, `Tools/sonar/`, `Tools/trivy/`, `Tools/otel/`, and `Tools/code-intel/`.
 
 ## What This Repo Is Not
@@ -64,6 +64,7 @@ This repository expects downstream product repositories to define at least:
 - a documented deployment path with rollback and post-deploy verification,
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
+- a mandatory component lifecycle/EOL gate with criticality and risk recorded in a tracked downstream CycloneDX SBOM,
 - a mandatory code-intelligence baseline with `code-intel.py`, repo-local `code-intel/`, a `SCIP + ast-grep + rg` AST-first index path, and `docs/architecture/code-intelligence.md`,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.

@@ -1,8 +1,8 @@
 ﻿# Security Guidelines Format Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-07-22
 
 ## Metadata (required)
 
@@ -38,6 +38,7 @@ Last Updated: 2026-04-12
 - Use a centralized auth/authz mechanism without duplicating logic across modules.
 - Errors must not expose internal system details.
 - Dependency scanning and remediation of critical CVEs before release are mandatory.
+- Lifecycle and EOL monitoring is mandatory for libraries, third-party dependencies, runtimes, build tools, and architectural components; results and risks must be persisted in the downstream SBOM according to `Areas/swe/component-lifecycle-guidelines.md`.
 - Critical actions must have an audit trail.
 - If evidence is missing, explicitly state `Evidence not available`.
 
@@ -47,6 +48,7 @@ Last Updated: 2026-04-12
 - Access checks (role/resource/action) and negative auth cases are verified.
 - Secure secret storage and rotation are in place.
 - A SAST/SCA baseline and vulnerability response policy exist.
+- The supply-chain baseline distinguishes vulnerability risk from lifecycle/EOL risk and gates unsupported critical dependencies.
 - Security controls are traceable to `Areas/qa/test-strategy.md` and release quality gates.
 
 ## Template

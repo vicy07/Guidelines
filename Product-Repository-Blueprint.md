@@ -44,11 +44,15 @@ Define the minimum recommended baseline for downstream software product reposito
   audits.py
   audits/
     config/
+      eol.yaml
       sonar-project.properties
       trivy.yaml
     scanners/
+      eol.py
       sonar.py
       trivy.py
+    sbom/
+      components.cdx.json
   code-intel.py
   code-intel/
     config/
@@ -72,7 +76,7 @@ Define the minimum recommended baseline for downstream software product reposito
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
 - `tests/` contains automated verification assets organized by test level.
-- `audits/` contains repo-local orchestration and configuration for quality and security scanners.
+- `audits/` contains repo-local orchestration and configuration for quality, security, and component-lifecycle scanners plus the tracked enriched SBOM.
 - `code-intel/` contains repo-local code-intelligence configuration and generated index artifacts and must remain separate from `audits/`.
 - `.github/workflows/` contains delivery automation that enforces minimum quality gates.
 
@@ -144,7 +148,28 @@ Recommended integration model:
 
 If image scanning does not apply to a repository, the repository must document why instead of omitting the Trivy gate entirely.
 
-### 5. Visible Release Traceability
+### 5. Component Lifecycle and EOL Audit
+
+Every repository must continuously inventory and assess:
+
+- direct and transitive libraries, frameworks, runtimes, base images, operating systems, and build tools,
+- third-party APIs, SaaS products, managed services, platforms, identity/payment/data providers, and similar external dependencies,
+- first-party architectural components including applications, services, workers, data stores, queues, gateways, and scheduled jobs.
+
+Required downstream contract:
+
+- `audits/config/eol.yaml`,
+- `audits/scanners/eol.py`,
+- tracked CycloneDX JSON at `audits/sbom/components.cdx.json`,
+- `python audits.py eol scan` for evidence refresh and assessment,
+- `python audits.py eol check` for deterministic validation of committed state,
+- EOL check inclusion in `python audits.py all`, CI, scheduled monitoring, and release readiness.
+
+The enriched SBOM must include stable component identity and relationships plus owner, component class, criticality, lifecycle status/EOL, evidence source and freshness, risk, rationale, and remediation details. `unknown` lifecycle evidence must remain explicit and must not be interpreted as supported.
+
+Criticality and risk classification, failure thresholds, exception controls, and the minimum weekly monitoring cadence are normative in `Areas/swe/component-lifecycle-guidelines.md`. Vulnerability scanning does not replace lifecycle monitoring.
+
+### 6. Visible Release Traceability
 
 Every user-facing solution must render a persistent visible line:
 
@@ -157,7 +182,7 @@ If commit details are unavailable, the UI must still render:
 This requirement defines the visible product outcome, not the implementation mechanism.
 The visible line must resolve correctly in deployed environments too, not only in local development.
 
-### 6. Observability Stack
+### 7. Observability Stack
 
 Every downstream repository must define an observability stack.
 
@@ -197,7 +222,7 @@ Recommended reuse model:
 
 If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
 
-### 7. Code Intelligence Baseline
+### 8. Code Intelligence Baseline
 
 Every downstream repository must provide a mandatory code-intelligence baseline.
 
@@ -269,10 +294,13 @@ Governance rule:
 - `.github/workflows/deploy.yml`
 - `audits.py`
 - repo-local `audits/`
+- `audits/config/eol.yaml`
 - `code-intel.py`
 - repo-local `code-intel/`
 - `audits/config/sonar-project.properties`
 - `audits/config/trivy.yaml`
+- `audits/scanners/eol.py`
+- `audits/sbom/components.cdx.json`
 - at least one test suite under `tests/`
 
 ## Compliance Audit Artifact
@@ -294,14 +322,15 @@ This requirement applies only after a compliance audit is run. It is not a manda
 - `BA` and `PO` own product framing and behavioral intent.
 - `SWE` owns architecture, implementation, and application-level support for the visible last-commit line.
 - `SWE` also owns the code-intelligence architecture contract, repo-local `code-intel.py` implementation, and symbol/index schema choices inside the baseline.
-- `QA` owns test strategy, release evidence, merge-quality verification, and verification that required code-intelligence artifacts are produced as documented.
-- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, release-time security scanning gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
+- `SWE` owns SBOM inventory completeness, architecture/dependency relationships, criticality classification, and lifecycle-risk remediation design.
+- `QA` owns test strategy, release evidence, merge-quality verification, lifecycle-gate behavior, and verification that required SBOM and code-intelligence artifacts are produced as documented.
+- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, scheduled EOL monitoring and alerting, release-time security/lifecycle gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
 
 Cross-role boundary note:
 
 - `SWE` is accountable for implementation and testability hooks.
-- `QA` is accountable for verification content, gate interpretation, and artifact-level validation of the code-intelligence baseline.
-- `SRE` is accountable for deployment safety, runtime confidence after release, and operational handling of code-intelligence caches or generated artifacts.
+- `QA` is accountable for verification content, gate interpretation, and artifact-level validation of the SBOM and code-intelligence baselines.
+- `SRE` is accountable for deployment safety, runtime confidence after release, authoritative lifecycle evidence refresh, and operational handling of generated artifacts.
 
 ## Definition of Ready
 
@@ -312,6 +341,7 @@ A downstream product repository is ready for agentic delivery when:
 - the deploy path is documented and executable,
 - SonarQube integration is wired for supported codebases through the repo-local audit entrypoint,
 - Trivy integration is wired for repository filesystem scanning and deployable-image scanning where applicable through the repo-local audit entrypoint,
+- lifecycle/EOL monitoring is wired through the repo-local audit entrypoint, covers libraries, third parties, runtimes/build tools, and architectural components, and persists current criticality and risk in the tracked SBOM,
 - the observability stack and OTLP contract are documented for the repository type,
 - the code-intelligence baseline is wired through `code-intel.py`, documented in `docs/architecture/code-intelligence.md`, and produces the required JSON artifacts,
 - the visible last-commit line is implemented for user-facing products,

@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.2.0
+Version: 1.3.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-01
+Last Updated: 2026-07-22
 
 ## Metadata (required)
 
@@ -35,6 +35,7 @@ Last Updated: 2026-07-01
 - Security checks must align with `Areas/swe/security-guidelines.md`.
 - The strategy must verify the repository observability stack and OTLP contract for the repository type.
 - The strategy must verify the mandatory code-intelligence baseline, including the repo-local `code-intel.py` entrypoint, required JSON artifacts, and the documented incremental reindex behavior.
+- The strategy must verify SBOM inventory coverage, component criticality/risk rules, EOL evidence freshness, dependency/architecture drift, and lifecycle gate behavior defined by `Areas/swe/component-lifecycle-guidelines.md`.
 - If evidence is missing, explicitly state `Evidence not available`.
 
 ## Quality Checklist
@@ -45,6 +46,7 @@ Last Updated: 2026-07-01
 - Test environments and test data management rules are documented.
 - Observability checks confirm that logs, metrics, traces, and OTLP configuration behave as documented for the repository type.
 - Code-intelligence checks confirm that manifest, file, symbol, edge, and chunk artifacts are generated and correspond to the documented repository scope.
+- Lifecycle checks cover missing/invalid/stale SBOM data, EOL and near-EOL components, unknown evidence, architectural inventory drift, and expired exceptions.
 - Release requires a mandatory security baseline (SAST/SCA and critical auth/authz checks).
 - Quality gates have measurable thresholds and a `go/no-go` rule.
 

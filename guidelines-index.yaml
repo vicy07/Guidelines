@@ -1,4 +1,4 @@
-version: 3.7.0
+version: 3.8.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -87,6 +87,7 @@ domains:
           - Areas/swe/architecture-guidelines.md
           - Areas/swe/implementation-guidelines.md
           - Areas/swe/security-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
       - path: Agents/QA.md
         kind: supporting
         requires_metadata: true
@@ -95,6 +96,7 @@ domains:
           - Areas/qa/test-strategy.md
           - Areas/qa/test-case-design.md
           - Areas/qa/test-execution-and-reporting.md
+          - Areas/swe/component-lifecycle-guidelines.md
       - path: Agents/SRE.md
         kind: supporting
         requires_metadata: true
@@ -102,6 +104,7 @@ domains:
           - Areas/sre/README.md
           - Areas/sre/sre-operations-guidelines.md
           - Areas/sre/incident-management-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
 
   requirements:
     path: Areas/requirements
@@ -150,6 +153,12 @@ domains:
           - Areas/requirements/mission-standard.md
           - Areas/requirements/use-cases-standard.md
           - Areas/swe/security-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
+      - path: Areas/swe/component-lifecycle-guidelines.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - Areas/requirements/architecture-standard.md
       - path: Areas/swe/c4-architecture-guidelines.md
         kind: supporting
         requires_metadata: false
@@ -160,12 +169,14 @@ domains:
         requires_metadata: true
         depends_on:
           - Areas/swe/architecture-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
           - Areas/qa/test-strategy.md
       - path: Areas/swe/security-guidelines.md
         kind: normative
         requires_metadata: true
         depends_on:
           - Areas/swe/architecture-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
           - Areas/qa/test-strategy.md
       - path: Areas/swe/root-cause-analysis.md
         kind: normative
@@ -185,6 +196,7 @@ domains:
         requires_metadata: true
         depends_on:
           - Areas/requirements/use-cases-standard.md
+          - Areas/swe/component-lifecycle-guidelines.md
           - Areas/swe/security-guidelines.md
       - path: Areas/qa/test-case-design.md
         kind: normative
@@ -219,6 +231,7 @@ domains:
         requires_metadata: true
         depends_on:
           - Areas/swe/architecture-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
           - Areas/qa/test-execution-and-reporting.md
       - path: Areas/sre/incident-management-guidelines.md
         kind: normative
@@ -419,6 +432,16 @@ update_rules:
       must_review:
         - Areas/qa/test-strategy.md
         - Areas/swe/implementation-guidelines.md
+        - Areas/sre/sre-operations-guidelines.md
+        - Areas/swe/component-lifecycle-guidelines.md
+    Areas/swe/component-lifecycle-guidelines.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - Adoption-Guide.md
+        - Areas/swe/architecture-guidelines.md
+        - Areas/swe/implementation-guidelines.md
+        - Areas/swe/security-guidelines.md
+        - Areas/qa/test-strategy.md
         - Areas/sre/sre-operations-guidelines.md
     Areas/qa/test-strategy.md:
       must_review:

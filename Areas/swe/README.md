@@ -1,8 +1,8 @@
 ﻿# SWE Guidelines
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: SWE Lead
-Last Updated: 2026-04-12
+Last Updated: 2026-07-22
 
 ## Ownership
 
@@ -15,6 +15,7 @@ SWE owns:
 ## Scope
 
 - `architecture-guidelines.md`
+- `component-lifecycle-guidelines.md`
 - `c4-architecture-guidelines.md`
 - `implementation-guidelines.md`
 - `security-guidelines.md`
