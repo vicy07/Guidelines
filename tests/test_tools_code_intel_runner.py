@@ -131,6 +131,28 @@ def test_build_docker_command_for_index_mounts_repo_cache_and_changed_files(tmp_
     ]
 
 
+def test_build_docker_command_passes_explicit_full_revision(tmp_path, monkeypatch):
+    module = _load_shared_runner()
+    expected = "91d2448220a234bb6a39e3a2c7453ef95f63ac7d"
+    monkeypatch.setenv("CODE_INTEL_COMMIT_SHA", expected)
+    settings = {
+        "image": "guidelines-code-intel:local",
+        "config_path": tmp_path / "code-intel" / "config" / "index.yaml",
+        "index_dir": tmp_path / "code-intel" / "index",
+        "cache_dir": tmp_path / ".code-intel-cache",
+        "engine": "tree-sitter",
+    }
+
+    command = module.build_docker_command(
+        docker_path="docker",
+        repo_root=tmp_path,
+        action="index",
+        settings=settings,
+    )
+
+    assert command[3:5] == ["-e", f"CODE_INTEL_COMMIT_SHA={expected}"]
+
+
 def test_build_docker_command_for_query_places_query_after_separator(tmp_path):
     module = _load_shared_runner()
 

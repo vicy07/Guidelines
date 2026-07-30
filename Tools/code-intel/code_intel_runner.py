@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import os
 import shutil
 import subprocess
 from pathlib import Path
@@ -161,11 +162,16 @@ def build_docker_command(
     root = Path(repo_root).resolve()
     repo_mount = f"{root}:/workspace"
     cache_mount = f"{Path(settings['cache_dir']).resolve()}:{DEFAULT_CONTAINER_CACHE_DIR}"
+    commit_sha = os.getenv("CODE_INTEL_COMMIT_SHA", "").strip()
 
     command = [
         docker_path,
         "run",
         "--rm",
+    ]
+    if len(commit_sha) == 40 and all(character in "0123456789abcdefABCDEF" for character in commit_sha):
+        command.extend(["-e", f"CODE_INTEL_COMMIT_SHA={commit_sha}"])
+    command.extend([
         "-v",
         repo_mount,
         "-v",
@@ -180,7 +186,7 @@ def build_docker_command(
         "--engine",
         str(settings["engine"]),
         action,
-    ]
+    ])
 
     for path in normalize_changed_files(changed_files or []):
         command.extend(["--changed-file", path])
