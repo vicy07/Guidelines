@@ -41,7 +41,11 @@ Recommended sequence:
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
 4. Normalize CI, deploy, SonarQube, Trivy, component lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
-5. When a compliance audit is run, create `docs/audits/` and save the audit findings there, including the exact `Guidelines` version pinned by commit hash and commit date.
+5. When an audit is run, create exactly one consolidated
+   `docs/audits/YYYY-MM-DD-<scope>.md` report for that work item. Include the
+   exact `Guidelines` version pinned by commit hash and commit date, all required
+   EOL, Trivy, security, and GDPR/privacy rows, and an explicit reason for every
+   `not-run` or `not-applicable` check.
 6. Add the visible last-commit line without changing unrelated architecture.
 7. Move toward the target structure incrementally as files are naturally touched.
 
@@ -112,6 +116,9 @@ Architecture documentation rule:
 - Persist the current component inventory, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; refresh it at least weekly and when dependencies, architecture, runtime/base images, or external-provider contracts change.
 - Generated `code-intel/index/` artifacts are mandatory runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
+- Keep scanner JSON, SARIF, logs, and SBOMs as linked machine evidence, but do
+  not split one audit work item into multiple human Markdown reports. Follow
+  `Areas/qa/audit-reporting-standard.md`.
 
 ## Suggested Consumption Pattern
 
@@ -125,7 +132,10 @@ The lightest workable integration for most teams is:
 5. Keep `Tools/sonar/` and `Tools/trivy/` as lower-level reusable runners behind `Tools/audits/`, and keep lifecycle-source adapters repo-local, not as root entrypoints.
 6. Add `code-intel.py`, `code-intel/`, and `docs/architecture/code-intelligence.md`, then reuse `Tools/code-intel/` as the lower-level `SCIP + ast-grep + rg` indexing runtime and keep Tree-sitter enabled only as fallback where needed.
 7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
-8. If a compliance audit is performed, create `docs/audits/` and save the audit output with the `Guidelines` commit hash and commit date used for the review.
+8. If an audit is performed, save one consolidated
+   `docs/audits/YYYY-MM-DD-<scope>.md` report using
+   `Areas/qa/audit-reporting-standard.md`, including the `Guidelines` commit hash
+   and commit date used for the review.
 9. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.

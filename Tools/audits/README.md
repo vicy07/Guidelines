@@ -2,6 +2,13 @@
 
 Reusable audit runner logic for product repositories that want one local entrypoint for multiple scanners without duplicating Docker, reporting, and CLI wiring.
 
+Runner outputs are machine evidence, not separate human audit conclusions. For
+each audit work item, link all applicable runner evidence from exactly one
+`docs/audits/YYYY-MM-DD-<scope>.md` report and combine it with the required
+security and GDPR/privacy reviews. Follow
+`Areas/qa/audit-reporting-standard.md`; record an explicit `not-run` or
+`not-applicable` result when a required runner was not executed.
+
 ## Scope
 
 Shared behavior lives here:

@@ -1,4 +1,4 @@
-version: 3.8.0
+version: 3.9.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -96,6 +96,7 @@ domains:
           - Areas/qa/test-strategy.md
           - Areas/qa/test-case-design.md
           - Areas/qa/test-execution-and-reporting.md
+          - Areas/qa/audit-reporting-standard.md
           - Areas/swe/component-lifecycle-guidelines.md
       - path: Agents/SRE.md
         kind: supporting
@@ -208,6 +209,13 @@ domains:
         requires_metadata: true
         depends_on:
           - Areas/qa/test-strategy.md
+      - path: Areas/qa/audit-reporting-standard.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - Areas/qa/test-execution-and-reporting.md
+          - Areas/swe/security-guidelines.md
+          - Areas/swe/component-lifecycle-guidelines.md
       - path: Areas/qa/bug-verification.md
         kind: normative
         requires_metadata: true
@@ -448,6 +456,13 @@ update_rules:
         - Areas/swe/security-guidelines.md
         - Areas/qa/test-case-design.md
         - Areas/qa/test-execution-and-reporting.md
+        - Areas/qa/audit-reporting-standard.md
+    Areas/qa/audit-reporting-standard.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - Adoption-Guide.md
+        - Tools/audits/README.md
+        - Agents/QA.md
 
 validation:
   required_metadata_fields:

@@ -307,13 +307,32 @@ Governance rule:
 
 When a downstream product repository undergoes a compliance audit against this baseline, the repository must create `docs/audits/` if it does not already exist.
 
-Each compliance audit must save its findings inside `docs/audits/` and include:
+One audit work item or coordinated audit run must produce exactly one
+consolidated human-readable report named
+`docs/audits/YYYY-MM-DD-<scope>.md`, for example
+`docs/audits/2026-07-23-guidelines-compliance.md`. Do not split the same audit
+across per-tool, per-role, remediation, or re-gate Markdown reports. Machine
+artifacts such as JSON, SARIF, logs, and SBOMs may remain separate and must be
+linked from the consolidated report.
+
+Each report must include:
 
 - the audit date,
 - the audited repository scope,
 - the findings and missing artifacts discovered,
 - the evidence reviewed,
 - the exact `Guidelines` version used for the audit, pinned by commit hash and commit date.
+- explicit coverage of Guidelines compliance, EOL/component lifecycle, Trivy
+  filesystem and image scanning, security, and GDPR/privacy;
+- the method (`tool/runner`, `AI review`, `manual review`, or `mixed`) and status
+  (`passed`, `failed`, `blocked`, `not-run`, or `not-applicable`) for every area;
+- the reason, gate impact, and follow-up for every check that was not run or was
+  not applicable;
+- a final `go`, `no-go`, `conditional`, or `blocked` decision.
+
+The complete content and evidence contract is normative in
+`Areas/qa/audit-reporting-standard.md`. AI-based GDPR/privacy review is a gap
+assessment and must not be presented as legal certification.
 
 This requirement applies only after a compliance audit is run. It is not a mandatory baseline artifact for repositories that have not yet been audited.
 
