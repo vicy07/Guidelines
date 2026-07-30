@@ -6,8 +6,10 @@ Runner outputs are machine evidence, not separate human audit conclusions. For
 each audit work item, link all applicable runner evidence from exactly one
 `docs/audits/YYYY-MM-DD-<scope>.md` report and combine it with the required
 security and GDPR/privacy reviews. Follow
-`Areas/qa/audit-reporting-standard.md`; record an explicit `not-run` or
-`not-applicable` result when a required runner was not executed.
+`guidelines/playbooks/audit-reporting-standard.md`; record an explicit `not-run`
+or `not-applicable` result when a required runner was not executed. Do not run
+this suite automatically as part of ordinary QA or delivery unless a repository
+explicitly configures an approved scheduled audit.
 
 ## Scope
 

@@ -1,7 +1,7 @@
 # Consolidated Audit Reporting Standard
 
-Version: 1.0.0
-Owner: QA
+Version: 1.1.0
+Owner: Repository Maintainer
 Last Updated: 2026-07-30
 
 ## Purpose
@@ -10,16 +10,21 @@ Define one durable, decision-ready report for each repository audit run. Scanner
 outputs may remain separate machine artifacts, but the human audit result must
 not be fragmented across per-tool or per-role Markdown reports.
 
-## Ownership
+## Explicit-Invocation Rule
 
-- `QA` owns report completeness, evidence traceability, status consistency, and
-  the final gate recommendation.
-- `SWE` owns application-security findings, dependency remediation analysis,
-  lifecycle remediation design, and technical evidence.
-- `SRE` owns reproducible runner execution, runtime and image evidence, and
-  operational follow-up.
-- `BA` owns product-data and privacy-requirement context used by the GDPR/privacy
-  review. Legal approval remains outside the AI audit unless an authorized legal
+- Repository-wide audit execution is opt-in. It starts only from an explicit
+  audit request, an approved scheduled audit, or a human running it locally.
+- Normal delivery, code review, QA, release verification, security-sensitive
+  work, and documentation review must not implicitly start the full audit suite.
+- Assign one `Audit Operator` for the run. This may be a dedicated audit or
+  reviewer/security agent, or a named human performing the audit locally.
+- `QA` may consume audit evidence for a release decision, but does not own or
+  execute the repository-wide audit by default.
+- The Audit Operator owns report completeness, evidence traceability, status
+  consistency, and the audit gate recommendation. The operator requests focused
+  SWE, SRE, QA, BA, privacy, or legal input only when the audit evidence requires
+  it; those roles are not an automatic audit chain.
+- Legal approval remains outside the AI audit unless an authorized legal
   reviewer is explicitly recorded.
 
 ## One-File Rule
@@ -116,7 +121,7 @@ be inferred as passing.
 - Audited commit: <full SHA>
 - Audit work item: <issue/link>
 - Guidelines baseline: <full SHA and commit date>
-- Owner: QA
+- Audit operator: <role/name or "manual local">
 - Reviewers: <roles/names>
 
 ## Executive Summary

@@ -8,6 +8,11 @@ Last Updated: 2026-04-19
 
 Store executable, role-aware playbooks that can be run by agents or humans.
 
+## Scope
+
+- `audit-reporting-standard.md` defines the opt-in, single-file audit contract
+  for an explicitly assigned Audit Operator or a named human running locally.
+
 ## Playbook Contract
 
 Each playbook should include:

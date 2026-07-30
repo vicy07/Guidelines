@@ -331,7 +331,9 @@ Each report must include:
 - a final `go`, `no-go`, `conditional`, or `blocked` decision.
 
 The complete content and evidence contract is normative in
-`Areas/qa/audit-reporting-standard.md`. AI-based GDPR/privacy review is a gap
+`guidelines/playbooks/audit-reporting-standard.md`. Audit execution is opt-in:
+normal delivery and QA must not start the full audit suite without an explicit
+audit request or approved schedule. AI-based GDPR/privacy review is a gap
 assessment and must not be presented as legal certification.
 
 This requirement applies only after a compliance audit is run. It is not a mandatory baseline artifact for repositories that have not yet been audited.

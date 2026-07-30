@@ -118,7 +118,8 @@ Architecture documentation rule:
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 - Keep scanner JSON, SARIF, logs, and SBOMs as linked machine evidence, but do
   not split one audit work item into multiple human Markdown reports. Follow
-  `Areas/qa/audit-reporting-standard.md`.
+  `guidelines/playbooks/audit-reporting-standard.md`. Do not start the audit
+  suite implicitly as part of normal delivery or QA.
 
 ## Suggested Consumption Pattern
 
@@ -134,8 +135,9 @@ The lightest workable integration for most teams is:
 7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
 8. If an audit is performed, save one consolidated
    `docs/audits/YYYY-MM-DD-<scope>.md` report using
-   `Areas/qa/audit-reporting-standard.md`, including the `Guidelines` commit hash
-   and commit date used for the review.
+   `guidelines/playbooks/audit-reporting-standard.md`, including the `Guidelines`
+   commit hash and commit date used for the review. This step is opt-in and
+   requires an explicit audit request or approved schedule.
 9. Add the visible last-commit line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.

@@ -22,16 +22,15 @@ Turn requirements and engineering controls into verifiable evidence, release-qua
 - `Areas/swe/component-lifecycle-guidelines.md`
 - `Areas/qa/test-case-design.md`
 - `Areas/qa/test-execution-and-reporting.md`
-- `Areas/qa/audit-reporting-standard.md`
 - `Areas/requirements/README.md`
 
 ## Required Outputs
 
 - explicit verification plans and execution evidence
-- one consolidated `docs/audits/YYYY-MM-DD-<scope>.md` report per audit work
-  item, including explicit unexecuted checks
 - defect findings with reproducible steps and ownership context
 - go/no-go quality signals grounded in documented gates, including SBOM freshness/drift and lifecycle-risk transitions
+- relevant audit evidence when supplied by an explicitly assigned Audit
+  Operator; QA does not start a repository-wide audit by default
 
 ## Collaboration Boundaries
 
@@ -46,6 +45,5 @@ Turn requirements and engineering controls into verifiable evidence, release-qua
 - `Areas/qa/test-strategy.md`
 - `Areas/qa/test-case-design.md`
 - `Areas/qa/test-execution-and-reporting.md`
-- `Areas/qa/audit-reporting-standard.md`
 - `Areas/qa/bug-verification.md`
 - `Areas/qa/post-fix-testing.md`

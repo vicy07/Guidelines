@@ -16,7 +16,6 @@ QA owns:
 - `test-strategy.md`
 - `test-case-design.md`
 - `test-execution-and-reporting.md`
-- `audit-reporting-standard.md`
 - `bug-verification.md`
 - `post-fix-testing.md`
 
@@ -24,6 +23,6 @@ QA owns:
 
 - With `SWE`: failure triage and remediation verification.
 - With `SRE`: production-like validation and monitoring checks.
-- With `SWE` and `SRE`: consolidate tool, security, lifecycle, and remediation
-  evidence into one audit report owned by QA.
+- With an explicitly assigned Audit Operator: consume relevant audit evidence
+  without starting or owning a repository-wide audit by default.
 - With `Areas/requirements`: behavior-level acceptance criteria alignment.
