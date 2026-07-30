@@ -7,6 +7,6 @@
     "validate-guidelines": "node scripts/validate-guidelines.mjs"
   },
   "dependencies": {
-    "js-yaml": "^4.1.0"
+    "js-yaml": "4.3.0"
   }
 }

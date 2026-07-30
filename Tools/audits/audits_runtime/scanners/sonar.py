@@ -27,7 +27,7 @@ class SonarScannerConfig:
 
 
 def _guidelines_root() -> Path:
-    return Path(__file__).resolve().parents[3]
+    return Path(__file__).resolve().parents[4]
 
 
 def _load_runner():
