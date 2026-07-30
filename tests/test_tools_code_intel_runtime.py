@@ -134,6 +134,20 @@ def test_git_commit_sha_falls_back_to_unknown_when_git_is_unavailable(tmp_path, 
     assert module._git_commit_sha(tmp_path) == "unknown"
 
 
+def test_git_commit_sha_uses_full_revision_identity(tmp_path, monkeypatch):
+    module = _load_runtime()
+    expected = "1234567890abcdef1234567890abcdef12345678"
+
+    def fake_run(command, **kwargs):
+        assert command == ["git", "rev-parse", "HEAD"]
+        assert kwargs["cwd"] == tmp_path
+        return SimpleNamespace(returncode=0, stdout=f"{expected}\n")
+
+    monkeypatch.setattr(module.subprocess, "run", fake_run)
+
+    assert module._git_commit_sha(tmp_path) == expected
+
+
 def test_resolve_symbol_kind_marks_python_class_members_as_methods():
     module = _load_runtime()
 

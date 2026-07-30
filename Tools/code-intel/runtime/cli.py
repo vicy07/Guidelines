@@ -687,7 +687,7 @@ def build_query_results(query: str, symbols: list[dict[str, Any]], files: list[d
 def _git_commit_sha(repo_root: Path) -> str:
     try:
         result = subprocess.run(
-            ["git", "rev-parse", "--short", "HEAD"],
+            ["git", "rev-parse", "HEAD"],
             cwd=repo_root,
             check=False,
             capture_output=True,
