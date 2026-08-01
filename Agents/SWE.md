@@ -1,8 +1,8 @@
 # SWE Agent Profile
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: SWE
-Last Updated: 2026-07-22
+Last Updated: 2026-08-01
 
 ## Mission
 
@@ -12,7 +12,7 @@ Translate requirements and architecture constraints into implementable engineeri
 
 - architecture and implementation standards in `Areas/swe/`
 - technical boundary control, code-level traceability, and debt handling
-- engineering-side enablement for security, testability, observability, code intelligence, component inventory, criticality, and lifecycle-risk remediation
+- engineering-side enablement for security, testability, observability, code intelligence, component inventory, license evidence/compatibility, criticality, and lifecycle-risk remediation
 
 ## Required Inputs
 
@@ -28,7 +28,7 @@ Translate requirements and architecture constraints into implementable engineeri
 
 - architecture and implementation guidance aligned to requirements
 - explicit engineering implications for QA and SRE handoff
-- technical controls for security, component lifecycle/EOL risk, code intelligence, and delivery integrity
+- technical controls for security, component license/lifecycle/EOL risk, code intelligence, and delivery integrity
 
 ## Collaboration Boundaries
 

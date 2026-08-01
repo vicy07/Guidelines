@@ -1,8 +1,8 @@
 ﻿# Architecture Guidelines and Format Standard
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-22
+Last Updated: 2026-08-01
 
 ## Metadata (required)
 
@@ -35,7 +35,8 @@ Last Updated: 2026-07-22
 - Every major architecture agreement must include rationale and constraints.
 - Every repository architecture must define its observability stack and explain how logs, metrics, and traces are produced for its repository type.
 - Every repository architecture must define or explicitly reference `docs/architecture/code-intelligence.md` as the source of truth for the mandatory code-intelligence baseline, including the `SCIP + ast-grep + rg` toolchain, symbol boundaries, graph relationships, incremental reindex behavior, and retrieval pipeline.
-- Every repository architecture must inventory first-party components, runtimes, and third-party services in the downstream SBOM and classify their criticality and lifecycle risk according to `Areas/swe/component-lifecycle-guidelines.md`.
+- Every repository architecture must inventory first-party components, runtimes, and third-party services in the downstream SBOM and classify their licenses, license risk, criticality, and lifecycle risk according to `Areas/swe/component-lifecycle-guidelines.md`.
+- Before approving a component or architecture option, the architecture must evaluate license compatibility against the intended build, linking, modification, hosting, commercial-use, packaging, and distribution model. Material obligations, restrictions, required notices/source offers, alternatives considered, and the accountable approval owner must be recorded under risks, trade-offs, and constraints.
 
 ## Diagram Rules
 
@@ -61,7 +62,8 @@ Last Updated: 2026-07-22
 - Logging, metrics, tracing, and alerting are defined for critical paths.
 - OpenTelemetry service attribution and OTLP export expectations are documented.
 - The code-intelligence baseline documents the repo-local `code-intel.py` entrypoint, JSON artifact locations, and the `AST -> Graph -> Semantic Search -> LLM` retrieval flow.
-- Architectural components and their dependency relationships are traceable to `audits/sbom/components.cdx.json`, with owner, criticality, lifecycle evidence, and risk.
+- Architectural components and their dependency relationships are traceable to `audits/sbom/components.cdx.json`, with owner, license expression/type/evidence, license obligations and risk, criticality, lifecycle evidence, and lifecycle risk.
+- Component choices with material license obligations or restrictions have an explicit compatibility decision before implementation; missing evidence is not treated as approval.
 - Security controls are specified: authN/authZ, secrets, audit trail.
 - Security controls are aligned with `Areas/swe/security-guidelines.md`.
 - Technical debt items and closure criteria are explicit.

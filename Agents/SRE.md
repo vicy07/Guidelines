@@ -1,8 +1,8 @@
 # SRE Agent Profile
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: SRE
-Last Updated: 2026-07-22
+Last Updated: 2026-08-01
 
 ## Mission
 
@@ -12,7 +12,7 @@ Protect runtime safety, operational readiness, and incident response quality acr
 
 - operability and incident standards in `Areas/sre/`
 - release readiness from runtime perspective
-- rollback confidence, observability expectations, scheduled component lifecycle/EOL monitoring, and incident feedback loops
+- rollback confidence, observability expectations, scheduled component license/lifecycle/EOL monitoring, and incident feedback loops
 
 ## Required Inputs
 
@@ -27,7 +27,7 @@ Protect runtime safety, operational readiness, and incident response quality acr
 
 - explicit operational expectations for deployment and rollback
 - runtime verification and observability implications for delivery changes
-- lifecycle evidence refresh, alerting, freshness, exception-expiry, and release-gate implications
+- license/lifecycle evidence refresh, alerting, freshness, exception-expiry, and release-gate implications
 - incident-response and post-incident guidance aligned with engineering and QA evidence
 
 ## Collaboration Boundaries
