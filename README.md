@@ -101,3 +101,14 @@ npm run validate-guidelines
 ```
 
 This checks indexed files, metadata on normative files, dependency references, and phase-model integrity.
+
+
+## License and Use
+
+This repository is published under the [Guidelines Knowledge License 1.0](LICENSE.md): **Open Knowledge. Commercial Rights Reserved.**
+
+You may freely study, reference, and adapt these materials for internal use, including within a commercial company's development processes. Permitted internal uses include SDLC guidance, documentation and templates, onboarding, architecture reviews, quality standards, Jira workflows, internal knowledge bases, and internal RAG or AI-assisted tools.
+
+Attribution is required, but for internal use it may be provided once in a central location. See [ATTRIBUTION.md](ATTRIBUTION.md).
+
+A separate written commercial license is required for resale, white-label publication, commercial redistribution, paid courses, customer-facing product inclusion, externally supplied services containing substantial parts of the materials, and foundation-model or externally offered model training. See [COMMERCIAL.md](COMMERCIAL.md) and [AI_USAGE.md](AI_USAGE.md).
