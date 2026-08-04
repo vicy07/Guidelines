@@ -1,8 +1,6 @@
 name: Organizational use registration
 description: Register internal organizational use of the Guidelines under the Guidelines Knowledge License 1.0.
 title: "[Organizational use] "
-labels:
-  - organizational-use
 body:
   - type: markdown
     attributes:
