@@ -1,0 +1,61 @@
+name: Organizational use registration
+description: Register internal organizational use of the Guidelines under the Guidelines Knowledge License 1.0.
+title: "[Organizational use] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for registering your organization's internal use of Guidelines.
+
+        Do not include confidential implementation details, internal links, personal contact information, or proprietary information. One registration covers continued internal use and internal adaptations by the named legal entity.
+
+  - type: input
+    id: organization
+    attributes:
+      label: Organization
+      description: Public or legal name of the organization using the Materials.
+      placeholder: Example Organization
+    validations:
+      required: true
+
+  - type: input
+    id: registrant
+    attributes:
+      label: Registrant
+      description: Your name, role, or GitHub identity.
+      placeholder: GitHub username or role
+    validations:
+      required: true
+
+  - type: dropdown
+    id: use_categories
+    attributes:
+      label: Primary use
+      description: Select the closest non-confidential description.
+      options:
+        - SDLC guidance and engineering standards
+        - Internal documentation, templates, or onboarding
+        - Architecture, quality, or delivery reviews
+        - Jira or other internal workflows
+        - Internal knowledge base, search, RAG, or AI assistant
+        - Multiple internal uses
+        - Other internal use
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: High-level description
+      description: Briefly describe the intended internal use without confidential details.
+      placeholder: We use selected Guidelines materials to improve our internal engineering standards and onboarding.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: confirmation
+    attributes:
+      label: Confirmation
+      options:
+        - label: I confirm that the organization accepts the Guidelines Knowledge License 1.0 and that this registration contains no confidential or proprietary information.
+          required: true
