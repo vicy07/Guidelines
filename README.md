@@ -109,6 +109,8 @@ This repository is published under the [Guidelines Knowledge License 1.0](LICENS
 
 You may freely study, reference, and adapt these materials for internal use, including within a commercial company's development processes. Permitted internal uses include SDLC guidance, documentation and templates, onboarding, architecture reviews, quality standards, Jira workflows, internal knowledge bases, and internal RAG or AI-assisted tools.
 
-Attribution is required, but for internal use it may be provided once in a central location. See [ATTRIBUTION.md](ATTRIBUTION.md).
+Internal organizational use is free but must be registered once through the repository's **Organizational use registration** GitHub Issue form, before use or within 30 days after first use. Only the organization's name, the registrant's GitHub identity, a non-confidential high-level description, and license acceptance are required.
+
+Attribution is also required, but for internal use it may be provided once in a central location. See [ATTRIBUTION.md](ATTRIBUTION.md).
 
 A separate written commercial license is required for resale, white-label publication, commercial redistribution, paid courses, customer-facing product inclusion, externally supplied services containing substantial parts of the materials, and foundation-model or externally offered model training. See [COMMERCIAL.md](COMMERCIAL.md) and [AI_USAGE.md](AI_USAGE.md).
