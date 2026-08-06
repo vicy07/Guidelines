@@ -1,8 +1,8 @@
 ﻿# Architecture Guidelines and Format Standard
 
-Version: 1.4.0
+Version: 1.5.0
 Owner: Repository Maintainer
-Last Updated: 2026-08-01
+Last Updated: 2026-08-06
 
 ## Metadata (required)
 
@@ -37,6 +37,16 @@ Last Updated: 2026-08-01
 - Every repository architecture must define or explicitly reference `docs/architecture/code-intelligence.md` as the source of truth for the mandatory code-intelligence baseline, including the `SCIP + ast-grep + rg` toolchain, symbol boundaries, graph relationships, incremental reindex behavior, and retrieval pipeline.
 - Every repository architecture must inventory first-party components, runtimes, and third-party services in the downstream SBOM and classify their licenses, license risk, criticality, and lifecycle risk according to `Areas/swe/component-lifecycle-guidelines.md`.
 - Before approving a component or architecture option, the architecture must evaluate license compatibility against the intended build, linking, modification, hosting, commercial-use, packaging, and distribution model. Material obligations, restrictions, required notices/source offers, alternatives considered, and the accountable approval owner must be recorded under risks, trade-offs, and constraints.
+
+## Repository Artifact Contract
+
+- `docs/architecture.md` is the short, navigational entry point and must remain aligned with `Areas/requirements/architecture-standard.md`.
+- `docs/technical-architecture.md` is the deep technical source of truth for runtime boundaries, storage, integrations, NFRs, security, observability, deployment, risks, and traceability.
+- Material architecture decisions must be recorded as ADRs under `docs/architecture/adr/` unless the downstream repository has an equivalent documented decision-record location.
+- C4, deployment, and data-model diagrams must be stored as source files under `docs/architecture/diagrams/` or the repository's documented equivalent. Rendered images are supplements, not the source of truth.
+- Architecture reviews, assessments, and migration plans must be durable repository artifacts under `docs/architecture/` or an explicitly documented equivalent.
+- Architecture work is incomplete when the code change and its required architecture artifacts are not updated in the same delivery change, or when the artifact owner, evidence, decision status, and follow-up are missing.
+- The SWE/Architect role creates and maintains these technical artifacts; BA/PO own product intent and requirements, QA owns verification evidence, and SRE owns operational readiness and runtime evidence.
 
 ## Diagram Rules
 
