@@ -22,9 +22,9 @@ For a new repository:
    Preferred form: public GitHub links for the repository reference point and the primary baseline documents.
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`, including `docs/architecture/code-intelligence.md`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
-5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/eol.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
+5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/components.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
 6. Add `code-intel.py`, repo-local `code-intel/`, and `code-intel/config/index.yaml` as a separate control surface from `audits.py`.
-7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/eol.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `eol.py` entrypoints as part of the baseline model.
+7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/components.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `components.py` entrypoints as part of the baseline model.
 8. Reuse `Tools/code-intel/` as the lower-level runtime for the `SCIP + ast-grep + rg` baseline, with Tree-sitter fallback only where semantic indexers are unavailable or not yet complete.
 9. Add the repository observability stack and OTLP contract.
 10. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
@@ -40,7 +40,7 @@ Recommended sequence:
 1. Inventory current docs, tests, workflows, and deployment scripts.
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
-4. Normalize CI, deploy, SonarQube, Trivy, component lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
+4. Normalize CI, deploy, SonarQube, Trivy, component license and lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
 5. When an audit is run, create exactly one consolidated
    `docs/audits/YYYY-MM-DD-<scope>.md` report for that work item. Include the
    exact `Guidelines` version pinned by commit hash and commit date, all required
@@ -73,7 +73,7 @@ Add or normalize:
 - deploy workflow or release workflow,
 - SonarQube integration,
 - Trivy integration,
-- component lifecycle/EOL monitoring, criticality/risk classification, and the tracked enriched SBOM,
+- component license and lifecycle/EOL monitoring, license type/evidence/risk, criticality/risk classification, and the tracked enriched SBOM,
 - `code-intel.py`, repo-local `code-intel/`, and the mandatory `SCIP + ast-grep + rg` AST index path,
 - observability stack with OTLP contract,
 - minimum smoke and regression checks.
@@ -112,8 +112,8 @@ Architecture documentation rule:
 - For retrofits, prefer the narrowest practical repo-local surface that satisfies the baseline first.
 - Do not expand the main README, docs index, or repo-wide tests during the first code-intelligence rollout unless the repository explicitly asks for it or an existing contract would otherwise fail.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `Tools/code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `eol.py` in the baseline model.
-- Persist the current component inventory, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; refresh it at least weekly and when dependencies, architecture, runtime/base images, or external-provider contracts change.
+- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `Tools/code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `components.py` in the baseline model.
+- Persist the current component inventory, license expression/type/evidence and risk, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; assess license compatibility during architecture design before adoption and refresh it at least weekly and when dependencies, component versions, architecture, build/linking/packaging or distribution models, runtime/base images, or external-provider contracts change.
 - Generated `code-intel/index/` artifacts are mandatory runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 - Keep scanner JSON, SARIF, logs, and SBOMs as linked machine evidence, but do
@@ -129,7 +129,7 @@ The lightest workable integration for most teams is:
    Preferred form: a public GitHub repository link plus direct GitHub links to the primary baseline documents.
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
-4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local EOL scanner.
+4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local component scanner.
 5. Keep `Tools/sonar/` and `Tools/trivy/` as lower-level reusable runners behind `Tools/audits/`, and keep lifecycle-source adapters repo-local, not as root entrypoints.
 6. Add `code-intel.py`, `code-intel/`, and `docs/architecture/code-intelligence.md`, then reuse `Tools/code-intel/` as the lower-level `SCIP + ast-grep + rg` indexing runtime and keep Tree-sitter enabled only as fallback where needed.
 7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.

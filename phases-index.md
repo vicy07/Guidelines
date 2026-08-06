@@ -1,8 +1,8 @@
 # Phases Index and Role Matrix
 
-Version: 1.4.0
+Version: 1.5.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-05
+Last Updated: 2026-08-06
 
 ## Purpose
 
@@ -20,10 +20,10 @@ Provide a single-file phase map showing which roles are primary in each lifecycl
 
 | Phase | Primary Roles | Required Role Outputs |
 |---|---|---|
-| Discovery | PO, BA, SWE, QA, SRE | Scope, use cases, constraints, acceptance criteria |
-| Solution Design | BA, SWE, SRE, QA | Architecture decisions, security/reliability controls, test strategy alignment, requirements impact alignment |
-| Implementation | BA, SWE, QA, SRE | Implemented changes, traceability, readiness checks, requirement-change impact control |
-| Verification | BA, QA, SWE, SRE | Test evidence, defect status, go/no-go recommendation, requirement acceptance traceability |
+| Discovery | PO, BA, UX, SWE, QA, SRE | Scope, use cases, user flows, UX research/insights, constraints, acceptance criteria |
+| Solution Design | BA, SWE, SRE, QA | Repository architecture artifacts, architecture decisions, security/reliability controls, test strategy alignment, requirements impact alignment |
+| Implementation | BA, UX, SWE, QA, SRE | Implemented changes, UX artifact alignment, traceability, readiness checks, requirement-change impact control |
+| Verification | BA, UX, QA, SWE, SRE | Test and usability evidence, defect status, go/no-go recommendation, requirement and UX acceptance traceability |
 | Operations | BA, SRE, SWE, QA | Incident handling, RCA, post-fix validation, preventive actions, requirement-impact triage |
 
 ## Role-to-Guideline Links

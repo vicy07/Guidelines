@@ -1,8 +1,8 @@
 # Architecture Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-01
+Last Updated: 2026-08-01
 
 ## Metadata (required)
 
@@ -36,6 +36,7 @@ Detailed technical design rules remain governed by `Areas/swe/architecture-guide
 - The runtime or container overview must describe the major runtime shape at a high level and defer deep protocol, storage, and NFR details to `docs/technical-architecture.md`.
 - The boundaries section must identify the main system areas or modules and who or what owns them conceptually.
 - The cross-reference section must explicitly link to the deeper documents that carry technical detail, including `docs/architecture/code-intelligence.md` when the baseline requires it.
+- The constraints section must summarize or link to the license compatibility assessment for proposed libraries, runtimes, build tools, images, external components, and other distributable artifacts before they are approved for implementation. It must identify material source-disclosure, attribution/notice, redistribution, linking/modification, patent, network-use, commercial-use, or field-of-use obligations and restrictions, or state `Evidence not available`.
 - The constraints section must use `Evidence not available` where repository architecture details are not yet proven.
 
 ## Quality Checklist
@@ -44,6 +45,7 @@ Detailed technical design rules remain governed by `Areas/swe/architecture-guide
 - It clearly separates navigation and high-level architecture from deep technical design.
 - Linked downstream artifacts match the real repository layout.
 - Key boundaries and responsibilities are explicit.
+- Material component-license obligations and restrictions are evaluated before the architecture is approved, with the applicable delivery and distribution model stated.
 - Missing or immature details are marked without invented certainty.
 
 ## Template
