@@ -25,6 +25,13 @@ Define the minimum recommended baseline for downstream software product reposito
     architecture/
       code-intelligence.md
       adr/
+    ux/                         # optional when UX work is material
+      README.md
+      research/
+      user-flows/
+      decisions/
+      usability-tests/
+      metrics/
     qa/
       test-strategy.md
     sre/
@@ -72,6 +79,7 @@ Define the minimum recommended baseline for downstream software product reposito
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
 - `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository and should follow the content contract from `Areas/requirements/code-intelligence-standard.md`.
+- `docs/ux/` is the optional home for durable UX research, user-flow, design-decision, usability-test, and UX-metric artifacts when the repository has material UX work. Repositories with an existing documented UX source of truth may keep that location instead.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
