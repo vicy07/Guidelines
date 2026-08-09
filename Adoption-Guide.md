@@ -28,6 +28,7 @@ For a new repository:
 8. Reuse `Tools/code-intel/` as the lower-level runtime for the `SCIP + ast-grep + rg` baseline, with Tree-sitter fallback only where semantic indexers are unavailable or not yet complete.
 9. Add the repository observability stack and OTLP contract.
 10. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
+11. Add reviewed `docs/releases/X.Y.Z.md` files to the release workflow. If the solution has a web page, add an accessible release-notes page and link it from primary navigation or the required footer/status line.
 
 This is the preferred path because it avoids later migration overhead.
 
@@ -47,7 +48,8 @@ Recommended sequence:
    EOL, Trivy, security, and GDPR/privacy rows, and an explicit reason for every
    `not-run` or `not-applicable` check.
 6. Add the visible last-commit line without changing unrelated architecture.
-7. Move toward the target structure incrementally as files are naturally touched.
+7. Add versioned release notes before the release artifact is built; for web solutions, publish and link the release-notes page without changing unrelated architecture.
+8. Move toward the target structure incrementally as files are naturally touched.
 
 ## Practical Proposal for Existing Projects
 
@@ -95,6 +97,7 @@ Create or align:
 - `docs/architecture/code-intelligence.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
+- `docs/releases/README.md` and `docs/releases/X.Y.Z.md` for every published version
 
 Outcome:
 
@@ -139,5 +142,6 @@ The lightest workable integration for most teams is:
    commit hash and commit date used for the review. This step is opt-in and
    requires an explicit audit request or approved schedule.
 9. Add the visible last-commit line.
+10. Add reviewed versioned release notes. For web solutions, expose the generated release-notes page through primary navigation or the required footer/status line.
 
 That gives a usable baseline without forcing a full repository redesign on day one.
