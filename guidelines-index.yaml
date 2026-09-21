@@ -1,4 +1,4 @@
-version: 3.9.1
+version: 3.9.2
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -43,6 +43,21 @@ domains:
         kind: supporting
         requires_metadata: false
       - path: AGENTS.md
+        kind: supporting
+        requires_metadata: false
+      - path: AI_USAGE.md
+        kind: supporting
+        requires_metadata: false
+      - path: ATTRIBUTION.md
+        kind: supporting
+        requires_metadata: false
+      - path: CHANGELOG.md
+        kind: supporting
+        requires_metadata: false
+      - path: COMMERCIAL.md
+        kind: supporting
+        requires_metadata: false
+      - path: LICENSE.md
         kind: supporting
         requires_metadata: false
       - path: phases-index.md

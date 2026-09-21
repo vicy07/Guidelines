@@ -8,6 +8,19 @@ It defines:
 - the minimum artifacts agents and humans need to collaborate safely,
 - how to attach these standards to new and existing projects.
 
+## Companion Agent Governance
+
+This repository defines what a product repository should contain and how its
+engineering delivery should be structured. The companion
+[`vicy07/AI-Governance`](https://github.com/vicy07/AI-Governance) repository
+defines how agent work is owned, investigated, verified, handed off, and
+improved across repositories.
+
+Downstream repositories should reference both baselines from their root
+`AGENTS.md`: use `Guidelines` for engineering and documentation requirements,
+and `AI-Governance` for the cross-repository agent operating model. Keep
+product-specific exceptions local and explicit.
+
 ## What This Repo Is
 
 - A guidelines repository for agentic development.
@@ -97,10 +110,21 @@ This repository expects downstream product repositories to define at least:
 Run:
 
 ```bash
+npm ci --ignore-scripts --no-bin-links
 npm run validate-guidelines
+python3 -m pip install -r requirements-dev.txt
+python3 -m pytest -q
 ```
 
 This checks indexed files, metadata on normative files, dependency references, and phase-model integrity.
+
+To assess a downstream product repository against the dual baseline and minimum
+documentation structure, copy `templates/governance-baseline.yaml` into that
+repository and run:
+
+```bash
+npm run check-product-baseline -- /path/to/product --strict
+```
 
 
 ## License and Use

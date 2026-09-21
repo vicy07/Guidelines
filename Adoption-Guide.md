@@ -18,8 +18,11 @@ Do not force the same rollout shape on both.
 For a new repository:
 
 1. Create the target structure from `Product-Repository-Blueprint.md`.
-2. Add `AGENTS.md` with a direct link to the `Guidelines` repository or the adopted baseline documents.
-   Preferred form: public GitHub links for the repository reference point and the primary baseline documents.
+2. Add `AGENTS.md` with direct links to the `Guidelines` engineering baseline,
+   the adopted baseline documents, and the companion
+   [`AI-Governance`](https://github.com/vicy07/AI-Governance) operating model.
+   Preferred form: public GitHub links for both repository reference points and
+   the primary baseline documents.
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`, including `docs/architecture/code-intelligence.md`.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
 5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/eol.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
@@ -57,7 +60,7 @@ Use a three-step rollout:
 
 Add:
 
-- `AGENTS.md` with a direct link to `Guidelines`
+- `AGENTS.md` with direct links to `Guidelines` and `AI-Governance`
 - prefer public GitHub links over local machine-specific paths
 
 Outcome:
@@ -121,12 +124,54 @@ Architecture documentation rule:
   `guidelines/playbooks/audit-reporting-standard.md`. Do not start the audit
   suite implicitly as part of normal delivery or QA.
 
+## Root AGENTS Reference Template
+
+Use this minimal control surface in a downstream product repository and add
+only product-specific instructions below it:
+
+```md
+# Repository instructions
+
+This repository adopts:
+
+- Engineering and documentation baseline:
+  https://github.com/vicy07/Guidelines
+- Repository structure:
+  https://github.com/vicy07/Guidelines/blob/main/Product-Repository-Blueprint.md
+- Adoption rules:
+  https://github.com/vicy07/Guidelines/blob/main/Adoption-Guide.md
+- Agent workflow and handoffs:
+  https://github.com/vicy07/AI-Governance
+
+Adopted Guidelines revision: <commit SHA>
+
+Product-specific instructions may specialize the shared baselines. Record any
+intentional deviation explicitly.
+```
+
+Use a commit SHA when reproducibility matters, especially for an audit or a
+regulated delivery. Keep the repository links as stable discovery points even
+when a revision is pinned.
+
+Copy `templates/governance-baseline.yaml` to
+`.governance/baseline.yaml`, replace both revision placeholders with full commit
+SHAs, and check the product repository with:
+
+```bash
+npm run check-product-baseline -- /path/to/product --strict
+```
+
+Omit `--strict` during an incremental retrofit to report gaps without failing
+the command. Enable strict mode in CI after the mapped minimum artifacts exist.
+
 ## Suggested Consumption Pattern
 
 The lightest workable integration for most teams is:
 
-1. Add `AGENTS.md` that points to `Guidelines`.
-   Preferred form: a public GitHub repository link plus direct GitHub links to the primary baseline documents.
+1. Add `AGENTS.md` that points to `Guidelines` and
+   [`AI-Governance`](https://github.com/vicy07/AI-Governance).
+   Preferred form: public GitHub repository links plus direct GitHub links to
+   the primary engineering baseline documents.
 2. Create the minimal docs set.
 3. Wire CI and deploy workflows.
 4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local EOL scanner.

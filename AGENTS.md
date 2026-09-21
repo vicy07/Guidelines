@@ -5,6 +5,9 @@
 Define deterministic behavior for AI agents using this repository as a reusable guidelines baseline for agentic development.
 This repository stores reusable guidelines; downstream product-repository structure guidance is documented in `Product-Repository-Blueprint.md`, with rollout guidance in `Adoption-Guide.md`.
 `Areas/requirements` standards are owned primarily by `BA` with `PO` co-ownership.
+Cross-repository agent workflow, handoff, and session rules are maintained in
+[`vicy07/AI-Governance`](https://github.com/vicy07/AI-Governance); this
+repository remains authoritative for engineering structure and documentation.
 
 ## Instruction Priority
 

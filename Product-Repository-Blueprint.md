@@ -67,6 +67,10 @@ Define the minimum recommended baseline for downstream software product reposito
 
 ## Structure Rules
 
+- The root `AGENTS.md` references both the
+  [`Guidelines`](https://github.com/vicy07/Guidelines) engineering baseline and
+  the [`AI-Governance`](https://github.com/vicy07/AI-Governance) agent operating
+  model, then records any explicit product-specific exceptions.
 - `docs/requirements/` is the product behavior source of truth.
 - `docs/architecture.md` is the repository-level architecture entry point and navigation hub and should follow the content contract from `Areas/requirements/architecture-standard.md`.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
