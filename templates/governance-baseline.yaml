@@ -1,0 +1,7 @@
+version: 1
+guidelines:
+  repository: https://github.com/vicy07/Guidelines
+  revision: REPLACE_WITH_FULL_COMMIT_SHA
+ai_governance:
+  repository: https://github.com/vicy07/AI-Governance
+  revision: REPLACE_WITH_FULL_COMMIT_SHA

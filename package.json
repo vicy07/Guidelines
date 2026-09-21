@@ -4,9 +4,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "validate-guidelines": "node scripts/validate-guidelines.mjs"
+    "validate-guidelines": "node scripts/validate-guidelines.mjs",
+    "check-product-baseline": "node scripts/check-product-baseline.mjs"
   },
   "dependencies": {
-    "js-yaml": "4.3.0"
+    "js-yaml": "4.3.2"
   }
 }
