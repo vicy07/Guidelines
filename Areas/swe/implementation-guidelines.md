@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.5.0
+Version: 1.6.0
 Owner: SWE Lead
-Last Updated: 2026-07-22
+Last Updated: 2026-08-09
 
 ## Metadata (required)
 
@@ -53,6 +53,8 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 - For user-facing projects, implementation must preserve the project's chosen technology and architecture while delivering the required visible status/footer line: `Last commit: <localized date/time> | <short sha>`.
 - The deployed implementation must source that visible line from metadata that exists in the target runtime; do not assume a local `.git` checkout is available in production containers or hosted runtimes.
 - If commit details are not available, keep the same visible line and render `Last commit: unavailable`.
+- Every published release must have a reviewed versioned note under `docs/releases/X.Y.Z.md` or the repository's documented equivalent. Release automation may draft or render these notes, but the committed note and any tracked release-notes page input must exist before the CI artifact is built and promoted.
+- For a user-facing solution with a web page, implement a release-notes page backed by that versioned source and expose it through primary navigation or the required persistent footer/status line. Treat the page and link as a user-facing delivery surface, including accessibility and deployed-environment verification.
 - If evidence is missing, state `Evidence not available`.
 
 ## Quality Checklist
@@ -66,3 +68,4 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 - Observability and OTLP contract implications are documented for the repository type.
 - QA handover includes test scope and risk notes.
 - SRE handover includes deployment and observability implications.
+- Release handover identifies the versioned notes, source commit, release-notes page when applicable, and the verified public navigation or footer link.

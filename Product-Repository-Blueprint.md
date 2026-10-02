@@ -29,6 +29,9 @@ Define the minimum recommended baseline for downstream software product reposito
       test-strategy.md
     sre/
       deployment-and-operations.md
+    releases/                    # one reviewed file per published release
+      README.md
+      X.Y.Z.md
   src/
   tests/
     unit/
@@ -185,6 +188,36 @@ If commit details are unavailable, the UI must still render:
 
 This requirement defines the visible product outcome, not the implementation mechanism.
 The visible line must resolve correctly in deployed environments too, not only in local development.
+
+### Release Notes Contract
+
+Every published release must have one reviewed, human-readable repository file
+under `docs/releases/` (or the repository's documented equivalent) named
+`X.Y.Z.md`. The file describes user-relevant changes and the operational or
+privacy implications that are necessary to understand the release. Commit
+subjects may seed a draft, but the final notes must be reviewed rather than
+published as an unedited commit log.
+
+Release preparation must make the notes part of the committed source that is
+verified and promoted. A release workflow may generate the note and any derived
+assets, but it must commit or otherwise require that source before the CI
+artifact is built; it must not leave tracked release files for a second,
+post-release commit. The release process must retain a clear source-to-artifact
+provenance link.
+
+If a user-facing solution has a web page, it must also publish an accessible
+release-notes page generated from the reviewed release-note files or an
+equivalent versioned source of truth. The page must be linked either from
+primary navigation as a distinct release-notes entry or from the required
+persistent footer/status line. A link that exists only in source, a hidden menu,
+or a release-provider page outside the product does not satisfy this rule.
+
+Ownership boundary: SWE owns source generation and exact-source delivery; UX
+owns accessible page structure and link discoverability; QA verifies the
+versioned file, public page, and link path; SRE verifies that released assets
+and release documentation identify the same committed source. Libraries and
+CLIs still require versioned release documentation, but do not require a web
+page unless they publish one.
 
 ### 7. Observability Stack
 

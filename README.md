@@ -80,6 +80,7 @@ This repository expects downstream product repositories to define at least:
 - a mandatory component lifecycle/EOL gate with criticality and risk recorded in a tracked downstream CycloneDX SBOM,
 - a mandatory code-intelligence baseline with `code-intel.py`, repo-local `code-intel/`, a `SCIP + ast-grep + rg` AST-first index path, and `docs/architecture/code-intelligence.md`,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
+- release documentation for each published version and, for web solutions, a discoverable release-notes page linked from primary navigation or the required footer,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
 ## Repository Map
