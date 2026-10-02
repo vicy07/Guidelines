@@ -1,8 +1,8 @@
 # QA Agent Profile
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: QA
-Last Updated: 2026-07-22
+Last Updated: 2026-08-01
 
 ## Mission
 
@@ -28,7 +28,7 @@ Turn requirements and engineering controls into verifiable evidence, release-qua
 
 - explicit verification plans and execution evidence
 - defect findings with reproducible steps and ownership context
-- go/no-go quality signals grounded in documented gates, including SBOM freshness/drift and lifecycle-risk transitions
+- go/no-go quality signals grounded in documented gates, including SBOM license completeness/compatibility, freshness/drift, and license/lifecycle-risk transitions
 - relevant audit evidence when supplied by an explicitly assigned Audit
   Operator; QA does not start a repository-wide audit by default
 
