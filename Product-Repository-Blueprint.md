@@ -134,6 +134,19 @@ Every deployable project must define a deployment path that includes:
 - rollback or roll-forward guidance,
 - ownership of deployment approval and runtime checks.
 
+Release records link the accepted goal, owning Issues/PRs, exact version and
+immutable revision/artifact, environment, acceptance checks and rollback path.
+Keep release verification and notification delivery as independent statuses;
+retain notification failures with an owner and recovery step. Production-scoped
+acceptance must survive PR merge through an open Issue or linked delivery Issue.
+Reuse existing release/runbook locations and the AI-Governance
+[release template](https://github.com/vicy07/AI-Governance/blob/main/templates/release.md).
+SRE handover documents an exact notification entrypoint, no-send doctor,
+runtime-owned configuration, receipt journal and retry/reconciliation path;
+QA verifies UTF-8 round trips and failure/duplicate behavior. The personal
+Telegram channel is configured once in homelab, as governed by AI-Governance,
+and must not be copied into product secrets or repository configuration.
+
 Production application code must never be deployed, redeployed, uploaded, or otherwise published directly through a hosting-platform CLI, UI, or API. Platform tools may be used read-only for diagnostics and post-deploy verification, but code publication must always flow from Git through the documented delivery workflow.
 
 If a repository is a library and is not deployed as a runtime service, replace deployment guidance with a documented release/publish flow.

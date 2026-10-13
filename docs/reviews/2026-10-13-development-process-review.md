@@ -238,3 +238,90 @@ file; регрессионные проверки подтверждают от�
 по продуктовой evidence, а не автоматически по расширениям файлов. Downstream
 migration и измерение эффективности остаются отдельной delivery. Общий
 portable governance/personal-adapter split этим изменением не выполнялся.
+
+
+## Goals, Issues и уведомления о релизах — продолжение
+
+Пользователь разрешил реализовать рекомендации этого продолжения целиком.
+Owning work items: [AI-Governance #39](https://github.com/vicy07/AI-Governance/issues/39),
+[Guidelines #14](https://github.com/vicy07/Guidelines/issues/14),
+[homelab #60](https://github.com/vicy07/homelab/issues/60).
+Исходные локальные revisions: Guidelines `cf8ced5`, AI-Governance `649a7f3`,
+homelab `899400181e0809b6e0b62724b9ce9c546014885c` (новый shallow checkout).
+
+Фазы: Solution Design → Implementation → Verification. Роли: PO/BA — цель и
+критерии приёмки; SWE — implementation/revision traceability; QA — evidence,
+кириллица и failure cases; SRE — runtime, journal, доставка и recovery.
+Отдельные агенты не запускались.
+
+Реализовано:
+
+- Goal → owning Issues → PRs → verified release → outcome evidence;
+  шаблоны цели, задачи и релиза без обязательного дополнительного scaffolding.
+- Явная граница приёмки. Merge-scoped Issue может закрываться PR; production
+  acceptance сохраняется в открытой задаче либо отдельной delivery Issue.
+- Продолжение из последнего handoff с проверкой revision/freshness и следующим
+  шагом; release_status и notification_status независимы.
+- Host-side homelab sender: personal bot и allowlisted private recipient,
+  no-send doctor, UTF-8 JSON/file/stdin, exact echoed-text и message_id checks.
+- Persistent SQLite journal подавляет повтор/конкурентную отправку по
+  product/version/environment; изменение manifest для той же identity отвергается.
+  Таймаут, malformed response, 5xx, receipt mismatch или crash требуют
+  reconciliation; явные 4xx rejection и retry_after обрабатываются отдельно.
+- Общий workstation wrapper передаёт исходные байты через SSH без локального
+  shell; пригоден для PowerShell и WSL. Секреты читает только host-side helper.
+- Быстрые тесты и отдельный read-only CI job без сети и runtime secrets.
+
+Полный список изменённых файлов:
+
+- Guidelines: `README.md`, `Product-Repository-Blueprint.md`, `Adoption-Guide.md`,
+  `Areas/sre/sre-operations-guidelines.md`,
+  `Areas/qa/test-execution-and-reporting.md`, `CHANGELOG.md`, этот report.
+- AI-Governance: `.codex/AGENTS.md`, `README.md`, `templates/goal.md`,
+  `templates/task.md`, `templates/release.md`.
+- homelab: `README.md`, `.env.example`, `docs/release-notifications.md`,
+  `docs/examples/release-notification.json`, `scripts/release_notify.py`,
+  `scripts/release_notify_remote.py`, `tests/test_release_notify.py`,
+  `.github/workflows/release-notifications.yml`.
+
+Проверки: Guidelines metadata/reference/phase validation — exit 0
+(22 normative / 78 indexed / 44 references / 5 phases), pytest — 93 passed;
+AI-Governance pytest — 16 passed. Homelab sender tests проверяют HTTP bytes и
+receipt round trip с `ё`/emoji, ASCII stdio, invalid UTF-8, duplicate/concurrent
+calls, interruption/reopen, 4xx/rate-limit/5xx и operator reconciliation.
+Итоговый homelab suite — **48 passed, 18 subtests passed** (5.78 s),
+включая 21 sender tests; результат также фиксируется в owning Issue/PR.
+`git diff --check` — exit 0 для всех трёх репозиториев.
+
+Runtime verification: `Evidence not available`. `ssh homelab` завершился
+`Host key verification failed`; в текущих WSL/Windows конфигурациях не найден
+настроенный alias/identity для этого host. Host-key checking не отключался,
+секреты не извлекались, Telegram-сообщения не отправлялись. После review и
+Git-доставки проверенного commit на host владелец устанавливает доверенную SSH
+связь, запускает doctor и проверяет сообщение для разрешённого теста либо
+следующего verified release. Продуктовые deployment pipelines не менялись.
+Существующий relay уже использует UTF-8; причина исторических `???` не доказана.
+
+Learning capture:
+
+- lesson: prose о канале доставки не заменяет exact entrypoint; HTTP success
+  не доказывает сохранение текста, а timeout не доказывает отсутствие отправки.
+- system improvement: homelab sender/runbook/journal и executable regression
+  tests; governance acceptance boundaries и независимые delivery statuses.
+- verification: локальные behavioral tests и согласованные QA/SRE consumers.
+
+Baseline gaps: homelab использует существующие README/docs/scripts/tests;
+полные восемь product-doc artifacts не добавлялись к этой узкой задаче.
+Runbook покрывает затронутые transport/configuration/deployment/rollback аспекты.
+Machine-wide instructions не переустанавливались; canonical local policy
+обновлён в исходном AI-Governance checkout.
+
+
+Финальное review продолжения: журнал сохраняет `receipt_source: api` либо
+`operator`; migration старого журнала не выдумывает отсутствующее происхождение
+receipt (`not_recorded`). Duplicate calls сохраняют исходный источник.
+Draft PRs: [AI-Governance #40](https://github.com/vicy07/AI-Governance/pull/40),
+[Guidelines #15](https://github.com/vicy07/Guidelines/pull/15),
+[homelab #61](https://github.com/vicy07/homelab/pull/61). Review/merge и
+Git-based rollout остаются явно обозначенными delivery steps; homelab Issue
+не имеет automatic closure keyword, поскольку live acceptance ещё не выполнена.

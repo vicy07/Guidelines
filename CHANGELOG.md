@@ -6,6 +6,10 @@ All notable repository-level changes are documented here.
 
 ### Changed
 
+- Added goal/Issue/release acceptance traceability and separate release versus
+  notification evidence to Blueprint, adoption, QA and SRE guidance. Documented
+  runtime-owned notification entrypoints, UTF-8 verification and journal-based
+  duplicate/ambiguous-outcome handling; agent workflow remains in AI-Governance.
 - Added explicit runtime/risk applicability profiles and basic/indexed
   navigation modes; custom indexing and OTLP export are conditional.
 - Aligned code-intelligence/observability standards and adoption guidance;
