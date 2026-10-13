@@ -62,7 +62,7 @@ P1 — высокий приоритет для корректности или 
 | G10 | P1 | Governance ограничивал expensive stage «at most one run», что можно прочитать как запрет необходимого повторного запуска | Исправлено: Verification Selection and Evidence разрешает обоснованный rerun и связывает governance с CI policy | QA/SRE |
 | G11 | P2 | Governance фиксировал 100M/day, а session_report имеет defaults 5M/session и 100M/day; точная allowance не следует из rollout text estimate | Уточнено: internal configurable estimate, threshold только при доступных данных. Подбор чисел под реальные workloads и качество estimator остаются отдельной задачей | Repository Maintainer |
 | G12 | P2 | Governance README заявляет vendor-neutral scope, но `.codex/AGENTS.md` содержит Codex-specific usage и персональный homelab Telegram bot; machine adapter содержит абсолютные host paths | Разделить portable process contract, runtime adapters и personal installation/notification profile. Сейчас разделение ролей двух AGENTS существует: `.codex` — workflow, `codex` — installable pointer; это не две копии одного документа | Repository Maintainer/SRE |
-| G13 | P2 | `validate-guidelines.yml` выполняет только OTEL/Sonar tests; AI-Governance `.github/workflows` содержит только release-retention, без test CI | Нужна impact-based selection всего owned tooling и автоматизация governance tests. Простая metadata validation не доказывает семантическую непротиворечивость правил | SWE/QA |
+| G13 | P2 | `validate-guidelines.yml` выполняет только OTEL/Sonar tests; AI-Governance `.github/workflows` содержит только release-retention, без test CI | Исправляется в Guidelines #10 и AI-Governance #37: полный быстрый helper suite и отдельный pytest CI, без scanner bundle. Дешёвый suite запускается целиком; impact selection добавлять только при измеренной необходимости. Metadata validation не доказывает семантическую непротиворечивость правил | SWE/QA |
 | G14 | P1 | Trivy adapter default `aquasec/trivy:latest`; workflow action refs используют version tags | Pin инструментов/образов и обновление по reviewable change; cache отдельно от version pin. Для reused evidence записывать фактические versions/digests. Runtime defaults здесь не менялись | SWE/SRE |
 | G15 | P2 | QA bug checklist требует два воспроизведения; incident closure требует уже verified preventive actions | Для разрушительных/редких сбоев принимать достаточную evidence без повторного воздействия; отделить завершение mitigation от tracked prevention follow-up | QA/SRE |
 
@@ -187,3 +187,13 @@ Learning capture:
   evidence reuse требует явной свежести и invalidation.
 - system improvement: единый CI policy и согласованные role-owned consumers.
 - verification: metadata/reference validation, тесты обоих репозиториев и diff review.
+
+
+Продолжение G13: `.github/workflows/validate-guidelines.yml` теперь устанавливает
+объявленные test dependencies и запускает весь быстрый pytest suite. Новый
+`.github/workflows/test.yml` в AI-Governance запускает его test suite. В обоих
+workflow: PR + main push, read-only permissions, immutable Action SHAs,
+dependency caches, timeout и отмена superseded PR checks. Существующий required
+job Guidelines `validate` сохранён. Первые реальные CI результаты подтверждают
+дублирование PR/feature-push у прежнего workflow (оба checks для #9); новая
+настройка исключает feature-push duplicate. Замеры общего выигрыша пока не сняты.

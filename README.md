@@ -120,6 +120,13 @@ python3 -m pytest -q
 
 This checks indexed files, metadata on normative files, dependency references, and phase-model integrity.
 
+The `Validate Guidelines` workflow runs the same validation and complete fast
+Python helper suite for pull requests and pushes to `main`. It uses read-only
+permissions, immutable Action revisions, dependency caches, and cancellation
+of superseded PR runs. Feature-branch pushes do not duplicate PR checks.
+These tests verify local helpers; CI does not invoke Sonar, Trivy, lifecycle
+network refresh, or the full audit suite.
+
 To assess a downstream product repository against the dual baseline and minimum
 documentation structure, copy `templates/governance-baseline.yaml` into that
 repository and run:
