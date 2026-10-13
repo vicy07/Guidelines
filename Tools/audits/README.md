@@ -1,5 +1,10 @@
 # Audit Runtime
 
+Execution cadence follows
+[`CI Verification Policy`](../../guidelines/playbooks/ci-verification-policy.md).
+These entrypoints do not imply execution on every PR/push: keep full scanners
+on approved schedules or explicit triggers, and reuse fresh release evidence.
+
 Reusable audit runner logic for product repositories that want one local entrypoint for multiple scanners without duplicating Docker, reporting, and CLI wiring.
 
 Runner outputs are machine evidence, not separate human audit conclusions. For

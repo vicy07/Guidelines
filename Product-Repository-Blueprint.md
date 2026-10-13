@@ -94,7 +94,14 @@ Every project must define a CI workflow that:
 - installs dependencies deterministically,
 - runs the fastest meaningful automated checks for the repository,
 - runs at least a smoke regression set before merge,
-- fails the build on test, security-gate, or quality-gate failure.
+- fails the build on failures of checks selected by the documented CI policy.
+
+Execution frequency is governed by
+[`CI Verification Policy`](guidelines/playbooks/ci-verification-policy.md).
+Ordinary PR/push CI must not run full audits, SonarQube, full Trivy scans,
+network EOL refresh, or full index rebuilds unconditionally. Run fast checks
+for the change; select targeted risk checks, approved schedules, and release
+checks separately. Required release gates may consume fresh candidate evidence.
 
 Minimum CI outcome:
 
@@ -122,7 +129,9 @@ Every supported codebase must provide:
 - `audits/config/sonar-project.properties`,
 - repo-local Sonar wiring under `audits.py` and `audits/`,
 - coverage report generation wired into the Sonar run,
-- a required quality gate for `main` and release branches.
+- a required quality gate for supported `main`/release candidates, evaluated
+  through scheduled or explicitly triggered analysis and fresh release evidence
+  under the CI Verification Policy; no unconditional Sonar run on each CI event.
 
 Recommended integration model:
 
@@ -137,7 +146,10 @@ Recommended integration model:
 Every repository must provide:
 
 - `audits/config/trivy.yaml`,
-- a filesystem scan in CI that covers dependency vulnerabilities, misconfigurations, and secrets,
+- filesystem scanning for dependency vulnerabilities, misconfigurations, and
+  secrets on an approved schedule, applicable change trigger, and release
+  readiness when fresh candidate evidence is unavailable; no full scan on
+  every PR/push by default,
 - an image scan before deployment when the repository produces deployable container images,
 - a documented suppression path for accepted findings, preferably via `.trivyignore` plus owner/ticket/expiry notes in repository documentation or comments.
 

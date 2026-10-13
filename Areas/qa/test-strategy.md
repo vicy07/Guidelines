@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-22
+Last Updated: 2026-10-13
 
 ## Metadata (required)
 
@@ -29,6 +29,12 @@ Last Updated: 2026-07-22
 ## Strategy Rules
 
 - Strategy is driven by risks and scenario criticality, not by available tools.
+- Separate fast PR/push checks, risk-triggered checks, approved schedules, and
+  release gates using `guidelines/playbooks/ci-verification-policy.md`. Do not
+  require SonarQube or full audit/scanner suites on every CI event.
+- Document selection rules, evidence age/invalidation, failure ownership, and
+  a feedback-time budget. Release gates may reuse fresh candidate evidence;
+  missing, stale, or skipped required evidence is not a passing result.
 - Every key use case must have explicit coverage level (`Unit`, `Integration`, `E2E`).
 - NFRs must be covered by dedicated checks with measurable thresholds.
 - Responsibility boundaries between test levels must be explicit and non-overlapping.

@@ -2,6 +2,16 @@
 
 All notable repository-level changes are documented here.
 
+## 2026-10-13
+
+### Changed
+
+- Added a shared CI execution policy separating fast change checks, risk
+  triggers, approved scanner schedules, and candidate release evidence.
+- Removed unconditional per-CI Sonar/full scanner expectations from adoption,
+  Blueprint, QA, SRE, and runner documentation; retained blocking release gates.
+- Clarified deterministic SBOM checks versus lifecycle evidence refresh.
+
 ## 2026-09-20
 
 ### Changed

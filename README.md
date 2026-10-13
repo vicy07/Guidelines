@@ -73,7 +73,9 @@ The full baseline lives in `Product-Repository-Blueprint.md`.
 This repository expects downstream product repositories to define at least:
 
 - an `AGENTS.md` file that points to the governing `Guidelines` baseline,
-- a CI path that runs on pull requests and protected-branch pushes,
+- a fast CI path on pull requests and protected-branch pushes, with expensive
+  scanners on approved schedules, relevant risk triggers, or release checks
+  under the [CI Verification Policy](guidelines/playbooks/ci-verification-policy.md),
 - a documented deployment path with rollback and post-deploy verification,
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
