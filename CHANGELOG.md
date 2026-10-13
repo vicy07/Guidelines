@@ -6,6 +6,13 @@ All notable repository-level changes are documented here.
 
 ### Changed
 
+- Added explicit runtime/risk applicability profiles and basic/indexed
+  navigation modes; custom indexing and OTLP export are conditional.
+- Aligned code-intelligence/observability standards and adoption guidance;
+  preserved stricter local controls until explicit migration.
+- Extended structural baseline checks for profile declarations and indexed
+  static artifacts, retaining legacy document checks when selection is absent.
+
 - Expanded repository CI to all fast helper tests with declared dependencies;
   restricted push checks to `main`, cancelled superseded PR runs, and pinned
   Actions to immutable revisions with read-only permissions and caches.

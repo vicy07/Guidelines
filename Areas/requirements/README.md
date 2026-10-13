@@ -15,6 +15,7 @@ This section defines unified standards for product requirements documentation.
 - `mission-standard.md` - mission and product framing standard
 - `use-cases-standard.md` - role-based functional scenario standard
 - `user-flows-standard.md` - step-by-step user journey standard
+- `repository-profiles.md` - runtime/risk applicability, navigation modes and migration
 - `code-intelligence-standard.md` - required content contract for downstream `docs/architecture/code-intelligence.md`
 - Adjacent area reference: `../ux/ui-ux-guidelines-standard.md` - interface, content, and visual style standard
 

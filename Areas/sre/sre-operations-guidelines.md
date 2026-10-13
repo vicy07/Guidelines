@@ -1,6 +1,6 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.6.0
+Version: 1.7.0
 Owner: SRE Lead
 Last Updated: 2026-10-13
 
@@ -25,8 +25,14 @@ Last Updated: 2026-10-13
 ## Rules
 
 - Reliability objectives must be explicit and measurable.
-- Every repository must define an observability baseline that includes logs, metrics, traces, and an OTLP contract appropriate to the repository type.
-- Critical services require logs, metrics, tracing, and alerts before release.
+- Define diagnostics for the selected profile from
+  `Areas/requirements/repository-profiles.md`: build/publication evidence for
+  docs-only, host-controlled hooks for library/CLI, operational signals for
+  service/web, and verified correlation/alerts for critical systems. Document
+  an OTLP contract only when export is used.
+- Critical systems require correlated logs, metrics, tracing and owned alerts
+  before release; a missing signal needs an explicitly reviewed compensating
+  control and verification under the profile contract.
 - Every release path must include rollback readiness.
 - Production application releases must originate from committed Git state and run through the repository's documented Git-based delivery workflow.
 - Agents and operators must not publish application code directly through a hosting-platform CLI, UI, or API. This prohibition includes direct deploy, redeploy, upload, and code-replacing service mutations (for example, `railway up` or an equivalent platform command).
@@ -43,19 +49,24 @@ Last Updated: 2026-10-13
   artifacts where valid; a full rebuild is not required on every CI event.
 - Runtime configuration changes must be auditable.
 - SRE documentation must publish exact OTLP client-facing endpoint patterns for external, in-cluster, and local runtime paths when those paths exist.
-- Frontend or static-web repositories must document the client telemetry ingestion path and how it correlates with backend or platform telemetry.
-- Library and CLI repositories must document the host-runtime observability expectations and the fallback behavior when OTLP export is unavailable.
+- Frontend applications document applicable client diagnostics/correlation and
+  data-minimization controls; static content requires no client tracking.
+- Library/CLI diagnostics must work without a collector or OTLP exporter;
+  document optional host instrumentation and useful failure behavior.
 - SRE handover must publish the exact Trivy entrypoints, thresholds, and suppression-record location used by the release path.
 - SRE handover must publish the EOL scan/check entrypoints, lifecycle data sources, SBOM location, freshness threshold, alert path, and exception-expiry handling.
-- SRE handover must publish the exact code-intelligence entrypoints, artifact location, cache/update model, and the commit-association rules used for generated index artifacts.
+- In indexed mode, handover publishes implemented entrypoints, artifact
+  location, cache/update model and revision-association rules. Basic navigation
+  does not require index execution in CI or at release.
 - If evidence is missing, state `Evidence not available`.
 
 ## Quality Checklist
 
 - Reliability objectives are defined and owned.
 - Alerting coverage exists for critical user-impact paths.
-- Observability coverage and OTLP configuration are documented for the repository type.
-- Code-intelligence execution and artifact freshness rules are documented for CI or release automation.
+- Profile-required diagnostic coverage and any selected OTLP configuration are documented.
+- Indexed execution/artifact freshness is documented when selected; basic
+  navigation does not require generated index artifacts in CI or release automation.
 - Trivy scan coverage and release thresholds are documented for applicable artifact types.
 - Lifecycle/EOL coverage includes libraries, third-party services, runtimes/build tools, and first-party architecture components, with current risk state persisted in the SBOM.
 - Rollback and recovery paths are validated.
@@ -141,6 +152,8 @@ python code-intel.py graph
 
 Required operator notes:
 
-- The baseline code-intelligence toolchain is `SCIP + ast-grep + rg`; Tree-sitter may remain only as a documented fallback path.
+- This pattern applies to indexed mode. `SCIP + ast-grep + rg` is the shared
+  reference runtime; select tools by actual language coverage and document
+  fallbacks. Basic mode needs no custom index runtime.
 - The preferred execution model is a containerized shared runtime rather than a manual host installation path.
 - Generated artifacts should include commit or revision identity in `code-intel/index/manifest.json` so downstream automation can detect stale indexes.

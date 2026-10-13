@@ -53,9 +53,9 @@ P1 — высокий приоритет для корректности или 
 | G01 | P1 | Blueprint §CI/Trivy и SRE Rules требовали сканирование перед merge, тогда как audit-reporting-standard запрещает неявный полный аудит | Исправлено: отдельная CI policy, fast/change/schedule/release scopes, согласованы потребители | QA — scope/gates; SWE — selection; SRE — cadence |
 | G02 | P1 | Blueprint §SonarQube требовал gate для main/release, не определяя частоту и условия reuse | Исправлено: Sonar не unconditional PR/push step; расписание, явные risk triggers, свежие candidate evidence | QA/SRE |
 | G03 | P1 | Lifecycle standard §Mandatory Gates and Monitoring не отделял network refresh от дешёвого `eol check` | Исправлено: committed-state validation в CI; refresh по изменениям inventory и минимум еженедельно | SWE/SRE/QA |
-| G04 | P1 | Blueprint §Code Intelligence и implementation-guidelines требуют `SCIP + ast-grep + rg`, graph/chunks и retrieval pipeline для любого репозитория | Предлагается модель применимости по языкам, размеру и доказанной пользе; простой поиск и language tooling допустимы для небольших задач; изменение обязательности оставлено отдельной миграцией | SWE; QA проверяет эффективность |
-| G05 | P1 | `Tools/code-intel/runtime/cli.py`: `build_query_results` ищет подстроки; `run_embeddings` создаёт записи с `embedding: None` | Baseline требует semantic retrieval, но эти функции сами его не реализуют. Нужны явная граница внешнего provider, capability/status и retrieval eval; отсутствие векторов не доказывает semantic search | SWE/QA |
-| G06 | P2 | Blueprint §Observability и implementation-guidelines требуют logs/metrics/traces и OTLP даже для CLI/library/static web | Разделить service, frontend, library/CLI, docs-only profiles; установить требования по реальному runtime и рискам. Сохранить строгий baseline для критических сервисов | SRE/SWE; BA/PO/UX для client data |
+| G04 | P1 | Blueprint §Code Intelligence и implementation-guidelines требуют `SCIP + ast-grep + rg`, graph/chunks и retrieval pipeline для любого репозитория | Реализуется в Guidelines #12: явные basic/indexed modes, profile selection, rationale и миграция; простой поиск/language tooling допустимы без custom pipeline | SWE; QA проверяет эффективность |
+| G05 | P1 | `Tools/code-intel/runtime/cli.py`: `build_query_results` ищет подстроки; `run_embeddings` создаёт записи с `embedding: None` | Уточнено в #12: semantic retrieval optional, shared embeddings/query документируют null vectors и substring lookup; внешний provider/eval остаётся отдельной capability, работающий vector search не заявляется | SWE/QA |
+| G06 | P2 | Blueprint §Observability и implementation-guidelines требуют logs/metrics/traces и OTLP даже для CLI/library/static web | Реализуется в #12: четыре runtime/risk profiles; OTLP только при выбранном export, library/CLI без автоматического collector/exporter; critical signals/alerts сохраняются | SRE/SWE; BA/PO/UX для client data |
 | G07 | P2 | use-cases-standard содержит обязательные Trainer/Client sections; user-flows требует cancellation/payment failure; UX правила исходят из booking/attendance | Убрать предметную область из общего контракта, сохранить её только как подписанный пример; actors и flows выбирать из mission. В этом изменении не переписывались | BA/PO; UX |
 | G08 | P2 | Blueprint §Visible Release Traceability и UX Content Rules требуют постоянный commit footer на каждом primary screen | Рассмотреть version/build info в About/support для применимых продуктов вместо универсального footer. Это изменение product/UX policy, поэтому нынешнее правило сохранено | UX/BA/PO; SWE/SRE |
 | G09 | P1 | Governance имел batching, но не определял явные trust/action boundaries для issues, logs, retrieved content и external writes | Исправлено: Authority, Trust, and Scope; входные данные не меняют полномочия; локальный прогресс не зависит от неавторизованной внешней записи | Repository Maintainer/SWE |
@@ -197,3 +197,44 @@ dependency caches, timeout и отмена superseded PR checks. Существ�
 job Guidelines `validate` сохранён. Первые реальные CI результаты подтверждают
 дублирование PR/feature-push у прежнего workflow (оба checks для #9); новая
 настройка исключает feature-push duplicate. Замеры общего выигрыша пока не сняты.
+
+
+Продолжение G04/G06 — Guidelines #12: добавлен нормативный
+`Areas/requirements/repository-profiles.md`, шаблон adoption и behavioral
+checker tests. Product profiles сохраняют восемь документов; basic mode
+записывается кратко без custom tooling. Docs-only scope использует README.
+Явный indexed mode требует static entrypoint/config/documentation, а generated
+indexes остаются runtime outputs. Checker проверяет форму/наличие, не доказывает
+классификацию риска, runtime telemetry или retrieval accuracy. Старые lock files
+сохраняют прежнюю документную проверку; stronger local controls требуют migration.
+
+Роли текущей фазы Solution Design → Implementation → Verification:
+BA/PO — применимость и business risk; SWE — mode/tooling и checker;
+QA — behavioral tests и evidence limits; SRE — diagnostic/alert obligations.
+Изменение касается baseline, не продуктового поведения; use-case/UX стандарты
+не переписывались. Машинные инструкции и downstream проекты не переустановлены.
+
+
+Валидация G04/G06 (2026-10-13): `npm run validate-guidelines` — exit 0,
+22 normative / 78 indexed / 44 references / 5 phases; полный локальный pytest —
+**93 passed** (31.91 s), включая **26 новых behavioral cases**;
+`node --check scripts/check-product-baseline.mjs` и `git diff --check` — exit 0.
+Во время изменения checker найдены и закрыты реальные обходы empty AGENTS/lock
+file; регрессионные проверки подтверждают отказ strict mode. Проверка presence
+также отвергает directory вместо файла. Runtime indexer/telemetry не менялись,
+поэтому scanner, collector и semantic-provider integration tests не запускались.
+
+Файлы продолжения #12: `Areas/requirements/repository-profiles.md`,
+`Areas/requirements/code-intelligence-standard.md`, `Areas/requirements/README.md`,
+`Areas/swe/architecture-guidelines.md`, `Areas/swe/implementation-guidelines.md`,
+`Areas/qa/test-strategy.md`, `Areas/sre/sre-operations-guidelines.md`,
+`Product-Repository-Blueprint.md`, `Adoption-Guide.md`, `README.md`, `Repository.md`,
+`docs/architecture/code-intelligence.md`, `Tools/code-intel/README.md`,
+`Tools/otel/README.md`, `templates/governance-baseline.yaml`,
+`scripts/check-product-baseline.mjs`, `tests/test_product_baseline_checker_behavior.py`,
+`guidelines-index.yaml`, `CHANGELOG.md` и этот общий отчёт.
+
+Оставшийся риск: выбор профиля и достаточность signals/navigation проверяются
+по продуктовой evidence, а не автоматически по расширениям файлов. Downstream
+migration и измерение эффективности остаются отдельной delivery. Общий
+portable governance/personal-adapter split этим изменением не выполнялся.

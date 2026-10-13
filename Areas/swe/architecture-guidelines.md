@@ -1,8 +1,8 @@
 ﻿# Architecture Guidelines and Format Standard
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-22
+Last Updated: 2026-10-13
 
 ## Metadata (required)
 
@@ -33,8 +33,13 @@ Last Updated: 2026-07-22
 - Critical scenarios must state latency, availability, and consistency expectations.
 - Every external interaction must specify protocol, owner, and error policy.
 - Every major architecture agreement must include rationale and constraints.
-- Every repository architecture must define its observability stack and explain how logs, metrics, and traces are produced for its repository type.
-- Every repository architecture must define or explicitly reference `docs/architecture/code-intelligence.md` as the source of truth for the mandatory code-intelligence baseline, including the `SCIP + ast-grep + rg` toolchain, symbol boundaries, graph relationships, incremental reindex behavior, and retrieval pipeline.
+- Architecture records the selected profile from
+  `Areas/requirements/repository-profiles.md`, actual diagnostic signals and
+  operational limitations; OTLP configuration applies when export is used.
+- Product architecture references `docs/architecture/code-intelligence.md`
+  for basic/indexed mode, rationale and navigation adequacy. Indexed mode
+  records real symbol/graph coverage, freshness and incremental behavior;
+  semantic retrieval is required only if selected and implemented.
 - Every repository architecture must inventory first-party components, runtimes, and third-party services in the downstream SBOM and classify their criticality and lifecycle risk according to `Areas/swe/component-lifecycle-guidelines.md`.
 
 ## Diagram Rules
@@ -50,7 +55,9 @@ Last Updated: 2026-07-22
 - Decisions must be testable: what was chosen, why, and consequences.
 - NFRs must be measurable (`p95 latency`, `RPO`, `RTO`, `uptime`, load limits).
 - The Security and Privacy section references `Areas/swe/security-guidelines.md` as the source of controls.
-- The Reliability and Observability section must declare the OpenTelemetry attribution and OTLP export contract or explicitly document why a runtime cannot emit telemetry directly.
+- Reliability and Observability describes profile-required diagnostics, alert
+  ownership and limitations. Declare OpenTelemetry/OTLP only when used;
+  libraries leave exporters to the host. Critical signals need verified coverage.
 - Constraints and risks are mandatory, including temporary decisions.
 
 ## Quality Checklist
@@ -59,8 +66,9 @@ Last Updated: 2026-07-22
 - Data ownership, core entities, and consistency rules are documented.
 - Integration policies include retry/timeout/idempotency.
 - Logging, metrics, tracing, and alerting are defined for critical paths.
-- OpenTelemetry service attribution and OTLP export expectations are documented.
-- The code-intelligence baseline documents the repo-local `code-intel.py` entrypoint, JSON artifact locations, and the `AST -> Graph -> Semantic Search -> LLM` retrieval flow.
+- Diagnostic coverage and any selected OpenTelemetry/OTLP configuration are documented.
+- Basic navigation adequacy is documented; indexed mode additionally records
+  entrypoint, JSON artifacts and actual retrieval capabilities/limitations.
 - Architectural components and their dependency relationships are traceable to `audits/sbom/components.cdx.json`, with owner, criticality, lifecycle evidence, and risk.
 - Security controls are specified: authN/authZ, secrets, audit trail.
 - Security controls are aligned with `Areas/swe/security-guidelines.md`.

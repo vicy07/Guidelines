@@ -11,6 +11,22 @@ Define the minimum recommended baseline for downstream software product reposito
 - Standardize only the parts that improve agent and human coordination.
 - Prefer incremental adoption over big-bang repository rewrites.
 
+## Applicability
+
+Select `docs-only`, `library-cli`, `service-web`, or `critical-system` and a
+`basic`/`indexed` code-intelligence mode using
+[`Repository Applicability Profiles`](Areas/requirements/repository-profiles.md).
+Record the selection, accountable owner and rationale in
+`.governance/baseline.yaml`. Mixed repositories must cover their highest-risk
+components; existing stricter local contracts require explicit migration.
+
+The structure below shows a product repository with optional indexed tooling.
+Product documentation remains the minimum set; `docs-only` repositories use
+README-based scope/ownership/verification instead of empty product artifacts.
+`code-intel.py`, `code-intel/`, and their generated outputs apply only to
+`indexed` mode. Runtime deployment/telemetry paths apply to shipped runtimes;
+security and lifecycle controls still cover documentation build tools.
+
 ## Required Root Structure
 
 ```text
@@ -75,7 +91,7 @@ Define the minimum recommended baseline for downstream software product reposito
 - `docs/architecture.md` is the repository-level architecture entry point and navigation hub and should follow the content contract from `Areas/requirements/architecture-standard.md`.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
-- `docs/architecture/code-intelligence.md` documents the project-specific implementation of the mandatory code-intelligence baseline defined by this repository and should follow the content contract from `Areas/requirements/code-intelligence-standard.md`.
+- `docs/architecture/code-intelligence.md` documents the selected basic/indexed code-intelligence mode defined by this repository and should follow the content contract from `Areas/requirements/code-intelligence-standard.md`.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
@@ -200,23 +216,22 @@ The visible line must resolve correctly in deployed environments too, not only i
 
 ### 7. Observability Stack
 
-Every downstream repository must define an observability stack.
+Observability follows the selected repository profile. Document the actual
+diagnostic path, owners, critical signals and limitations; do not install an
+exporter or collector solely to satisfy the blueprint.
 
-Universal minimum:
+- `docs-only`: build, validation and publication diagnostics; no runtime telemetry.
+- `library-cli`: actionable diagnostics, CLI exit codes/verbosity and host-owned
+  logging/instrumentation hooks; no automatic telemetry/exporter setup.
+- `service-web`: service logs, health/error and user-impact metrics; tracing
+  where needed across component boundaries; applicable frontend diagnostics
+  and correlation with data minimization.
+- `critical-system`: correlated logs/metrics/traces for critical paths, owned
+  alerts and measurable reliability/recovery objectives. Missing signals need
+  reviewed compensating controls and verification.
 
-- structured logs,
-- operational metrics,
-- distributed tracing through OpenTelemetry,
-- a documented OTLP configuration contract,
-- stable service or application attribution for emitted telemetry.
-
-Observability implementation rule:
-
-- the product repository owns its runtime wiring,
-- shared helpers may be reused as starter patterns,
-- long-lived runtime dependence on this `Guidelines` repository is not the target state.
-
-Minimum OTLP contract:
+The product repository owns runtime wiring. OpenTelemetry is a reusable option;
+when OTLP export is used, document service attribution, protocol and endpoint:
 
 ```dotenv
 OTEL_SERVICE_NAME=my-service
@@ -225,56 +240,36 @@ OTEL_EXPORTER_OTLP_PROTOCOL=http/protobuf
 OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 ```
 
-Repository-type expectations:
-
-- Backend and service repositories must emit traces, metrics, and logs from the running service and document the active OTLP export path.
-- Frontend or static-web repositories must emit client telemetry and error events through a documented path that can be correlated with the wider observability stack.
-- Library and CLI repositories must emit structured logs and define how OpenTelemetry attribution and export are enabled when the component runs directly or inside a host runtime.
-
-Recommended reuse model:
-
-- Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
-- Non-Python repositories should keep the same OTLP contract and use a local implementation or a language-specific shared helper.
-
-If a repository cannot export telemetry in a given runtime, it must still document the same OTLP contract and state the exact limitation instead of omitting observability guidance.
+Python projects using OTLP can copy/vendor `Tools/otel/telemetry.py`; other
+stacks use appropriate local instrumentation. Libraries leave exporter setup
+to their host. Static content does not require client tracking. Existing
+operational controls must not be removed without an explicit impact review.
 
 ### 8. Code Intelligence Baseline
 
-Every downstream repository must provide a mandatory code-intelligence baseline.
+All product repositories document navigation mode and adequacy in
+`docs/architecture/code-intelligence.md`, following
+`Areas/requirements/code-intelligence-standard.md`.
 
-Required control surface:
+- `basic`: repository map, text search and existing editor/language navigation.
+  No custom entrypoint, AST index, graph, embeddings or container is required.
+- `indexed`: justified by repeated navigation/change-impact needs; follow the
+  indexed contract in `docs/architecture/code-intelligence.md` in this baseline.
+  `code-intel.py` and `code-intel/config/index.yaml` provide the separate local
+  control surface. Generated artifacts are `manifest.json`, `files.json`,
+  `symbols.json`, `edges.json`, and `chunks.json` under `code-intel/index/`.
 
-- `code-intel.py`
-- `code-intel/config/index.yaml`
-- `code-intel/index/manifest.json`
-- `code-intel/index/files.json`
-- `code-intel/index/symbols.json`
-- `code-intel/index/edges.json`
-- `code-intel/index/chunks.json`
-- `docs/architecture/code-intelligence.md`
+`SCIP + ast-grep + rg` is the shared runner's reference implementation, not a
+universal requirement. Select supported tools from actual language coverage.
+Semantic/vector retrieval is optional and must be backed by a real provider
+and retrieval evidence; a null embedding does not provide semantic search.
+Fresh indexes can aid analysis; simple searches do not require an AST-first
+pipeline. Rebuild incrementally when useful under the CI Verification Policy.
 
-Mandatory baseline rules:
-
-- code understanding must be AST-first and must not rely on text search alone when indexed artifacts are available,
-- the canonical baseline toolchain is `SCIP + ast-grep + rg`,
-- `SCIP` is the preferred semantic source when the repository has configured indexers for its enabled languages,
-- Tree-sitter may remain only as a fallback path until `SCIP` normalization reaches parity for the active language set,
-- functions, classes, interfaces, methods, and modules must be indexed as first-class symbols,
-- call, dependency, containment, and reference relationships must be materialized as graph edges,
-- semantic retrieval must operate at symbol or chunk granularity rather than file-only granularity,
-- reindexing must be incremental for touched files and directly affected graph relationships,
-- context assembly for agentic retrieval must follow `AST -> Graph -> Semantic Search -> LLM`,
-- generated `code-intel/index/` artifacts must not be committed to git,
-- downstream repositories must ignore `code-intel/index/` and any raw tool-native artifact directories under that tree.
-
-Recommended integration model:
-
-1. Keep repository-specific scope, exclusions, language enablement, and embedding settings in the product repo.
-2. Use `code-intel.py` as the repo-local control surface instead of overloading `audits.py`.
-3. Reuse shared logic from this repository's `Tools/code-intel/` as the lower-level runtime behind that entrypoint.
-4. Keep `SCIP` indexer commands repo-local because they are language-specific, but run the baseline through a reproducible container path when practical.
-5. Do not require a host parser installation as the only supported execution path.
-6. Treat `code-intel/` as an extensible repo-local capability area; adjacent generators such as C4 diagram builders may live there later, but the AST index is mandatory first.
+Generated `code-intel/index/` artifacts must not be committed to git;
+downstream repositories must ignore `code-intel/index/` and its raw artifacts.
+Reuse `Tools/code-intel/` when useful and keep indexed commands separate from
+`audits.py`. Do not invent unimplemented capabilities or commands.
 
 ## Minimum Artifact Set
 
@@ -302,9 +297,13 @@ Governance rule:
 - `docs/architecture/code-intelligence.md`
 - `docs/qa/test-strategy.md`
 - `docs/sre/deployment-and-operations.md`
-- documented observability stack and OTLP contract
+- documented profile-appropriate diagnostics and OTLP contract when export is used
 
 ### Delivery and Verification
+
+The code-intelligence entrypoint/config/tree below is required only in
+`indexed` mode. Deployment applies to deployable runtimes; libraries/CLI use
+release/publishing guidance. Docs-only scope follows the profile contract.
 
 - `.github/workflows/ci.yml`
 - `.github/workflows/deploy.yml`
@@ -358,7 +357,8 @@ This requirement applies only after a compliance audit is run. It is not a manda
 
 - `BA` and `PO` own product framing and behavioral intent.
 - `SWE` owns architecture, implementation, and application-level support for the visible last-commit line.
-- `SWE` also owns the code-intelligence architecture contract, repo-local `code-intel.py` implementation, and symbol/index schema choices inside the baseline.
+- `SWE` owns code-navigation mode/adequacy, and in indexed mode the repo-local
+  `code-intel.py` implementation and symbol/index schema choices.
 - `SWE` owns SBOM inventory completeness, architecture/dependency relationships, criticality classification, and lifecycle-risk remediation design.
 - `QA` owns test strategy, release evidence, merge-quality verification, lifecycle-gate behavior, and verification that required SBOM and code-intelligence artifacts are produced as documented.
 - `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, scheduled EOL monitoring and alerting, release-time security/lifecycle gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
@@ -379,7 +379,8 @@ A downstream product repository is ready for agentic delivery when:
 - SonarQube integration is wired for supported codebases through the repo-local audit entrypoint,
 - Trivy integration is wired for repository filesystem scanning and deployable-image scanning where applicable through the repo-local audit entrypoint,
 - lifecycle/EOL monitoring is wired through the repo-local audit entrypoint, covers libraries, third parties, runtimes/build tools, and architectural components, and persists current criticality and risk in the tracked SBOM,
-- the observability stack and OTLP contract are documented for the repository type,
-- the code-intelligence baseline is wired through `code-intel.py`, documented in `docs/architecture/code-intelligence.md`, and produces the required JSON artifacts,
+- the selected profile has documented diagnostic coverage and, when used, OTLP export,
+- navigation mode and adequacy are documented; indexed mode has its entrypoint,
+  configuration, generated artifacts and coverage/freshness verification,
 - the visible last-commit line is implemented for user-facing products,
 - the minimum artifact set exists and has clear ownership.

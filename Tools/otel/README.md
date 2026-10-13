@@ -4,6 +4,12 @@ Use this when a Python repository needs the minimum OpenTelemetry baseline from 
 
 This folder is a reusable pattern, not a requirement to create a runtime dependency on `Guidelines`.
 
+Select diagnostic requirements through
+[`Repository Applicability Profiles`](../../Areas/requirements/repository-profiles.md).
+Use this helper when OpenTelemetry/OTLP is actually chosen. Basic CLI/library
+usage must not force an exporter or collector on the host; docs-only repositories
+need build diagnostics, not runtime instrumentation.
+
 ## What Is Shared vs Local
 
 Keep these concerns shared:
