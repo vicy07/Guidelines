@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.5.0
+Version: 1.6.0
 Owner: SRE Lead
-Last Updated: 2026-07-22
+Last Updated: 2026-10-13
 
 ## Metadata (required)
 
@@ -31,9 +31,16 @@ Last Updated: 2026-07-22
 - Production application releases must originate from committed Git state and run through the repository's documented Git-based delivery workflow.
 - Agents and operators must not publish application code directly through a hosting-platform CLI, UI, or API. This prohibition includes direct deploy, redeploy, upload, and code-replacing service mutations (for example, `railway up` or an equivalent platform command).
 - Hosting-platform tools may be used read-only for diagnostics, logs, status, and post-deploy verification. Runtime configuration changes and emergency operations require their own documented, auditable path and must not be used to bypass Git-based code delivery.
-- Release readiness gates must include Trivy filesystem scanning before merge and container-image scanning before promotion when the repository produces deployable images.
+- Release readiness must include fresh Trivy filesystem evidence and scanning
+  of deployable images by immutable digest before promotion. Select filesystem
+  scans by relevant risk trigger, approved schedule, or missing/stale release
+  evidence; do not require a full scan before every merge. Follow
+  `guidelines/playbooks/ci-verification-policy.md` for evidence and gate rules.
 - Release readiness must include the component lifecycle/EOL gate, and scheduled monitoring must refresh the tracked downstream SBOM at least weekly and on inventory, architecture, runtime, or external-provider changes.
-- Release readiness and CI must include a reproducible code-intelligence path for `code-intel.py`, preferably through a containerized shared runtime, when the repository baseline requires indexed artifacts.
+- Release readiness and CI must provide a reproducible code-intelligence path
+  for `code-intel.py`, preferably through a containerized shared runtime, when
+  indexed artifacts are required. Use incremental updates or matching cached
+  artifacts where valid; a full rebuild is not required on every CI event.
 - Runtime configuration changes must be auditable.
 - SRE documentation must publish exact OTLP client-facing endpoint patterns for external, in-cluster, and local runtime paths when those paths exist.
 - Frontend or static-web repositories must document the client telemetry ingestion path and how it correlates with backend or platform telemetry.

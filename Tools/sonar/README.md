@@ -1,5 +1,10 @@
 # Sonar Runner
 
+Execution cadence follows
+[`CI Verification Policy`](../../guidelines/playbooks/ci-verification-policy.md).
+These entrypoints do not imply execution on every PR/push: keep full scanners
+on approved schedules or explicit triggers, and reuse fresh release evidence.
+
 Reusable SonarQube runner logic for product repositories that use:
 - local Sonar settings, commonly in `audits/config/sonar-project.properties`
 - Python coverage uploaded from `coverage.xml`

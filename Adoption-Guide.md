@@ -24,7 +24,9 @@ For a new repository:
    Preferred form: public GitHub links for both repository reference points and
    the primary baseline documents.
 3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`, including `docs/architecture/code-intelligence.md`.
-4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`.
+4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`. Keep fast
+   PR/push checks separate from scheduled scanners and release gates using
+   `guidelines/playbooks/ci-verification-policy.md`.
 5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/eol.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
 6. Add `code-intel.py`, repo-local `code-intel/`, and `code-intel/config/index.yaml` as a separate control surface from `audits.py`.
 7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/eol.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `eol.py` entrypoints as part of the baseline model.
@@ -72,7 +74,9 @@ Outcome:
 
 Add or normalize:
 
-- CI workflow,
+- CI workflow with fast change checks, documented risk triggers, separate
+  approved scanner schedules, and candidate-evidence rules from
+  `guidelines/playbooks/ci-verification-policy.md`,
 - deploy workflow or release workflow,
 - SonarQube integration,
 - Trivy integration,

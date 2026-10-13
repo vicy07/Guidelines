@@ -1,5 +1,10 @@
 # Trivy Runner
 
+Execution cadence follows
+[`CI Verification Policy`](../../guidelines/playbooks/ci-verification-policy.md).
+These entrypoints do not imply execution on every PR/push: keep full scanners
+on approved schedules or explicit triggers, and reuse fresh release evidence.
+
 Reusable Trivy runner logic for product repositories that want a consistent security gate without copying the same CLI wiring into every repo.
 
 For repositories that want a single multi-scanner entrypoint, prefer consuming this runner through `Tools/audits`.

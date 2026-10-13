@@ -1,14 +1,17 @@
 ﻿# Delivery Playbooks
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-19
+Last Updated: 2026-10-13
 
 ## Purpose
 
 Store executable, role-aware playbooks that can be run by agents or humans.
 
 ## Scope
+
+- `ci-verification-policy.md` defines fast CI, risk triggers, approved schedules,
+  release evidence reuse, and feedback-cost controls.
 
 - `audit-reporting-standard.md` defines the opt-in, single-file audit contract
   for an explicitly assigned Audit Operator or a named human running locally.

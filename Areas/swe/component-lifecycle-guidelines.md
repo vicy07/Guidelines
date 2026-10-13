@@ -1,8 +1,8 @@
 # Component Lifecycle and EOL Audit Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: SWE Lead
-Last Updated: 2026-07-22
+Last Updated: 2026-10-13
 
 ## Purpose
 
@@ -100,6 +100,13 @@ Determine overall lifecycle risk from this matrix:
 A documented compensating control may reduce the matrix result only when it demonstrably reduces likelihood or impact. A reduction requires an owner, evidence, expiry/review date, and replacement or containment plan in the SBOM.
 
 ## Mandatory Gates and Monitoring
+
+Use `guidelines/playbooks/ci-verification-policy.md` for execution cadence.
+PR/push CI validates committed SBOM state with the deterministic `eol check`;
+it must not unconditionally fetch lifecycle evidence or regenerate inventory.
+Relevant inventory changes and approved monitoring schedules perform refreshes.
+The failure conditions below remain applicable to the selected checks and
+release readiness; reducing execution cost does not waive blocking findings.
 
 - CI must fail when the SBOM is missing, invalid, stale beyond the configured review interval, or no longer matches detected dependencies and documented architecture components.
 - CI and release readiness must fail for an EOL/unsupported `Critical` or `High` component.
