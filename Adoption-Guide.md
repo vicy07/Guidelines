@@ -146,6 +146,22 @@ Architecture documentation rule:
 - keep `docs/technical-architecture.md` as the canonical technical design document,
 - use `docs/architecture/` only for ADRs or deeper supporting architecture records when needed.
 
+## Delivery Policy Adoption
+
+Adopt [Delivery Policy and Definition of Done](guidelines/playbooks/delivery-policy.md)
+with the [AI-Governance sequential execution contract](https://github.com/vicy07/AI-Governance/blob/main/.codex/AGENTS.md).
+Map existing acceptance criteria, DoD, review/CI gates and release records before
+adding files. Record the owning roadmap/tracker, task order/dependencies, acceptance
+boundaries and authorized agent actions in the product's existing control surface.
+Keep the shared policy linked; add product-specific DoD conditions in the existing
+QA/delivery documentation. Pin adopted revisions through the existing baseline record.
+
+Maintain releasable `main`, verify the merged revision, and record releases by
+full SHA and applicable version/artifact digest. This model does not use GitHub
+Releases. Declare whether task completion occurs at merge, publication or verified
+deployment; retain open delivery work until its boundary passes. Docs-only adoption
+uses existing README/task/PR records without adding product-document scaffolding.
+
 ## Integration Rules
 
 - Reuse existing code and workflow conventions where they are already effective.

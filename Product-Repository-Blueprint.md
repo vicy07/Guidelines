@@ -284,6 +284,15 @@ downstream repositories must ignore `code-intel/index/` and its raw artifacts.
 Reuse `Tools/code-intel/` when useful and keep indexed commands separate from
 `audits.py`. Do not invent unimplemented capabilities or commands.
 
+## Delivery Completion Contract
+
+Apply [Delivery Policy and Definition of Done](guidelines/playbooks/delivery-policy.md)
+for merge readiness, task closure and release acceptance. Keep `main` releasable,
+verify the resulting merged revision, and identify a logical release by full SHA
+plus applicable version/artifact digest; GitHub Releases are not used by this model.
+Map the shared DoD into existing QA/delivery records and declare each Issue's
+acceptance boundary. Agent sequencing and handoffs remain owned by AI-Governance.
+
 ## Minimum Artifact Set
 
 The minimum artifact set for a downstream product repository is:

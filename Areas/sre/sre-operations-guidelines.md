@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.8.0
+Version: 1.9.0
 Owner: SRE Lead
-Last Updated: 2026-10-13
+Last Updated: 2026-10-14
 
 ## Metadata (required)
 
@@ -23,6 +23,10 @@ Last Updated: 2026-10-13
 7. Operations Checklist
 
 ## Rules
+
+- Apply `guidelines/playbooks/delivery-policy.md` for release identity and
+  completion boundaries. Verify the promoted revision/artifact and applicable
+  recovery readiness; GitHub Release creation is not a release gate.
 
 - Reliability objectives must be explicit and measurable.
 - Define diagnostics for the selected profile from

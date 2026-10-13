@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.6.0
+Version: 1.7.0
 Owner: SWE Lead
-Last Updated: 2026-10-13
+Last Updated: 2026-10-14
 
 ## Metadata (required)
 
@@ -23,6 +23,9 @@ Last Updated: 2026-10-13
 7. Handover to QA/SRE
 
 ## Rules
+
+- Follow `guidelines/playbooks/delivery-policy.md` for coherent changes, review,
+  merge readiness, releasable `main` and revision traceability.
 
 - Every change must map to an explicit module owner.
 - Behavior changes must be traceable to requirements/use cases.

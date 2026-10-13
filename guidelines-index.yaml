@@ -1,4 +1,4 @@
-version: 3.11.0
+version: 3.12.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -272,6 +272,16 @@ domains:
       - path: guidelines/playbooks/README.md
         kind: supporting
         requires_metadata: true
+      - path: guidelines/playbooks/delivery-policy.md
+        kind: normative
+        requires_metadata: true
+        depends_on:
+          - guidelines/playbooks/ci-verification-policy.md
+          - Areas/requirements/repository-profiles.md
+          - Areas/qa/test-strategy.md
+          - Areas/qa/test-execution-and-reporting.md
+          - Areas/swe/implementation-guidelines.md
+          - Areas/sre/sre-operations-guidelines.md
       - path: guidelines/playbooks/ci-verification-policy.md
         kind: normative
         requires_metadata: true
@@ -502,6 +512,14 @@ update_rules:
         - Areas/qa/test-case-design.md
         - Areas/qa/test-execution-and-reporting.md
         - guidelines/playbooks/audit-reporting-standard.md
+    guidelines/playbooks/delivery-policy.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - Adoption-Guide.md
+        - Areas/swe/implementation-guidelines.md
+        - Areas/qa/test-strategy.md
+        - Areas/qa/test-execution-and-reporting.md
+        - Areas/sre/sre-operations-guidelines.md
     guidelines/playbooks/ci-verification-policy.md:
       must_review:
         - Product-Repository-Blueprint.md
