@@ -6,6 +6,10 @@ All notable repository-level changes are documented here.
 
 ### Changed
 
+- Expanded repository CI to all fast helper tests with declared dependencies;
+  restricted push checks to `main`, cancelled superseded PR runs, and pinned
+  Actions to immutable revisions with read-only permissions and caches.
+
 - Added a shared CI execution policy separating fast change checks, risk
   triggers, approved scanner schedules, and candidate release evidence.
 - Removed unconditional per-CI Sonar/full scanner expectations from adoption,
