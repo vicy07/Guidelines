@@ -103,6 +103,14 @@ Add or normalize:
   approved scanner schedules, and candidate-evidence rules from
   `guidelines/playbooks/ci-verification-policy.md`,
 - deploy workflow or release workflow,
+- release record linking goals/Issues/PRs, immutable version/revision and
+  environment, verification/rollback, and independent notification status;
+  reuse an existing release/runbook location and declare whether each Issue
+  is accepted at merge or only after publication/runtime verification,
+- exact notification runbook/entrypoint, no-send doctor, runtime configuration
+  owner, private journal location and failure/reconciliation procedure;
+  use the [homelab runbook](https://github.com/vicy07/homelab/blob/main/docs/release-notifications.md)
+  for the AI-Governance personal Telegram channel without copying credentials,
 - SonarQube integration,
 - Trivy integration,
 - component lifecycle/EOL monitoring, criticality/risk classification, and the tracked enriched SBOM,

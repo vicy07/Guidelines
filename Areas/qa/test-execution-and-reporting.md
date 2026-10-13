@@ -1,8 +1,8 @@
 ﻿# Test Execution and Reporting Format Standard
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: Repository Maintainer
-Last Updated: 2026-04-12
+Last Updated: 2026-10-13
 
 ## Metadata (required)
 
@@ -35,6 +35,18 @@ Last Updated: 2026-04-12
 - Report must include total cases, pass rate, defect leakage, and critical failures.
 - Non-functional tests must report actual metrics against target thresholds.
 - Release status is based on quality gates, not subjective assessment.
+- Map acceptance results to the goal, owning Issue, exact released
+  revision/artifact, environment and declared boundary. Closed Issues or merged
+  PRs alone do not prove that a production outcome was achieved.
+- Record release verification separately from notification delivery. Notification
+  evidence checks API acceptance, message ID, authorized destination and exact
+  text; it does not establish that the recipient read the message.
+- For a changed notification path, verify Russian text including `ё`, emoji and
+  punctuation through UTF-8 JSON/HTTP and returned text; explicit API rejection,
+  rate limits, timeouts/malformed responses and receipt mismatch; repeat and
+  concurrent sends; changed content for the same release identity; and journal
+  recovery after process interruption. Use local transport fakes for fast tests.
+  Report live channel verification as unavailable until actually performed.
 
 ## Quality Checklist
 

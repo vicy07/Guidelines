@@ -1,6 +1,6 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.7.0
+Version: 1.8.0
 Owner: SRE Lead
 Last Updated: 2026-10-13
 
@@ -48,6 +48,26 @@ Last Updated: 2026-10-13
   indexed artifacts are required. Use incremental updates or matching cached
   artifacts where valid; a full rebuild is not required on every CI event.
 - Runtime configuration changes must be auditable.
+- Release records must link the accepted goal, owning Issues/PRs, exact version,
+  immutable revision/artifact digest, environment, required acceptance boundary,
+  verification evidence and rollback procedure. Preserve that record in the
+  owning repository's existing release/runbook location; do not add duplicate
+  documentation solely to satisfy a filename convention.
+- Record release verification and notification delivery separately. A verified
+  release with a failed notification requires notification recovery, not another
+  deployment. A production-scoped Issue remains open until its acceptance
+  evidence exists, or a linked delivery Issue explicitly owns that work.
+- Notification handover must name an exact maintained entrypoint, execution
+  host/directory, no-send health check, runtime configuration owner, authorized
+  destination source, receipt/journal location and retry/reconciliation path.
+  Keep credentials and private recipient values out of product repositories.
+  Cross-repository agent behavior and the personal Telegram adapter are governed
+  by AI-Governance; its current homelab implementation is documented at
+  `https://github.com/vicy07/homelab/blob/main/docs/release-notifications.md`.
+- Notification transport must preserve UTF-8 text through file/stdin, JSON and
+  HTTP. Verify API acceptance, message ID, destination and returned text before
+  marking sent. A durable product/version/environment journal prevents concurrent
+  or repeated delivery; ambiguous outcomes require reconciliation before retry.
 - SRE documentation must publish exact OTLP client-facing endpoint patterns for external, in-cluster, and local runtime paths when those paths exist.
 - Frontend applications document applicable client diagnostics/correlation and
   data-minimization controls; static content requires no client tracking.
@@ -72,6 +92,27 @@ Last Updated: 2026-10-13
 - Rollback and recovery paths are validated.
 - Production release evidence identifies the Git commit and the Git-based workflow that published it; no direct platform publication was used.
 - Release readiness decision includes operational risk notes.
+- Release/notification statuses are independent, evidence identifies the
+  checked artifact/environment, and notification failures have an owner and
+  recovery step without concealing successful release verification.
+- Notification runbook provides an exact command and no-send doctor; QA has
+  checked Cyrillic/emoji round trips, duplicates and ambiguous-response recovery.
+
+## Release and Notification Ownership
+
+- PO/BA own the user outcome, scope and acceptance boundary.
+- SWE owns implementation, immutable artifact identity and delivery links.
+- QA owns acceptance evidence and notification correctness/failure checks.
+- SRE owns publish/deploy verification, rollback readiness, runtime notification
+  configuration, journal persistence and recovery. Runtime SSH trust and secrets
+  must be provisioned through the owner's established path.
+
+Use the existing release record or the
+`https://github.com/vicy07/AI-Governance/blob/main/templates/release.md`
+starting point. `published`, `verified` and notification `sent` represent
+different evidence. A release failure blocks promotion; a notification failure
+leaves an explicit delivery obligation. A successful API response is not proof
+that the user read the message.
 
 ## OTLP Endpoint Handover Pattern
 

@@ -81,6 +81,8 @@ This repository expects downstream product repositories to define at least:
   scanners on approved schedules, relevant risk triggers, or release checks
   under the [CI Verification Policy](guidelines/playbooks/ci-verification-policy.md),
 - a documented deployment path with rollback and post-deploy verification,
+- release records tying goals/Issues to the verified version and environment,
+  with independent notification status and a reproducible runtime-owned sender,
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
 - a mandatory component lifecycle/EOL gate with criticality and risk recorded in a tracked downstream CycloneDX SBOM,
