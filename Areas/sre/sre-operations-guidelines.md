@@ -68,6 +68,8 @@ Last Updated: 2026-10-13
   HTTP. Verify API acceptance, message ID, destination and returned text before
   marking sent. A durable product/version/environment journal prevents concurrent
   or repeated delivery; ambiguous outcomes require reconciliation before retry.
+  Operator-observed reconciliation must retain its evidence source and must
+  not be presented as an API-confirmed receipt.
 - SRE documentation must publish exact OTLP client-facing endpoint patterns for external, in-cluster, and local runtime paths when those paths exist.
 - Frontend applications document applicable client diagnostics/correlation and
   data-minimization controls; static content requires no client tracking.

@@ -289,8 +289,8 @@ homelab `899400181e0809b6e0b62724b9ce9c546014885c` (новый shallow checkout)
 AI-Governance pytest — 16 passed. Homelab sender tests проверяют HTTP bytes и
 receipt round trip с `ё`/emoji, ASCII stdio, invalid UTF-8, duplicate/concurrent
 calls, interruption/reopen, 4xx/rate-limit/5xx и operator reconciliation.
-Итоговый homelab suite — **47 passed, 18 subtests passed** (5.86 s),
-включая 20 sender tests; результат также фиксируется в owning Issue/PR.
+Итоговый homelab suite — **48 passed, 18 subtests passed** (5.78 s),
+включая 21 sender tests; результат также фиксируется в owning Issue/PR.
 `git diff --check` — exit 0 для всех трёх репозиториев.
 
 Runtime verification: `Evidence not available`. `ssh homelab` завершился
@@ -315,3 +315,13 @@ Baseline gaps: homelab использует существующие README/docs
 Runbook покрывает затронутые transport/configuration/deployment/rollback аспекты.
 Machine-wide instructions не переустанавливались; canonical local policy
 обновлён в исходном AI-Governance checkout.
+
+
+Финальное review продолжения: журнал сохраняет `receipt_source: api` либо
+`operator`; migration старого журнала не выдумывает отсутствующее происхождение
+receipt (`not_recorded`). Duplicate calls сохраняют исходный источник.
+Draft PRs: [AI-Governance #40](https://github.com/vicy07/AI-Governance/pull/40),
+[Guidelines #15](https://github.com/vicy07/Guidelines/pull/15),
+[homelab #61](https://github.com/vicy07/homelab/pull/61). Review/merge и
+Git-based rollout остаются явно обозначенными delivery steps; homelab Issue
+не имеет automatic closure keyword, поскольку live acceptance ещё не выполнена.
