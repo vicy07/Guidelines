@@ -1,8 +1,8 @@
 ﻿# Test Execution and Reporting Format Standard
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-13
+Last Updated: 2026-10-14
 
 ## Metadata (required)
 
@@ -31,6 +31,10 @@ Last Updated: 2026-10-13
 - Final report must include `go/no-go` decision and open risks.
 
 ## Reporting Rules
+
+- Verify the shared DoD from `guidelines/playbooks/delivery-policy.md` at merge
+  readiness and the declared task boundary. Record review and current-revision
+  evidence in existing Issue/PR/release records; keep unmet criteria open.
 
 - Report must include total cases, pass rate, defect leakage, and critical failures.
 - Non-functional tests must report actual metrics against target thresholds.

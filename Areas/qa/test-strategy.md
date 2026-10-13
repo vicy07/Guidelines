@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.5.0
+Version: 1.6.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-13
+Last Updated: 2026-10-14
 
 ## Metadata (required)
 
@@ -27,6 +27,10 @@ Last Updated: 2026-10-13
 10. Traceability (requirements/use cases/security controls -> tests)
 
 ## Strategy Rules
+
+- Map existing entry/exit criteria and quality gates to the shared DoD in
+  `guidelines/playbooks/delivery-policy.md`; record product-specific additions
+  without duplicating the canonical checklist.
 
 - Strategy is driven by risks and scenario criticality, not by available tools.
 - Separate fast PR/push checks, risk-triggered checks, approved schedules, and
