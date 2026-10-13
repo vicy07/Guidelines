@@ -81,6 +81,8 @@ This repository governs how downstream product repositories should organize deli
 - `guidelines-index.yaml` - machine-readable ownership and dependency index.
 - `Repository.md` - structure and navigation contract for this repository.
 - `Product-Repository-Blueprint.md` - downstream project baseline.
+- `Areas/requirements/repository-profiles.md` - conditional applicability and
+  explicit migration of navigation/observability controls.
 - `Adoption-Guide.md` - onboarding and migration guidance.
 - `docs/architecture/code-intelligence.md` - code-intelligence baseline and downstream implementation contract.
 

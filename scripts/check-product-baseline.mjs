@@ -11,7 +11,7 @@ const positional = args.filter((arg) => arg !== "--strict");
 const root = path.resolve(positional[0] || ".");
 const failures = [];
 
-const requiredDocs = [
+const productDocs = [
   "docs/requirements/mission.md",
   "docs/requirements/use-cases.md",
   "docs/requirements/user-flows.md",
@@ -24,7 +24,7 @@ const requiredDocs = [
 
 const read = (relativePath) => {
   const absolutePath = path.join(root, relativePath);
-  if (!fs.existsSync(absolutePath)) {
+  if (!fs.existsSync(absolutePath) || !fs.statSync(absolutePath).isFile()) {
     failures.push(`missing: ${relativePath}`);
     return null;
   }
@@ -32,7 +32,7 @@ const read = (relativePath) => {
 };
 
 const agents = read("AGENTS.md");
-if (agents) {
+if (agents !== null) {
   for (const url of [
     "https://github.com/vicy07/Guidelines",
     "https://github.com/vicy07/AI-Governance",
@@ -42,8 +42,8 @@ if (agents) {
 }
 
 const baselineText = read(".governance/baseline.yaml");
-if (baselineText) {
-  let baseline;
+let baseline;
+if (baselineText !== null) {
   try {
     baseline = load(baselineText);
   } catch (error) {
@@ -57,6 +57,40 @@ if (baselineText) {
   }
 }
 
+const isRecord = (value) => value !== null && typeof value === "object" && !Array.isArray(value);
+const profiles = new Set(["docs-only", "library-cli", "service-web", "critical-system"]);
+const modes = new Set(["basic", "indexed"]);
+let adoption = null;
+if (isRecord(baseline) && Object.hasOwn(baseline, "adoption")) {
+  const declared = baseline.adoption;
+  if (!isRecord(declared)) {
+    failures.push("adoption must be a mapping with profile, code_intelligence, owner and rationale");
+  } else {
+    if (!profiles.has(declared.profile)) {
+      failures.push("adoption.profile must be docs-only, library-cli, service-web or critical-system");
+    }
+    if (!modes.has(declared.code_intelligence)) {
+      failures.push("adoption.code_intelligence must be basic or indexed");
+    }
+    for (const key of ["owner", "rationale"]) {
+      const value = declared[key];
+      if (typeof value !== "string" || !value.trim() || value.trim().startsWith("REPLACE_WITH_")) {
+        failures.push(`adoption.${key} must be a non-placeholder, non-empty string`);
+      }
+    }
+    if (profiles.has(declared.profile) && modes.has(declared.code_intelligence)) {
+      adoption = declared;
+    }
+  }
+}
+
+// Missing/invalid declarations never silently select a lighter document set.
+const requiredDocs = new Set(adoption?.profile === "docs-only" ? ["README.md"] : productDocs);
+if (adoption?.code_intelligence === "indexed") {
+  requiredDocs.add("docs/architecture/code-intelligence.md");
+  requiredDocs.add("code-intel.py");
+  requiredDocs.add("code-intel/config/index.yaml");
+}
 for (const relativePath of requiredDocs) read(relativePath);
 
 if (failures.length) {
@@ -65,4 +99,7 @@ if (failures.length) {
   process.exit(strict ? 1 : 0);
 }
 
-console.log(`OK: ${root} adopts both governance baselines and the docs structure.`);
+const selection = adoption
+  ? `${adoption.profile}/${adoption.code_intelligence}`
+  : "legacy document set (no applicability profile selected)";
+console.log(`OK: ${root} adopts both governance baselines and the static structure: ${selection}.`);

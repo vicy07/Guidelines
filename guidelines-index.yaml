@@ -1,4 +1,4 @@
-version: 3.10.0
+version: 3.11.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -126,6 +126,10 @@ domains:
     owner_role: BA
     co_owner_role: PO
     files:
+      - path: Areas/requirements/repository-profiles.md
+        kind: normative
+        requires_metadata: true
+        consumer_roles: [SWE, QA, SRE]
       - path: Areas/requirements/architecture-standard.md
         kind: normative
         requires_metadata: true
@@ -445,6 +449,21 @@ update_rules:
         - Areas/requirements/use-cases-standard.md
         - Areas/qa/test-case-design.md
         - Areas/qa/test-execution-and-reporting.md
+    Areas/requirements/repository-profiles.md:
+      must_review:
+        - Product-Repository-Blueprint.md
+        - Adoption-Guide.md
+        - README.md
+        - Areas/requirements/code-intelligence-standard.md
+        - Areas/swe/architecture-guidelines.md
+        - Areas/swe/implementation-guidelines.md
+        - Areas/qa/test-strategy.md
+        - Areas/sre/sre-operations-guidelines.md
+        - docs/architecture/code-intelligence.md
+        - Tools/code-intel/README.md
+        - Tools/otel/README.md
+        - scripts/check-product-baseline.mjs
+        - templates/governance-baseline.yaml
     Areas/requirements/code-intelligence-standard.md:
       must_review:
         - Product-Repository-Blueprint.md

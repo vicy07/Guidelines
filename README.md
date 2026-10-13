@@ -66,7 +66,11 @@ Every downstream product repository should have a predictable home for:
 - automated tests under `tests/`,
 - delivery automation under `.github/workflows/` and `scripts/`.
 
-The full baseline lives in `Product-Repository-Blueprint.md`.
+The full baseline lives in `Product-Repository-Blueprint.md`. Select
+`docs-only`, `library-cli`, `service-web`, or `critical-system` using
+`Areas/requirements/repository-profiles.md`. Product documentation records
+basic/indexed navigation; a custom AST stack and OTLP export are conditional,
+not universal requirements. Existing stronger contracts require explicit migration.
 
 ## Minimum Engineering Requirements
 
@@ -80,7 +84,9 @@ This repository expects downstream product repositories to define at least:
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
 - a mandatory component lifecycle/EOL gate with criticality and risk recorded in a tracked downstream CycloneDX SBOM,
-- a mandatory code-intelligence baseline with `code-intel.py`, repo-local `code-intel/`, a `SCIP + ast-grep + rg` AST-first index path, and `docs/architecture/code-intelligence.md`,
+- an explicit [applicability profile](Areas/requirements/repository-profiles.md),
+  adequate basic navigation or justified indexed tooling, and diagnostic
+  coverage appropriate to the shipped runtime and criticality,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
@@ -129,7 +135,7 @@ network refresh, or the full audit suite.
 
 To assess a downstream product repository against the dual baseline and minimum
 documentation structure, copy `templates/governance-baseline.yaml` into that
-repository and run:
+repository, fill revision pins and applicability/owner/rationale fields, and run:
 
 ```bash
 npm run check-product-baseline -- /path/to/product --strict

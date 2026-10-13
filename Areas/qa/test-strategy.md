@@ -1,6 +1,6 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.4.0
+Version: 1.5.0
 Owner: Repository Maintainer
 Last Updated: 2026-10-13
 
@@ -39,8 +39,13 @@ Last Updated: 2026-10-13
 - NFRs must be covered by dedicated checks with measurable thresholds.
 - Responsibility boundaries between test levels must be explicit and non-overlapping.
 - Security checks must align with `Areas/swe/security-guidelines.md`.
-- The strategy must verify the repository observability stack and OTLP contract for the repository type.
-- The strategy must verify the mandatory code-intelligence baseline, including the repo-local `code-intel.py` entrypoint, required JSON artifacts, and the documented incremental reindex behavior.
+- Verify diagnostic coverage for the selected profile from
+  `Areas/requirements/repository-profiles.md`; verify OTLP only when export is used.
+  Critical paths require signal/alert and recovery evidence.
+- Verify representative navigation/change-impact tasks for the chosen
+  basic/indexed mode. In indexed mode, also verify entrypoint, JSON artifacts,
+  coverage/freshness and incremental updates. Do not equate a populated index
+  or null embedding fields with working semantic retrieval.
 - The strategy must verify SBOM inventory coverage, component criticality/risk rules, EOL evidence freshness, dependency/architecture drift, and lifecycle gate behavior defined by `Areas/swe/component-lifecycle-guidelines.md`.
 - If evidence is missing, explicitly state `Evidence not available`.
 
@@ -50,8 +55,10 @@ Last Updated: 2026-10-13
 - Each risk has a mapped test type and execution frequency.
 - There is a minimum smoke/regression set for CI.
 - Test environments and test data management rules are documented.
-- Observability checks confirm that logs, metrics, traces, and OTLP configuration behave as documented for the repository type.
-- Code-intelligence checks confirm that manifest, file, symbol, edge, and chunk artifacts are generated and correspond to the documented repository scope.
+- Diagnostic checks cover profile-required signals and selected export behavior;
+  library/CLI tests confirm host control and no automatic background telemetry.
+- Navigation checks prove adequacy for representative tasks; indexed checks
+  additionally verify manifest/file/symbol/edge/chunk artifacts against scope.
 - Lifecycle checks cover missing/invalid/stale SBOM data, EOL and near-EOL components, unknown evidence, architectural inventory drift, and expired exceptions.
 - Release requires a mandatory security baseline (SAST/SCA and critical auth/authz checks).
 - Quality gates have measurable thresholds and a `go/no-go` rule.

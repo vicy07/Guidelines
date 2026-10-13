@@ -5,3 +5,9 @@ guidelines:
 ai_governance:
   repository: https://github.com/vicy07/AI-Governance
   revision: REPLACE_WITH_FULL_COMMIT_SHA
+# Explicitly select applicability when adopting this revision.
+adoption:
+  profile: service-web
+  code_intelligence: basic
+  owner: REPLACE_WITH_ACCOUNTABLE_TEAM
+  rationale: REPLACE_WITH_SCOPE_RISK_AND_CAPABILITY_RATIONALE

@@ -4,6 +4,21 @@
 
 Explain how to attach this guidelines repository to new and existing product repositories with the least disruptive path that still creates a usable agentic-development baseline.
 
+## Applicability Selection
+
+Before adding tooling, select a profile and `basic`/`indexed` navigation mode
+using `Areas/requirements/repository-profiles.md`. Record owner and rationale
+in `.governance/baseline.yaml`; retain the existing revision pins. Basic mode
+keeps a short navigation record in product documentation without a custom AST
+pipeline. Docs-only repositories keep scope/ownership/verification in README.
+
+Existing pinned baselines and stricter local controls remain in force until a
+reviewed adoption change records the new revision, selection, affected controls
+and evidence. Missing selection does not authorize deleting working tooling or
+telemetry. `check-product-baseline` keeps its legacy eight-document check when
+the adoption block is absent; it checks declarations and static presence, not
+runtime quality, security, observability or retrieval accuracy.
+
 ## Recommended Adoption Model
 
 Use one of two tracks:
@@ -17,21 +32,30 @@ Do not force the same rollout shape on both.
 
 For a new repository:
 
-1. Create the target structure from `Product-Repository-Blueprint.md`.
+1. Select the profile and create the applicable structure from
+   `Product-Repository-Blueprint.md`; docs-only repositories avoid product scaffolding.
 2. Add `AGENTS.md` with direct links to the `Guidelines` engineering baseline,
    the adopted baseline documents, and the companion
    [`AI-Governance`](https://github.com/vicy07/AI-Governance) operating model.
    Preferred form: public GitHub links for both repository reference points and
    the primary baseline documents.
-3. Create the minimum artifact set under `docs/requirements/`, `docs/`, `docs/qa/`, and `docs/sre/`, including `docs/architecture/code-intelligence.md`.
+3. Product repositories create the minimum documents under `docs/requirements/`,
+   `docs/`, `docs/qa/` and `docs/sre/`, including a short navigation-mode record
+   at `docs/architecture/code-intelligence.md`. Docs-only repositories record
+   scope, ownership and verification in README instead.
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`. Keep fast
    PR/push checks separate from scheduled scanners and release gates using
    `guidelines/playbooks/ci-verification-policy.md`.
 5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/eol.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
-6. Add `code-intel.py`, repo-local `code-intel/`, and `code-intel/config/index.yaml` as a separate control surface from `audits.py`.
+6. For indexed mode, add `code-intel.py`, repo-local `code-intel/` and
+   `code-intel/config/index.yaml` separately from `audits.py`. Basic mode uses
+   existing navigation/search tools and a short documentation record.
 7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/eol.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `eol.py` entrypoints as part of the baseline model.
-8. Reuse `Tools/code-intel/` as the lower-level runtime for the `SCIP + ast-grep + rg` baseline, with Tree-sitter fallback only where semantic indexers are unavailable or not yet complete.
-9. Add the repository observability stack and OTLP contract.
+8. Indexed mode may reuse `Tools/code-intel/` and its reference
+   `SCIP + ast-grep + rg` stack; choose supported language tools and document
+   actual coverage/fallbacks. Basic mode does not need this runtime.
+9. Implement profile-appropriate diagnostics and alerts; document an OTLP
+   contract only when OTLP export is used. Libraries leave exporter setup to the host.
 10. Implement the visible line `Last commit: <localized date/time> | <short sha>` in the product UI if the product is user-facing.
 
 This is the preferred path because it avoids later migration overhead.
@@ -42,7 +66,8 @@ For an existing repository, do not rewrite the whole structure unless the curren
 
 Recommended sequence:
 
-1. Inventory current docs, tests, workflows, and deployment scripts.
+1. Inventory current docs, tests, workflows, and deployment scripts. Record
+   the selected profile/mode and migration impact before relaxing any existing control.
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
 4. Normalize CI, deploy, SonarQube, Trivy, component lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
@@ -81,8 +106,8 @@ Add or normalize:
 - SonarQube integration,
 - Trivy integration,
 - component lifecycle/EOL monitoring, criticality/risk classification, and the tracked enriched SBOM,
-- `code-intel.py`, repo-local `code-intel/`, and the mandatory `SCIP + ast-grep + rg` AST index path,
-- observability stack with OTLP contract,
+- adequate basic navigation or justified indexed tooling with coverage/freshness evidence,
+- profile-appropriate diagnostics/alerts and OTLP configuration when used,
 - minimum smoke and regression checks.
 
 Outcome:
@@ -92,7 +117,7 @@ Outcome:
 
 ### Step 3: Minimal Artifacts
 
-Create or align:
+For product profiles, create or align (docs-only scope uses README):
 
 - `docs/requirements/mission.md`
 - `docs/requirements/use-cases.md`
@@ -119,9 +144,9 @@ Architecture documentation rule:
 - For retrofits, prefer the narrowest practical repo-local surface that satisfies the baseline first.
 - Do not expand the main README, docs index, or repo-wide tests during the first code-intelligence rollout unless the repository explicitly asks for it or an existing contract would otherwise fail.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, prefer `Tools/code-intel/` for the mandatory AST index runtime, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `eol.py` in the baseline model.
+- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, consider `Tools/code-intel/` when indexed mode is selected, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `eol.py` in the baseline model.
 - Persist the current component inventory, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; refresh it at least weekly and when dependencies, architecture, runtime/base images, or external-provider contracts change.
-- Generated `code-intel/index/` artifacts are mandatory runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
+- In indexed mode, generated `code-intel/index/` artifacts are required runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 - Keep scanner JSON, SARIF, logs, and SBOMs as linked machine evidence, but do
   not split one audit work item into multiple human Markdown reports. Follow
@@ -159,7 +184,8 @@ when a revision is pinned.
 
 Copy `templates/governance-baseline.yaml` to
 `.governance/baseline.yaml`, replace both revision placeholders with full commit
-SHAs, and check the product repository with:
+SHAs, select `adoption.profile` and `adoption.code_intelligence`, and replace
+owner/rationale placeholders. Check the repository with:
 
 ```bash
 npm run check-product-baseline -- /path/to/product --strict
@@ -176,12 +202,15 @@ The lightest workable integration for most teams is:
    [`AI-Governance`](https://github.com/vicy07/AI-Governance).
    Preferred form: public GitHub repository links plus direct GitHub links to
    the primary engineering baseline documents.
-2. Create the minimal docs set.
+2. Create the product minimum docs set, or README-based docs-only scope/verification.
 3. Wire CI and deploy workflows.
 4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local EOL scanner.
 5. Keep `Tools/sonar/` and `Tools/trivy/` as lower-level reusable runners behind `Tools/audits/`, and keep lifecycle-source adapters repo-local, not as root entrypoints.
-6. Add `code-intel.py`, `code-intel/`, and `docs/architecture/code-intelligence.md`, then reuse `Tools/code-intel/` as the lower-level `SCIP + ast-grep + rg` indexing runtime and keep Tree-sitter enabled only as fallback where needed.
-7. Define OTEL env vars and the repository observability path. Python repositories can copy or vendor `Tools/otel/telemetry.py` and keep a thin local wrapper for framework instrumentation.
+6. Document basic navigation or implement justified indexed mode with
+   `code-intel.py`, `code-intel/` and coverage/freshness checks; the shared
+   runtime is optional. Keep generated indexes out of git.
+7. Define the profile-appropriate diagnostic path. When OTLP is used, document
+   its configuration; Python projects may copy/vendor `Tools/otel/telemetry.py`.
 8. If an audit is performed, save one consolidated
    `docs/audits/YYYY-MM-DD-<scope>.md` report using
    `guidelines/playbooks/audit-reporting-standard.md`, including the `Guidelines`

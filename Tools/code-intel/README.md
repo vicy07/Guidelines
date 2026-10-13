@@ -4,6 +4,11 @@ Reusable code-intelligence runner logic for product repositories that want a con
 
 This runner is separate from `Tools/audits` because code intelligence is not a quality or security scanner.
 
+Use it when `indexed` mode is selected under
+[`Repository Applicability Profiles`](../../Areas/requirements/repository-profiles.md).
+Basic navigation needs no custom index runtime. The stack below is this
+runner's reference implementation, not a universal repository requirement.
+
 ## Primary Toolchain
 
 The baseline toolchain is:
@@ -39,7 +44,7 @@ Move shared behavior here:
 
 ## Expected Product-Repo Integration
 
-Each product repository should:
+A product repository selecting this indexed runtime should:
 
 1. keep `code-intel.py` and repo-local `code-intel/`
 2. keep project-specific settings in `code-intel/config/index.yaml`
@@ -98,8 +103,11 @@ artifacts:
 
 - `python code-intel.py index` builds or refreshes the AST and symbol index for the repository.
 - `python code-intel.py graph` materializes symbol relationships such as calls, imports, containment, and references.
-- `python code-intel.py embeddings` refreshes symbol-level or chunk-level retrieval units for semantic search.
-- `python code-intel.py query <symbol-or-pattern>` performs a local symbol or pattern lookup for debugging and operator checks.
+- `python code-intel.py embeddings` prepares chunk records. The bundled
+  implementation writes `embedding: null` and does not generate vectors; an
+  actual embedding provider and retrieval evaluation are separate integrations.
+- `python code-intel.py query <symbol-or-pattern>` performs substring lookup
+  over symbol names/IDs and file paths; it is not vector/semantic retrieval.
 - `python code-intel.py config` prints resolved non-secret config and exits without rebuilding the index.
 
 ## Example Downstream Wrapper

@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.5.0
+Version: 1.6.0
 Owner: SWE Lead
-Last Updated: 2026-07-22
+Last Updated: 2026-10-13
 
 ## Metadata (required)
 
@@ -28,20 +28,29 @@ Last Updated: 2026-07-22
 - Behavior changes must be traceable to requirements/use cases.
 - Architectural boundaries must not be bypassed for convenience.
 - Temporary fixes must include debt records and closure criteria.
-- Every repository must implement its repository-type observability path and document the exact OTLP contract used for attribution or export.
+- Implement the selected profile from `Areas/requirements/repository-profiles.md`;
+  document diagnostics and any actual OTLP export contract.
 - Every repository must implement a repository-local Trivy entrypoint for filesystem scanning, and repositories that produce deployable container images must also define an image-scanning entrypoint before release.
 - Every repository must implement repo-local EOL audit entrypoints and maintain the enriched tracked CycloneDX SBOM required by `Areas/swe/component-lifecycle-guidelines.md`.
-- Every repository must implement a separate repo-local code-intelligence entrypoint `code-intel.py` plus repo-local `code-intel/`; do not merge code-intelligence commands into `audits.py`.
-- The mandatory code-intelligence baseline is `SCIP + ast-grep + rg`, wired through the repo-local implementation and preferably executed through a reproducible container path.
-- Repository-local code-intelligence output must include `code-intel/index/manifest.json`, `files.json`, `symbols.json`, `edges.json`, and `chunks.json`, plus project-specific implementation notes in `docs/architecture/code-intelligence.md`.
-- When the repository-local code-intelligence artifacts are available for the active revision, engineering analysis should prefer AST, symbol, and graph retrieval ahead of text-only search.
-- Backend and service repositories must emit logs, metrics, and traces from the running service.
-- Frontend or static-web repositories must emit client telemetry and error events through a documented telemetry path that preserves OpenTelemetry-compatible correlation.
-- Library and CLI repositories must emit structured logs and document how OpenTelemetry attribution or export is enabled when embedded or executed in target runtimes.
+- Basic navigation uses existing search/editor/language tools and a short
+  adequacy record. Indexed mode implements separate `code-intel.py` and
+  `code-intel/` configuration/artifacts under the indexed design contract;
+  the shared SCIP/ast-grep/rg runtime is optional.
+- Use fresh symbol/graph retrieval where it helps; text search remains valid
+  for focused lookups and unindexed content. Do not claim missing coverage.
+- Service/web diagnostics follow the profile's runtime signals; critical paths
+  retain correlated logs/metrics/traces and owned alerts or reviewed controls.
+- Libraries provide host-controlled diagnostic/instrumentation hooks; CLI
+  tools provide actionable errors, exit status and optional verbosity. Do not
+  install exporters, background telemetry or collectors automatically.
+- Docs-only repositories need build/CI/publication diagnostics, not runtime
+  telemetry. Static content does not require client tracking.
 - Implementation handover must include the exact Trivy invocation path, config file location, and the ownership record for any accepted suppressions.
 - Implementation handover must include the EOL scan/check paths, SBOM location, lifecycle evidence sources, monitoring cadence, component owners, and open remediation plans.
-- Implementation handover must include the exact code-intelligence invocation path, config file location, artifact directory, configured `SCIP` indexers, and the current documented limitations of index coverage or fallback behavior.
-- Implementation handover must include the exact OTLP protocol and endpoint values expected in each runtime environment:
+- Handover records basic navigation commands/adequacy or, for indexed mode,
+  entrypoint/config/artifacts, language coverage, freshness and limitations.
+- When OTLP export is used, handover includes actual protocol/endpoint values
+  for each applicable runtime environment, for example:
 
 ```dotenv
 OTEL_SERVICE_NAME=my-service
@@ -62,7 +71,7 @@ OTEL_EXPORTER_OTLP_ENDPOINT=https://otel-collector.example.com
 - Security and reliability impacts are reviewed.
 - Security scanning entrypoints and suppression ownership are documented.
 - Component inventory, criticality, EOL evidence, risk, and remediation ownership are documented in the downstream SBOM.
-- Code-intelligence entrypoints, artifact contracts, and update boundaries are documented.
-- Observability and OTLP contract implications are documented for the repository type.
+- Navigation mode/adequacy and any selected index entrypoints, artifacts and update boundaries are documented.
+- Profile-required diagnostics and any selected OTLP export implications are documented.
 - QA handover includes test scope and risk notes.
 - SRE handover includes deployment and observability implications.
