@@ -41,10 +41,20 @@ security and lifecycle controls still cover documentation build tools.
     architecture/
       code-intelligence.md
       adr/
+    ux/                         # optional when UX work is material
+      README.md
+      research/
+      user-flows/
+      decisions/
+      usability-tests/
+      metrics/
     qa/
       test-strategy.md
     sre/
       deployment-and-operations.md
+    releases/                    # one reviewed file per published release
+      README.md
+      X.Y.Z.md
   src/
   tests/
     unit/
@@ -60,11 +70,11 @@ security and lifecycle controls still cover documentation build tools.
   audits.py
   audits/
     config/
-      eol.yaml
+      components.yaml
       sonar-project.properties
       trivy.yaml
     scanners/
-      eol.py
+      components.py
       sonar.py
       trivy.py
     sbom/
@@ -92,6 +102,7 @@ security and lifecycle controls still cover documentation build tools.
 - `docs/technical-architecture.md` is the technical architecture source of truth for runtime boundaries, storage, integrations, and non-trivial technical decisions.
 - `docs/architecture/` remains the home for optional ADRs and deeper architecture records when the repository needs them.
 - `docs/architecture/code-intelligence.md` documents the selected basic/indexed code-intelligence mode defined by this repository and should follow the content contract from `Areas/requirements/code-intelligence-standard.md`.
+- `docs/ux/` is the optional home for durable UX research, user-flow, design-decision, usability-test, and UX-metric artifacts when the repository has material UX work. Repositories with an existing documented UX source of truth may keep that location instead.
 - `docs/qa/` captures how the project proves quality.
 - `docs/sre/` captures how the project is deployed, observed, rolled back, and operated.
 - `src/` contains implementation code.
@@ -193,7 +204,7 @@ Recommended integration model:
 
 If image scanning does not apply to a repository, the repository must document why instead of omitting the Trivy gate entirely.
 
-### 5. Component Lifecycle and EOL Audit
+### 5. Component License, Lifecycle, and EOL Audit
 
 Every repository must continuously inventory and assess:
 
@@ -203,16 +214,16 @@ Every repository must continuously inventory and assess:
 
 Required downstream contract:
 
-- `audits/config/eol.yaml`,
-- `audits/scanners/eol.py`,
+- `audits/config/components.yaml`,
+- `audits/scanners/components.py`,
 - tracked CycloneDX JSON at `audits/sbom/components.cdx.json`,
-- `python audits.py eol scan` for evidence refresh and assessment,
-- `python audits.py eol check` for deterministic validation of committed state,
-- EOL check inclusion in `python audits.py all`, CI, scheduled monitoring, and release readiness.
+- `python audits.py components scan` for evidence refresh and assessment,
+- `python audits.py components check` for deterministic validation of committed state,
+- component check inclusion in `python audits.py all`, CI, scheduled monitoring, and release readiness.
 
-The enriched SBOM must include stable component identity and relationships plus owner, component class, criticality, lifecycle status/EOL, evidence source and freshness, risk, rationale, and remediation details. `unknown` lifecycle evidence must remain explicit and must not be interpreted as supported.
+The enriched SBOM must include stable component identity and relationships plus owner, component class, license expression/value, license type, license evidence, material obligations or restrictions, license risk, criticality, lifecycle status/EOL, lifecycle evidence and freshness, risk, rationale, and remediation details. `unknown` license or lifecycle evidence must remain explicit and must not be interpreted as permissive, compatible, or supported.
 
-Criticality and risk classification, failure thresholds, exception controls, and the minimum weekly monitoring cadence are normative in `Areas/swe/component-lifecycle-guidelines.md`. Vulnerability scanning does not replace lifecycle monitoring.
+License compatibility must be assessed during architecture design before component adoption and refreshed when the use, build/linking/packaging, hosting, commercial-use, or distribution model changes. License/lifecycle risk classification, failure thresholds, exception controls, and the minimum weekly monitoring cadence are normative in `Areas/swe/component-lifecycle-guidelines.md`. Vulnerability scanning does not replace license or lifecycle monitoring.
 
 ### 6. Visible Release Traceability
 
@@ -226,6 +237,36 @@ If commit details are unavailable, the UI must still render:
 
 This requirement defines the visible product outcome, not the implementation mechanism.
 The visible line must resolve correctly in deployed environments too, not only in local development.
+
+### Release Notes Contract
+
+Every published release must have one reviewed, human-readable repository file
+under `docs/releases/` (or the repository's documented equivalent) named
+`X.Y.Z.md`. The file describes user-relevant changes and the operational or
+privacy implications that are necessary to understand the release. Commit
+subjects may seed a draft, but the final notes must be reviewed rather than
+published as an unedited commit log.
+
+Release preparation must make the notes part of the committed source that is
+verified and promoted. A release workflow may generate the note and any derived
+assets, but it must commit or otherwise require that source before the CI
+artifact is built; it must not leave tracked release files for a second,
+post-release commit. The release process must retain a clear source-to-artifact
+provenance link.
+
+If a user-facing solution has a web page, it must also publish an accessible
+release-notes page generated from the reviewed release-note files or an
+equivalent versioned source of truth. The page must be linked either from
+primary navigation as a distinct release-notes entry or from the required
+persistent footer/status line. A link that exists only in source, a hidden menu,
+or a release-provider page outside the product does not satisfy this rule.
+
+Ownership boundary: SWE owns source generation and exact-source delivery; UX
+owns accessible page structure and link discoverability; QA verifies the
+versioned file, public page, and link path; SRE verifies that released assets
+and release documentation identify the same committed source. Libraries and
+CLIs still require versioned release documentation, but do not require a web
+page unless they publish one.
 
 ### 7. Observability Stack
 
@@ -331,12 +372,12 @@ release/publishing guidance. Docs-only scope follows the profile contract.
 - `.github/workflows/deploy.yml`
 - `audits.py`
 - repo-local `audits/`
-- `audits/config/eol.yaml`
+- `audits/config/components.yaml`
 - `code-intel.py`
 - repo-local `code-intel/`
 - `audits/config/sonar-project.properties`
 - `audits/config/trivy.yaml`
-- `audits/scanners/eol.py`
+- `audits/scanners/components.py`
 - `audits/sbom/components.cdx.json`
 - at least one test suite under `tests/`
 
@@ -359,7 +400,7 @@ Each report must include:
 - the findings and missing artifacts discovered,
 - the evidence reviewed,
 - the exact `Guidelines` version used for the audit, pinned by commit hash and commit date.
-- explicit coverage of Guidelines compliance, EOL/component lifecycle, Trivy
+- explicit coverage of Guidelines compliance, component license compliance, EOL/component lifecycle, Trivy
   filesystem and image scanning, security, and GDPR/privacy;
 - the method (`tool/runner`, `AI review`, `manual review`, or `mixed`) and status
   (`passed`, `failed`, `blocked`, `not-run`, or `not-applicable`) for every area;
@@ -381,15 +422,15 @@ This requirement applies only after a compliance audit is run. It is not a manda
 - `SWE` owns architecture, implementation, and application-level support for the visible last-commit line.
 - `SWE` owns code-navigation mode/adequacy, and in indexed mode the repo-local
   `code-intel.py` implementation and symbol/index schema choices.
-- `SWE` owns SBOM inventory completeness, architecture/dependency relationships, criticality classification, and lifecycle-risk remediation design.
-- `QA` owns test strategy, release evidence, merge-quality verification, lifecycle-gate behavior, and verification that required SBOM and code-intelligence artifacts are produced as documented.
-- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, scheduled EOL monitoring and alerting, release-time security/lifecycle gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
+- `SWE` owns SBOM inventory completeness, architecture/dependency relationships, license evidence and technical-use classification, criticality classification, and license/lifecycle-risk remediation design.
+- `QA` owns test strategy, release evidence, merge-quality verification, license/lifecycle-gate behavior, and verification that required SBOM and code-intelligence artifacts are produced as documented.
+- `SRE` owns deployment readiness, runtime checks, rollback expectations, observability requirements, scheduled license/EOL monitoring and alerting, release-time security/license/lifecycle gates, and reproducible execution of the code-intelligence runtime in CI or containerized workflows.
 
 Cross-role boundary note:
 
 - `SWE` is accountable for implementation and testability hooks.
-- `QA` is accountable for verification content, gate interpretation, and artifact-level validation of the SBOM and code-intelligence baselines.
-- `SRE` is accountable for deployment safety, runtime confidence after release, authoritative lifecycle evidence refresh, and operational handling of generated artifacts.
+- `QA` is accountable for verification content, gate interpretation, and artifact-level validation of the SBOM license/lifecycle and code-intelligence baselines.
+- `SRE` is accountable for deployment safety, runtime confidence after release, authoritative license/lifecycle evidence refresh, and operational handling of generated artifacts.
 
 ## Definition of Ready
 
@@ -400,7 +441,7 @@ A downstream product repository is ready for agentic delivery when:
 - the deploy path is documented and executable,
 - SonarQube integration is wired for supported codebases through the repo-local audit entrypoint,
 - Trivy integration is wired for repository filesystem scanning and deployable-image scanning where applicable through the repo-local audit entrypoint,
-- lifecycle/EOL monitoring is wired through the repo-local audit entrypoint, covers libraries, third parties, runtimes/build tools, and architectural components, and persists current criticality and risk in the tracked SBOM,
+- license and lifecycle/EOL monitoring is wired through the repo-local audit entrypoint, covers libraries, third parties, runtimes/build tools, and architectural components, and persists license type/evidence/risk plus current lifecycle criticality and risk in the tracked SBOM,
 - the selected profile has documented diagnostic coverage and, when used, OTLP export,
 - navigation mode and adequacy are documented; indexed mode has its entrypoint,
   configuration, generated artifacts and coverage/freshness verification,

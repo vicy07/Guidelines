@@ -25,7 +25,7 @@ product-specific exceptions local and explicit.
 
 - A guidelines repository for agentic development.
 - A baseline blueprint for downstream product repositories.
-- A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, component lifecycle/EOL monitoring, observability, and user-visible release traceability.
+- A source of minimum delivery rules for CI, CD, deployment, SonarQube, Trivy, component license/lifecycle/EOL monitoring, observability, and user-visible release traceability.
 - A place for reusable cross-repository helpers under `Tools/` such as `Tools/audits/`, `Tools/sonar/`, `Tools/trivy/`, `Tools/otel/`, and `Tools/code-intel/`.
 
 ## What This Repo Is Not
@@ -85,11 +85,12 @@ This repository expects downstream product repositories to define at least:
   with independent notification status and a reproducible runtime-owned sender,
 - a SonarQube quality gate for supported codebases,
 - a Trivy security gate for filesystem scanning and, when applicable, container-image scanning,
-- a mandatory component lifecycle/EOL gate with criticality and risk recorded in a tracked downstream CycloneDX SBOM,
+- a mandatory component license/lifecycle/EOL gate with license expression, license type, obligations/restrictions, criticality, and risk recorded in a tracked downstream CycloneDX SBOM,
 - an explicit [applicability profile](Areas/requirements/repository-profiles.md),
   adequate basic navigation or justified indexed tooling, and diagnostic
   coverage appropriate to the shipped runtime and criticality,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
+- release documentation for each published version and, for web solutions, a discoverable release-notes page linked from primary navigation or the required footer,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
 ## Repository Map
