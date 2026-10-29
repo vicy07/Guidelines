@@ -46,11 +46,11 @@ For a new repository:
 4. Add `.github/workflows/ci.yml` and `.github/workflows/deploy.yml`. Keep fast
    PR/push checks separate from scheduled scanners and release gates using
    `guidelines/playbooks/ci-verification-policy.md`.
-5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/eol.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
+5. Add `audits.py`, repo-local `audits/` scanner wiring, `audits/config/sonar-project.properties`, `audits/config/trivy.yaml`, `audits/config/components.yaml`, and the tracked enriched SBOM at `audits/sbom/components.cdx.json`.
 6. For indexed mode, add `code-intel.py`, repo-local `code-intel/` and
    `code-intel/config/index.yaml` separately from `audits.py`. Basic mode uses
    existing navigation/search tools and a short documentation record.
-7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/eol.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `eol.py` entrypoints as part of the baseline model.
+7. Reuse `Tools/audits/` as the primary local audit entrypoint and add the repo-specific `audits/scanners/components.py` adapter. Do not add root `sonar.py`, `trivy.py`, or `components.py` entrypoints as part of the baseline model.
 8. Indexed mode may reuse `Tools/code-intel/` and its reference
    `SCIP + ast-grep + rg` stack; choose supported language tools and document
    actual coverage/fallbacks. Basic mode does not need this runtime.
@@ -70,7 +70,7 @@ Recommended sequence:
    the selected profile/mode and migration impact before relaxing any existing control.
 2. Map existing files to the target baseline before creating new ones.
 3. Add only the missing minimum artifacts.
-4. Normalize CI, deploy, SonarQube, Trivy, component lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
+4. Normalize CI, deploy, SonarQube, Trivy, component license and lifecycle/EOL, code-intelligence, and observability gates before attempting broader documentation cleanup.
 5. When an audit is run, create exactly one consolidated
    `docs/audits/YYYY-MM-DD-<scope>.md` report for that work item. Include the
    exact `Guidelines` version pinned by commit hash and commit date, all required
@@ -113,7 +113,7 @@ Add or normalize:
   for the AI-Governance personal Telegram channel without copying credentials,
 - SonarQube integration,
 - Trivy integration,
-- component lifecycle/EOL monitoring, criticality/risk classification, and the tracked enriched SBOM,
+- component license and lifecycle/EOL monitoring, license type/evidence/risk, criticality/risk classification, and the tracked enriched SBOM,
 - adequate basic navigation or justified indexed tooling with coverage/freshness evidence,
 - profile-appropriate diagnostics/alerts and OTLP configuration when used,
 - minimum smoke and regression checks.
@@ -168,8 +168,8 @@ uses existing README/task/PR records without adding product-document scaffolding
 - For retrofits, prefer the narrowest practical repo-local surface that satisfies the baseline first.
 - Do not expand the main README, docs index, or repo-wide tests during the first code-intelligence rollout unless the repository explicitly asks for it or an existing contract would otherwise fail.
 - Do not rename stable directories just to match the blueprint if a mapping layer is enough.
-- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, consider `Tools/code-intel/` when indexed mode is selected, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `eol.py` in the baseline model.
-- Persist the current component inventory, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; refresh it at least weekly and when dependencies, architecture, runtime/base images, or external-provider contracts change.
+- Prefer repo-local wrappers over copied logic, prefer `Tools/audits/` over separate per-tool orchestration when the repository uses multiple scanners, consider `Tools/code-intel/` when indexed mode is selected, keep `code-intel.py` separate from `audits.py`, keep `SCIP` language-indexer commands in repo-local config, and do not add root `sonar.py`, `trivy.py`, or `components.py` in the baseline model.
+- Persist the current component inventory, license expression/type/evidence and risk, lifecycle evidence, criticality, and risk in `audits/sbom/components.cdx.json`; assess license compatibility during architecture design before adoption and refresh it at least weekly and when dependencies, component versions, architecture, build/linking/packaging or distribution models, runtime/base images, or external-provider contracts change.
 - In indexed mode, generated `code-intel/index/` artifacts are required runtime outputs, but they must not be committed to git; downstream repositories should ignore that tree and rebuild it locally or in CI when needed.
 - If evidence for a rule is missing, document `Evidence not available` instead of inventing compliance.
 - Keep scanner JSON, SARIF, logs, and SBOMs as linked machine evidence, but do
@@ -228,7 +228,7 @@ The lightest workable integration for most teams is:
    the primary engineering baseline documents.
 2. Create the product minimum docs set, or README-based docs-only scope/verification.
 3. Wire CI and deploy workflows.
-4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local EOL scanner.
+4. Reuse `Tools/audits/` as the primary local audit entrypoint for SonarQube, Trivy, and the repo-local component scanner.
 5. Keep `Tools/sonar/` and `Tools/trivy/` as lower-level reusable runners behind `Tools/audits/`, and keep lifecycle-source adapters repo-local, not as root entrypoints.
 6. Document basic navigation or implement justified indexed mode with
    `code-intel.py`, `code-intel/` and coverage/freshness checks; the shared

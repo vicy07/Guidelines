@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.6.0
+Version: 1.7.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-14
+Last Updated: 2026-10-29
 
 ## Metadata (required)
 
@@ -50,7 +50,7 @@ Last Updated: 2026-10-14
   basic/indexed mode. In indexed mode, also verify entrypoint, JSON artifacts,
   coverage/freshness and incremental updates. Do not equate a populated index
   or null embedding fields with working semantic retrieval.
-- The strategy must verify SBOM inventory coverage, component criticality/risk rules, EOL evidence freshness, dependency/architecture drift, and lifecycle gate behavior defined by `Areas/swe/component-lifecycle-guidelines.md`.
+- The strategy must verify SBOM inventory coverage, license expression/type/evidence, license compatibility and risk rules, component criticality/risk rules, EOL evidence freshness, dependency/architecture drift, and lifecycle gate behavior defined by `Areas/swe/component-lifecycle-guidelines.md`.
 - If evidence is missing, explicitly state `Evidence not available`.
 
 ## Quality Checklist
@@ -63,7 +63,7 @@ Last Updated: 2026-10-14
   library/CLI tests confirm host control and no automatic background telemetry.
 - Navigation checks prove adequacy for representative tasks; indexed checks
   additionally verify manifest/file/symbol/edge/chunk artifacts against scope.
-- Lifecycle checks cover missing/invalid/stale SBOM data, EOL and near-EOL components, unknown evidence, architectural inventory drift, and expired exceptions.
+- Lifecycle checks cover missing/invalid/stale SBOM data, missing/unknown/conflicting licenses, incompatible license combinations, unmet license obligations, EOL and near-EOL components, unknown lifecycle evidence, architectural inventory drift, and expired exceptions.
 - Release requires a mandatory security baseline (SAST/SCA and critical auth/authz checks).
 - Quality gates have measurable thresholds and a `go/no-go` rule.
 

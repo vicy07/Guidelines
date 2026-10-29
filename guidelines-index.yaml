@@ -9,13 +9,13 @@ phase_model:
   index_file: phases-index.md
   phases:
     - id: discovery
-      primary_roles: [PO, BA, SWE, QA, SRE]
+      primary_roles: [PO, BA, UX, SWE, QA, SRE]
     - id: solution-design
       primary_roles: [BA, SWE, SRE, QA]
     - id: implementation
-      primary_roles: [BA, SWE, QA, SRE]
+      primary_roles: [BA, UX, SWE, QA, SRE]
     - id: verification
-      primary_roles: [BA, QA, SWE, SRE]
+      primary_roles: [BA, UX, QA, SWE, SRE]
     - id: operations
       primary_roles: [BA, SRE, SWE, QA]
   roles:

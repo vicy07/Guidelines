@@ -1,8 +1,8 @@
 # Consolidated Audit Reporting Standard
 
-Version: 1.1.0
+Version: 1.2.0
 Owner: Repository Maintainer
-Last Updated: 2026-07-30
+Last Updated: 2026-08-01
 
 ## Purpose
 
@@ -33,7 +33,7 @@ not be fragmented across per-tool or per-role Markdown reports.
   Markdown report under `docs/audits/`.
 - Name it `YYYY-MM-DD-<scope>.md`; for example,
   `docs/audits/2026-07-23-guidelines-compliance.md`.
-- EOL/component lifecycle, Trivy, security, and GDPR/privacy must be represented
+- Component licenses, EOL/component lifecycle, Trivy, security, and GDPR/privacy must be represented
   in that file. Include other applicable checks such as SonarQube in the same
   file.
 - Do not create separate human reports for individual tools, roles, remediation
@@ -71,16 +71,19 @@ The consolidated report must contain a coverage row and a detailed subsection
 for each of these areas:
 
 1. Guidelines compliance
-2. EOL and component lifecycle
-3. Trivy filesystem scan
-4. Trivy image scan
-5. Security review
-6. GDPR and privacy review
+2. Component license compliance
+3. EOL and component lifecycle
+4. Trivy filesystem scan
+5. Trivy image scan
+6. Security review
+7. GDPR and privacy review
 
 Add SonarQube, tests, deployment verification, or other checks when they are in
 scope. Trivy image scanning may be `not-applicable` only when the repository
 does not produce or deploy a container image and the report records that
 evidence.
+
+The component-license area must include a dedicated `License Risks and Restrictions` subsection. It must summarize the SBOM license expressions and types, identify `unknown`, custom, non-standard, source-available, copyleft, proprietary/commercial, or conflicting terms that require attention, and evaluate material obligations or restrictions for the actual build, linking, modification, hosting, packaging, commercial-use, and distribution model. Findings must state the affected component/artifact, evidence source, obligation or restriction, risk, required action, decision owner, and review/expiry date. Write `None identified` when the evidence supports no material finding; do not omit the section. Automated or AI review must not claim legal certification or approval.
 
 The GDPR/privacy section is an engineering and product-data gap assessment. An
 AI review must not claim legal certification. At minimum it reviews, or records
@@ -132,6 +135,7 @@ be inferred as passing.
 | Area | Method | Status | Evidence | Owner / follow-up |
 |---|---|---|---|---|
 | Guidelines compliance | AI review | <status> | <path/link> | <owner/action> |
+| Component license compliance | mixed | <status> | <SBOM/path/link> | <owner/action> |
 | EOL and component lifecycle | tool/runner | <status> | <path/link> | <owner/action> |
 | Trivy filesystem | tool/runner | <status> | <path/link> | <owner/action> |
 | Trivy image | tool/runner | <status> | <path/link> | <owner/action> |
@@ -144,6 +148,8 @@ be inferred as passing.
 
 ## Detailed Results
 ### Guidelines Compliance
+### Component License Compliance
+#### License Risks and Restrictions
 ### EOL and Component Lifecycle
 ### Trivy Filesystem
 ### Trivy Image

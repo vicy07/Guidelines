@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.9.0
+Version: 1.10.0
 Owner: SRE Lead
-Last Updated: 2026-10-14
+Last Updated: 2026-10-29
 
 ## Metadata (required)
 
@@ -46,7 +46,7 @@ Last Updated: 2026-10-14
   scans by relevant risk trigger, approved schedule, or missing/stale release
   evidence; do not require a full scan before every merge. Follow
   `guidelines/playbooks/ci-verification-policy.md` for evidence and gate rules.
-- Release readiness must include the component lifecycle/EOL gate, and scheduled monitoring must refresh the tracked downstream SBOM at least weekly and on inventory, architecture, runtime, or external-provider changes.
+- Release readiness must include the component license and lifecycle/EOL gate, and scheduled monitoring must refresh the tracked downstream SBOM at least weekly and on inventory, architecture, component-version, build/linking/packaging, distribution-model, runtime, or external-provider changes.
 - Release readiness and CI must provide a reproducible code-intelligence path
   for `code-intel.py`, preferably through a containerized shared runtime, when
   indexed artifacts are required. Use incremental updates or matching cached
@@ -80,7 +80,7 @@ Last Updated: 2026-10-14
 - Library/CLI diagnostics must work without a collector or OTLP exporter;
   document optional host instrumentation and useful failure behavior.
 - SRE handover must publish the exact Trivy entrypoints, thresholds, and suppression-record location used by the release path.
-- SRE handover must publish the EOL scan/check entrypoints, lifecycle data sources, SBOM location, freshness threshold, alert path, and exception-expiry handling.
+- SRE handover must publish the component scan/check entrypoints, license and lifecycle data sources, SBOM location, freshness threshold, alert path, and exception-expiry handling.
 - In indexed mode, handover publishes implemented entrypoints, artifact
   location, cache/update model and revision-association rules. Basic navigation
   does not require index execution in CI or at release.
@@ -94,7 +94,7 @@ Last Updated: 2026-10-14
 - Indexed execution/artifact freshness is documented when selected; basic
   navigation does not require generated index artifacts in CI or release automation.
 - Trivy scan coverage and release thresholds are documented for applicable artifact types.
-- Lifecycle/EOL coverage includes libraries, third-party services, runtimes/build tools, and first-party architecture components, with current risk state persisted in the SBOM.
+- License and lifecycle/EOL coverage includes libraries, third-party services, runtimes/build tools, and first-party architecture components, with license type, material obligations/restrictions, and current risk state persisted in the SBOM.
 - Rollback and recovery paths are validated.
 - Production release evidence identifies the Git commit and the Git-based workflow that published it; no direct platform publication was used.
 - Release readiness decision includes operational risk notes.

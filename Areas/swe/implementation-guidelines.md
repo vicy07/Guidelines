@@ -1,8 +1,8 @@
 ﻿# Implementation Guidelines
 
-Version: 1.7.0
+Version: 1.8.0
 Owner: SWE Lead
-Last Updated: 2026-10-14
+Last Updated: 2026-10-29
 
 ## Metadata (required)
 
@@ -34,7 +34,7 @@ Last Updated: 2026-10-14
 - Implement the selected profile from `Areas/requirements/repository-profiles.md`;
   document diagnostics and any actual OTLP export contract.
 - Every repository must implement a repository-local Trivy entrypoint for filesystem scanning, and repositories that produce deployable container images must also define an image-scanning entrypoint before release.
-- Every repository must implement repo-local EOL audit entrypoints and maintain the enriched tracked CycloneDX SBOM required by `Areas/swe/component-lifecycle-guidelines.md`.
+- Every repository must implement repo-local component audit entrypoints and maintain the enriched tracked CycloneDX SBOM required by `Areas/swe/component-lifecycle-guidelines.md`, including license expression/value, license type, evidence, material obligations or restrictions, and license risk for each in-scope component.
 - Basic navigation uses existing search/editor/language tools and a short
   adequacy record. Indexed mode implements separate `code-intel.py` and
   `code-intel/` configuration/artifacts under the indexed design contract;
@@ -49,7 +49,7 @@ Last Updated: 2026-10-14
 - Docs-only repositories need build/CI/publication diagnostics, not runtime
   telemetry. Static content does not require client tracking.
 - Implementation handover must include the exact Trivy invocation path, config file location, and the ownership record for any accepted suppressions.
-- Implementation handover must include the EOL scan/check paths, SBOM location, lifecycle evidence sources, monitoring cadence, component owners, and open remediation plans.
+- Implementation handover must include the component scan/check paths, SBOM location, license and lifecycle evidence sources, monitoring cadence, component owners, material license obligations/restrictions, and open remediation plans.
 - Handover records basic navigation commands/adequacy or, for indexed mode,
   entrypoint/config/artifacts, language coverage, freshness and limitations.
 - When OTLP export is used, handover includes actual protocol/endpoint values
