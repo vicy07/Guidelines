@@ -121,7 +121,7 @@ A documented compensating control may reduce the matrix result only when it demo
 ## Mandatory Gates and Monitoring
 
 Use `guidelines/playbooks/ci-verification-policy.md` for execution cadence.
-PR/push CI validates committed SBOM state with the deterministic `eol check`;
+PR/push CI validates committed SBOM state with the deterministic `components check`;
 it must not unconditionally fetch lifecycle evidence or regenerate inventory.
 Relevant inventory changes and approved monitoring schedules perform refreshes.
 The failure conditions below remain applicable to the selected checks and

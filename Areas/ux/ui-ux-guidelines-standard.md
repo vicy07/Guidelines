@@ -1,8 +1,8 @@
 # UI/UX Standard
 
-Version: 1.3.0
+Version: 1.4.0
 Owner: UX
-Last Updated: 2026-08-06
+Last Updated: 2026-10-29
 
 ## Metadata (required)
 
@@ -58,6 +58,7 @@ Last Updated: 2026-08-06
 - User-facing flows must not use dark patterns to obtain consent, payment, data, retention, or continued engagement.
 - Every user-facing solution must render a persistent status/footer line on every primary screen in the format `Last commit: <localized date/time> | <short sha>`.
 - If commit details are not available, keep the same visible line and render `Last commit: unavailable`.
+- When a user-facing solution has a web page, its release-notes page must be accessible through a distinct primary-navigation link or a link placed with the required persistent footer/status line. Do not hide this link behind an account, a contextual-only menu, or an external release-provider page.
 
 ## Accessibility Rules
 
@@ -91,6 +92,7 @@ Last Updated: 2026-08-06
 - UX hypotheses have a validation method, success signal, owner, and decision date.
 - Commit status visibility is verified on login, dashboard, and detail flows for each user-facing solution.
 - Commit status content is verified in the deployed environment, not only in local or preview development.
+- For web solutions, the release-notes page and its navigation or footer link are keyboard-accessible and verified in the deployed environment.
 
 ## Template
 

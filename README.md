@@ -90,6 +90,7 @@ This repository expects downstream product repositories to define at least:
   adequate basic navigation or justified indexed tooling, and diagnostic
   coverage appropriate to the shipped runtime and criticality,
 - a persistent visible line in the UI: `Last commit: <localized date/time> | <short sha>`,
+- release documentation for each published version and, for web solutions, a discoverable release-notes page linked from primary navigation or the required footer,
 - minimum delivery artifacts covering requirements, architecture, QA, and SRE.
 
 ## Repository Map
