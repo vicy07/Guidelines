@@ -1,4 +1,4 @@
-version: 3.12.0
+version: 3.13.0
 owners:
   repository: Repository Maintainer
   requirements_primary: BA
@@ -173,6 +173,7 @@ domains:
           - Areas/requirements/use-cases-standard.md
           - Areas/swe/security-guidelines.md
           - Areas/swe/component-lifecycle-guidelines.md
+          - guidelines/playbooks/cost-aware-web-hosting.md
       - path: Areas/swe/component-lifecycle-guidelines.md
         kind: normative
         requires_metadata: true
@@ -217,6 +218,7 @@ domains:
           - Areas/requirements/use-cases-standard.md
           - Areas/swe/component-lifecycle-guidelines.md
           - Areas/swe/security-guidelines.md
+          - guidelines/playbooks/cost-aware-web-hosting.md
       - path: Areas/qa/test-case-design.md
         kind: normative
         requires_metadata: true
@@ -252,6 +254,7 @@ domains:
           - Areas/swe/architecture-guidelines.md
           - Areas/swe/component-lifecycle-guidelines.md
           - Areas/qa/test-execution-and-reporting.md
+          - guidelines/playbooks/cost-aware-web-hosting.md
       - path: Areas/sre/incident-management-guidelines.md
         kind: normative
         requires_metadata: true
@@ -290,6 +293,13 @@ domains:
           - Areas/swe/security-guidelines.md
           - Areas/swe/component-lifecycle-guidelines.md
           - Areas/sre/sre-operations-guidelines.md
+          - guidelines/playbooks/cost-aware-web-hosting.md
+      - path: guidelines/playbooks/cost-aware-web-hosting.md
+        kind: normative
+        requires_metadata: true
+        consumer_roles: [SWE, QA, SRE]
+        depends_on:
+          - Areas/requirements/repository-profiles.md
       - path: guidelines/playbooks/audit-reporting-standard.md
         kind: normative
         requires_metadata: true

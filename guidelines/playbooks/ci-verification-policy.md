@@ -1,8 +1,8 @@
 # CI Verification Policy
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: QA Lead
-Last Updated: 2026-10-13
+Last Updated: 2026-11-11
 
 ## Purpose and Ownership
 
@@ -30,6 +30,14 @@ Treat executable documentation, generator inputs, CI configuration, and files
 consumed at runtime according to their actual impact, not just their extension.
 When impact cannot be determined, run the relevant broader verification and
 record why. Security-sensitive changes require targeted security verification.
+
+For scale-to-zero services, ordinary checks run locally or in isolated CI/preview
+environments. A scheduled workflow is not permission to poll production health,
+run synthetic user flows, warm a database or crawl an app periodically. Bound
+production smoke to the approved release/diagnostic window; any recurring active
+production check needs the availability/cost decision and non-waking monitoring
+design from `cost-aware-web-hosting.md`. Keep necessary readiness, security and
+recovery checks; do not replace their evidence with a static landing response.
 
 ## SonarQube and Scanner Cadence
 

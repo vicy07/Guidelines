@@ -80,6 +80,16 @@ Non-Python repositories should keep the same OTLP contract but implement the run
 
 ## Runtime Guarantees
 
+For expected-idle services apply
+[`Cost-Aware Web Hosting and Monitoring`](../../guidelines/playbooks/cost-aware-web-hosting.md).
+This trace helper alone does not prove that the complete telemetry path permits
+sleep. Verify the installed SDK, instrumentors, exporter retry/empty-batch
+behavior, periodic metrics/heartbeats and collector scrape configuration.
+Do not generate synthetic spans or poll a sleeping app merely to prove presence;
+keep required diagnostics on real activity and validate idle behavior using
+non-waking signals. Retain critical signal coverage and record approved runtime
+and cost trade-offs instead of disabling observability indiscriminately.
+
 - If `OTEL_EXPORTER_OTLP_ENDPOINT` is empty, service attribution is still configured but no exporter is attached.
 - If `OTEL_EXPORTER_OTLP_PROTOCOL` is not `http/protobuf`, this helper raises and expects a repo-local implementation instead.
 - Collector base URLs are normalized to a trace export URL ending in `/v1/traces`.

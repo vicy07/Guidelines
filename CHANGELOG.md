@@ -2,6 +2,18 @@
 
 All notable repository-level changes are documented here.
 
+## 2026-11-11
+
+### Added
+
+- Mandatory independent static deployment of public landings, explicit runtime
+  modes and a wake-source inventory. Added a shared hosting/monitoring playbook
+  covering health/readiness, passive signals, telemetry, DB keepalives, browser
+  polling, CI and jobs, with owned active-monitoring exceptions.
+- Required network-isolation, auth migration, uncontaminated idle/cold-start
+  evidence and honest measured versus estimated cost reporting. Connected these
+  rules to architecture, SRE, QA, profiles, CI and incremental adoption.
+
 ## 2026-10-13
 
 ### Changed

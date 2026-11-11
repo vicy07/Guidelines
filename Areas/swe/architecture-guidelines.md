@@ -1,8 +1,8 @@
 ﻿# Architecture Guidelines and Format Standard
 
-Version: 1.5.0
+Version: 1.6.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-29
+Last Updated: 2026-11-11
 
 ## Metadata (required)
 
@@ -30,6 +30,10 @@ Last Updated: 2026-10-29
 
 - Architecture documents current decisions and explicitly marks planned changes.
 - Module boundaries are defined by responsibilities and public contracts.
+- Public landing and application logic must have separate static/runtime
+  deployment boundaries under `guidelines/playbooks/cost-aware-web-hosting.md`.
+  Record routing/auth/storage migration, runtime modes and background wake
+  sources; shared source is allowed, shared billed application execution is not.
 - Critical scenarios must state latency, availability, and consistency expectations.
 - Every external interaction must specify protocol, owner, and error policy.
 - Every major architecture agreement must include rationale and constraints.

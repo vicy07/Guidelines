@@ -299,6 +299,22 @@ stacks use appropriate local instrumentation. Libraries leave exporter setup
 to their host. Static content does not require client tracking. Existing
 operational controls must not be removed without an explicit impact review.
 
+### Static Landing and Idle Runtime Costs
+
+Public landings must be separate static deployments independent of application
+logic and its DB. Serve public assets, metadata, robots and unknown paths at the
+static edge; no automatic session/API requests, backend prefetch or origin
+fallback. Explicit navigation opens the application. This is mandatory for web
+products with a landing; shared source is permitted, shared billed app execution
+is not. It does not require creating a landing for products that have none.
+
+Apply [Cost-Aware Web Hosting and Monitoring](guidelines/playbooks/cost-aware-web-hosting.md)
+for runtime modes, wake sources, health/readiness distinctions and monitoring
+exceptions. Expected-idle components use verified non-waking signals; static
+uptime does not prove app/DB availability. QA acceptance includes network
+isolation, auth/callback migration, genuine idle and bounded cold-start evidence.
+Preserve critical coverage and report measured savings separately from targets.
+
 ### 8. Code Intelligence Baseline
 
 All product repositories document navigation mode and adequacy in
