@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.10.0
+Version: 1.11.0
 Owner: SRE Lead
-Last Updated: 2026-10-29
+Last Updated: 2026-11-11
 
 ## Metadata (required)
 
@@ -29,6 +29,11 @@ Last Updated: 2026-10-29
   recovery readiness; GitHub Release creation is not a release gate.
 
 - Reliability objectives must be explicit and measurable.
+- Apply `guidelines/playbooks/cost-aware-web-hosting.md`: declare component
+  runtime modes and wake sources, use verified non-waking monitoring for
+  expected-idle services, and preserve bounded deployment readiness checks.
+  Review probes, alerts, exporters, DB traffic and schedules together; active
+  monitoring exceptions require owned availability/cost approval.
 - Define diagnostics for the selected profile from
   `Areas/requirements/repository-profiles.md`: build/publication evidence for
   docs-only, host-controlled hooks for library/CLI, operational signals for
@@ -89,6 +94,9 @@ Last Updated: 2026-10-29
 ## Quality Checklist
 
 - Reliability objectives are defined and owned.
+- Static landings are independent of application compute; runtime modes, wake
+  inventory, idle/cold-start evidence and measured versus estimated costs are
+  recorded. Expected idle and stale evidence are distinct from healthy/failed.
 - Alerting coverage exists for critical user-impact paths.
 - Profile-required diagnostic coverage and any selected OTLP configuration are documented.
 - Indexed execution/artifact freshness is documented when selected; basic

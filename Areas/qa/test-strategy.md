@@ -1,8 +1,8 @@
 ﻿# Test Strategy Format Standard
 
-Version: 1.7.0
+Version: 1.8.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-29
+Last Updated: 2026-11-11
 
 ## Metadata (required)
 
@@ -41,6 +41,11 @@ Last Updated: 2026-10-29
   missing, stale, or skipped required evidence is not a passing result.
 - Every key use case must have explicit coverage level (`Unit`, `Integration`, `E2E`).
 - NFRs must be covered by dedicated checks with measurable thresholds.
+- For hosted web changes apply `guidelines/playbooks/cost-aware-web-hosting.md`:
+  verify static landing network isolation, real app/auth migration and expected
+  idle/cold-start behavior. Observe sleep without active probes contaminating
+  the interval; keep required monitoring enabled and distinguish measured costs
+  from estimates. Static presence checks do not prove runtime behavior.
 - Responsibility boundaries between test levels must be explicit and non-overlapping.
 - Security checks must align with `Areas/swe/security-guidelines.md`.
 - Verify diagnostic coverage for the selected profile from

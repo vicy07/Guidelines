@@ -81,6 +81,9 @@ This repository expects downstream product repositories to define at least:
   scanners on approved schedules, relevant risk triggers, or release checks
   under the [CI Verification Policy](guidelines/playbooks/ci-verification-policy.md),
 - a documented deployment path with rollback and post-deploy verification,
+- mandatory independent static hosting for public landings, plus runtime modes
+  and monitoring that preserve intended sleep under
+  [Cost-Aware Web Hosting and Monitoring](guidelines/playbooks/cost-aware-web-hosting.md),
 - release records tying goals/Issues to the verified version and environment,
   with independent notification status and a reproducible runtime-owned sender,
 - a SonarQube quality gate for supported codebases,

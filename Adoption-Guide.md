@@ -28,6 +28,15 @@ Use one of two tracks:
 
 Do not force the same rollout shape on both.
 
+For hosted web scope, adopt
+[Cost-Aware Web Hosting and Monitoring](guidelines/playbooks/cost-aware-web-hosting.md).
+New products deploy public landings statically and independently of app logic.
+Existing products inventory routing, probes/alerts, CI smoke, telemetry, DB
+connections and jobs, then track an owned migration with baseline pins, rollback
+and runtime evidence. Update both probe producers and their alert rules; do not
+silently remove required critical-system coverage. A structural checker pass
+does not establish static network isolation, actual sleep or cost savings.
+
 ## Track 1: New Project Bootstrap
 
 For a new repository:

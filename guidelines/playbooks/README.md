@@ -1,14 +1,17 @@
 ﻿# Delivery Playbooks
 
-Version: 1.2.0
+Version: 1.3.0
 Owner: Repository Maintainer
-Last Updated: 2026-10-14
+Last Updated: 2026-11-11
 
 ## Purpose
 
 Store executable, role-aware playbooks that can be run by agents or humans.
 
 ## Scope
+
+- `cost-aware-web-hosting.md` requires independent static landings and defines
+  runtime modes, wake-source ownership, non-waking monitoring and cost evidence.
 
 - `delivery-policy.md` defines merge readiness, shared Definition of Done,
   releasable `main`, and release identity without GitHub Releases.

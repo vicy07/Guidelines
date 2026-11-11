@@ -1,8 +1,8 @@
 # Repository Applicability Profiles
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: BA
-Last Updated: 2026-10-13
+Last Updated: 2026-11-11
 
 ## Purpose and Ownership
 
@@ -33,6 +33,14 @@ are Markdown. Record per-component distinctions in the technical design.
 A finite CLI is not a service; a long-running daemon follows service controls.
 Client telemetry must minimize sensitive data and follow product privacy
 requirements; the profile is not permission to collect data.
+
+Hosted components also declare their runtime mode under
+`guidelines/playbooks/cost-aware-web-hosting.md`. Operational signal requirements
+do not imply recurring probes of dormant apps/DBs: expected-idle components need
+verified non-waking signals and explicit unknown/stale states. Critical-system
+coverage remains mandatory; continuous availability requires a suitable runtime
+mode and owned cost decision. Every public landing is statically deployed
+independently of application logic, including when the backend is always-on.
 
 ## Code Intelligence Modes
 
