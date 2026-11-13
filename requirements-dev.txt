@@ -1,2 +1,2 @@
 -r Tools/code-intel/requirements.txt
-pytest>=8,<10
+pytest>=8.4.2,<10
