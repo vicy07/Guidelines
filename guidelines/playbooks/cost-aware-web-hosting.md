@@ -1,8 +1,8 @@
 # Cost-Aware Web Hosting and Monitoring
 
-Version: 1.0.0
+Version: 1.1.0
 Owner: SRE Lead
-Last Updated: 2026-11-11
+Last Updated: 2026-11-16
 
 ## Purpose and Ownership
 
@@ -59,6 +59,31 @@ they need not invent one. This separation also applies to always-on backends.
   or a promise that application, DB, storage or domain registration is free.
 
 ## Runtime Mode and Wake-Source Inventory
+
+### Railway: Serverless is required
+
+All Railway services must use Serverless (`sleepApplication=true`), including
+application, worker, database and auxiliary/backup services. This is a required
+provider-specific rule, not a preference that an agent may replace with an
+always-on helper. If a component cannot meet its requirements in Serverless
+mode, resolve the design/platform constraint before provisioning or promotion;
+do not silently disable sleep to make an operational command work.
+
+- Read back the setting for every service in the affected project. Railway
+  applies Serverless when creating the container: verify the deployed setting,
+  not only a changed control-plane value, and observe an idle sleep/cold start.
+- Operational commands must wake sleeping dependencies on demand using a
+  verified public/private request path and bounded readiness retries. A failed
+  initial connection is not readiness evidence; confirm the required HTTP,
+  database or SSH operation succeeds after wake. Document the cold-start path.
+- Do not add recurring keepalive traffic or disable sleep for monitoring,
+  backups, migrations, deployment checks or operator SSH access. Keep the
+  existing bounded readiness checks within their active operation window.
+- Persistent-volume retention/cost and data integrity remain separate controls;
+  Serverless does not replace backup rotation or authorize deleting live data.
+
+The generic availability trade-off below applies to other providers; it does
+not override the Railway requirement.
 
 Declare each component as `scale-to-zero`, `always-on` or `finite-job` in existing
 architecture/SRE documentation. Prefer scale-to-zero when supported by latency,

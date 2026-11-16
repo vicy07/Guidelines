@@ -1,8 +1,8 @@
 ﻿# SRE Operations Guidelines
 
-Version: 1.11.0
+Version: 1.12.0
 Owner: SRE Lead
-Last Updated: 2026-11-11
+Last Updated: 2026-11-16
 
 ## Metadata (required)
 
@@ -29,6 +29,12 @@ Last Updated: 2026-11-11
   recovery readiness; GitHub Release creation is not a release gate.
 
 - Reliability objectives must be explicit and measurable.
+- Every Railway service, including auxiliary/backup services, must run in
+  Serverless mode (`sleepApplication=true`). Verify the deployed setting,
+  actual idle behavior and bounded on-demand wake/readiness path. Do not disable
+  sleep or add recurring keepalives to make maintenance or SSH work; resolve
+  incompatible designs before promotion. Apply the provider-specific rule in
+  `guidelines/playbooks/cost-aware-web-hosting.md`.
 - Apply `guidelines/playbooks/cost-aware-web-hosting.md`: declare component
   runtime modes and wake sources, use verified non-waking monitoring for
   expected-idle services, and preserve bounded deployment readiness checks.
